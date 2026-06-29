@@ -16,7 +16,7 @@ async function init() {
     renderGeneratedLinks();
   } catch (error) {
     grid.innerHTML =
-      '<div class="empty-state">Could not load data/songs.json. Run this site through a local HTTP server.</div>';
+      '<div class="empty-state">The song library could not load right now. Try refreshing the page.</div>';
     console.error(error);
   }
 }
@@ -75,8 +75,8 @@ function renderGeneratedLinks() {
   const years = unique(songs.map((song) => [song.year, song.year]));
   generatedLinks.innerHTML = `
     <div>
-      <h3>Generated collections</h3>
-      <p>${songs.length} song pages · ${countries.length} country pages · ${years.length} year pages · timeline · glossary</p>
+      <h3>Browse by context</h3>
+      <p>Open a timeline, glossary, country, or tournament year to keep following the story.</p>
     </div>
     <div class="link-cloud">
       <a href="timeline/">Timeline</a>

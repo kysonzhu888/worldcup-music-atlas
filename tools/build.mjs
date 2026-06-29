@@ -6,6 +6,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const songs = JSON.parse(fs.readFileSync(path.join(root, "data", "songs.json"), "utf8"));
 const config = JSON.parse(fs.readFileSync(path.join(root, "site.config.json"), "utf8"));
+const mediaLibrary = readJsonIfExists(path.join(root, "data", "media.json"), { artists: {}, songs: {} });
 
 const site = {
   name: config.name,
@@ -20,10 +21,13 @@ const site = {
 
 const byYear = groupBy(songs, (song) => song.year);
 const byCountry = groupBy(songs, (song) => song.countrySlug);
+const artists = buildArtists(songs);
+const byArtist = groupByArtist(songs);
 const siteUpdatedAt = latestDate(songs.map((song) => song.lastChecked));
 
 cleanGenerated();
 generateSongPages();
+generateArtistPages();
 generateCountryPages();
 generateYearPages();
 generateTimelinePage();
@@ -35,11 +39,11 @@ generateRobots();
 generateAdsTxt();
 
 console.log(
-  `Generated ${songs.length} song pages, ${byCountry.size} country pages, ${byYear.size} year pages.`
+  `Generated ${songs.length} song pages, ${artists.length} artist pages, ${byCountry.size} country pages, ${byYear.size} year pages.`
 );
 
 function cleanGenerated() {
-  for (const dir of ["songs", "countries", "years", "timeline", "glossary", "about", "contact", "privacy"]) {
+  for (const dir of ["songs", "artists", "countries", "years", "timeline", "glossary", "about", "contact", "privacy"]) {
     fs.rmSync(path.join(root, dir), { recursive: true, force: true });
   }
   fs.rmSync(path.join(root, "sitemap.xml"), { force: true });
@@ -49,6 +53,7 @@ function cleanGenerated() {
 
 function generateSongPages() {
   for (const song of songs) {
+    const songMedia = mediaForSong(song);
     const related = songs
       .filter((candidate) => candidate.slug !== song.slug)
       .filter(
@@ -64,42 +69,118 @@ function generateSongPages() {
       layout({
         title: `${song.title} World Cup Song: Year, Artist and Context`,
         description: song.summary,
+        image: songMedia?.url,
         depth: 2,
         path: `/songs/${song.slug}/`,
         type: "article",
-        schema: articleSchema(song),
+        schema: [articleSchema(song), songFaqSchema(song)],
         body: `
           <main class="article-page">
             ${breadcrumb("Songs")}
-            <section class="detail-hero">
-              <p class="kicker">${escapeHtml(song.status)} · ${escapeHtml(song.tournament)}</p>
-              <h1>${escapeHtml(song.title)}</h1>
-              <p>${escapeHtml(song.summary)}</p>
+            <section class="detail-hero visual-hero">
+              <div>
+                <p class="kicker">${escapeHtml(song.status)} · ${escapeHtml(song.tournament)}</p>
+                <h1>${escapeHtml(song.title)}</h1>
+                <p>${escapeHtml(song.summary)}</p>
+              </div>
+              ${mediaFigure(songMedia, "hero-media", `${song.title} World Cup music visual`)}
             </section>
             <section class="detail-grid">
               <article class="detail-main">
+                ${songExplainer(song)}
                 ${watchSection(song)}
-                ${songContextSection(song)}
-                <h2>Why it matters</h2>
-                <p>${escapeHtml(song.whyItMatters)}</p>
-                <h2>Search angles</h2>
-                <ul>
-                  ${song.searchAngles.map((angle) => `<li>${escapeHtml(angle)}</li>`).join("")}
-                </ul>
-                <h2>Source note</h2>
-                <p>
-                  This page uses short original context only. It does not reproduce lyrics or host
-                  audio. Use the official or reputable source links on this page for listening,
-                  watching, or verification.
-                </p>
-                <a class="text-link" href="${song.sourceUrl}" target="_blank" rel="noreferrer">${escapeHtml(song.sourceLabel)}</a>
+                ${songFaqSection(song)}
               </article>
               <aside class="detail-aside">
-                ${statList(song)}
+                ${statList(song, "../../")}
                 ${adBox()}
               </aside>
             </section>
             ${relatedList("Related songs", related, "../../")}
+          </main>
+        `,
+      })
+    );
+  }
+}
+
+function generateArtistPages() {
+  writePage(
+    ["artists"],
+    layout({
+      title: "World Cup Music Artists",
+      description: "Browse artists, supporter groups, and teams connected to World Cup songs and fan anthems.",
+      depth: 1,
+      path: "/artists/",
+      schema: artistCollectionSchema(),
+      body: `
+        <main class="article-page artist-index-page">
+          ${simpleBreadcrumb("Artists", "../")}
+          <section class="detail-hero">
+            <p class="kicker">Artists and supporter groups</p>
+            <h1>World Cup music artists</h1>
+            <p>Browse the artists, supporter groups, and team contexts connected to official songs, soundtrack entries, classic tracks, and fan anthems.</p>
+          </section>
+          <section class="artist-grid" aria-label="World Cup music artists">
+            ${artists.map((artist) => artistCard(artist, "../")).join("")}
+          </section>
+        </main>
+      `,
+    })
+  );
+
+  for (const artist of artists) {
+    const artistSongs = byArtist.get(artist.slug) || [];
+    const artistMedia = mediaForArtist(artist);
+    writePage(
+      ["artists", artist.slug],
+      layout({
+        title: `${artist.name} World Cup Songs and Music Context`,
+        description: `Songs, tournament context, and source-backed notes for ${artist.name} on World Cup Music Atlas.`,
+        image: artistMedia?.url,
+        depth: 2,
+        path: `/artists/${artist.slug}/`,
+        schema: artistPageSchema(artist, artistSongs),
+        body: `
+          <main class="article-page artist-page">
+            ${breadcrumb("Artists")}
+            <section class="detail-hero artist-hero">
+              ${artistMedia ? mediaFigure(artistMedia, "artist-portrait", `${artist.name} portrait`) : artistAvatar(artist)}
+              <div>
+                <p class="kicker">${escapeHtml(artist.kind)}</p>
+                <h1>${escapeHtml(artist.name)}</h1>
+                <p>${escapeHtml(artistSummary(artist, artistSongs))}</p>
+              </div>
+            </section>
+            <section class="detail-grid">
+              <article class="detail-main">
+                <section class="explainer-stack" aria-label="${escapeHtml(artist.name)} artist profile">
+                  <section class="explainer-block">
+                    <h2>Why this artist appears here</h2>
+                    <p>${escapeHtml(artistWhyHere(artist, artistSongs))}</p>
+                  </section>
+                  <section class="explainer-block">
+                    <h2>World Cup music connections</h2>
+                    <p>${escapeHtml(artistConnectionSummary(artistSongs))}</p>
+                    ${artistSongLinks(artistSongs)}
+                  </section>
+                  <section class="explainer-block">
+                    <h2>Official and source links</h2>
+                    <p>This profile only links to official or reputable sources. It does not copy profile photos, social posts, lyrics, or biographies from external platforms.</p>
+                    ${artistExternalLinks(artist, artistSongs)}
+                  </section>
+                  <section class="explainer-block">
+                    <h2>Image policy</h2>
+                    <p>${escapeHtml(artistImagePolicy(artist, artistMedia))}</p>
+                  </section>
+                </section>
+              </article>
+              <aside class="detail-aside">
+                ${artistStatList(artist, artistSongs, artistMedia)}
+                ${adBox()}
+              </aside>
+            </section>
+            ${relatedList("Related songs", artistSongs, "../../")}
           </main>
         `,
       })
@@ -246,7 +327,7 @@ function timelineNode(song, index, isFirstInYear) {
         <span class="pill">${escapeHtml(song.language)}</span>
       </div>
       <h2>${escapeHtml(song.title)}</h2>
-      <p class="artist">${escapeHtml(song.artist)}</p>
+      <p class="artist">${artistInlineLinks(song, "../")}</p>
       <p>${escapeHtml(note)}</p>
       <div class="timeline-actions">
         <a class="button primary" href="../songs/${encodeURIComponent(song.slug)}/">Open story</a>
@@ -288,6 +369,7 @@ function timelineAnimationScript() {
 function generateSitemap() {
   const urls = [
     { path: "/", lastmod: siteUpdatedAt, changefreq: "daily", priority: "1.0" },
+    { path: "/artists/", lastmod: siteUpdatedAt, changefreq: "weekly", priority: "0.8" },
     { path: "/timeline/", lastmod: siteUpdatedAt, changefreq: "weekly", priority: "0.8" },
     { path: "/glossary/", lastmod: siteUpdatedAt, changefreq: "monthly", priority: "0.7" },
     { path: "/about/", lastmod: siteUpdatedAt, changefreq: "monthly", priority: "0.3" },
@@ -300,6 +382,15 @@ function generateSitemap() {
       lastmod: song.lastChecked,
       changefreq: song.year === "2026" ? "daily" : "monthly",
       priority: song.year === "2026" ? "0.9" : "0.7",
+    });
+  }
+  for (const artist of artists) {
+    const artistSongs = byArtist.get(artist.slug) || [];
+    urls.push({
+      path: `/artists/${artist.slug}/`,
+      lastmod: latestDate(artistSongs.map((song) => song.lastChecked)),
+      changefreq: "monthly",
+      priority: "0.6",
     });
   }
   for (const [countrySlug, countrySongs] of byCountry.entries()) {
@@ -384,20 +475,19 @@ function homepageStaticLinks() {
     .map(([slug, countrySongs]) => [slug, countrySongs[0].country])
     .sort((left, right) => left[1].localeCompare(right[1]));
   const years = Array.from(byYear.keys()).sort((left, right) => Number(right) - Number(left));
-  const indexablePageCount = songs.length + countries.length + years.length + 1;
-
   return `<div>
-  <h3>Indexable pages</h3>
-  <p>${songs.length} song pages, ${countries.length} country pages, ${years.length} year pages, a timeline, and a glossary are linked directly from this page.</p>
+  <h3>Explore the atlas</h3>
+  <p>Browse songs, countries, tournament years, timeline highlights, and plain-English music terms.</p>
 </div>
-<div class="link-cloud" aria-label="Indexable site links">
+<div class="link-cloud" aria-label="Atlas browsing links">
+  <a href="artists/">Artists</a>
   <a href="timeline/">Timeline</a>
   <a href="glossary/">Glossary</a>
   ${songs.map((song) => `<a href="songs/${encodeURIComponent(song.slug)}/">${escapeHtml(song.title)}</a>`).join("\n  ")}
   ${countries.map(([slug, label]) => `<a href="countries/${encodeURIComponent(slug)}/">${escapeHtml(label)}</a>`).join("\n  ")}
   ${years.map((year) => `<a href="years/${encodeURIComponent(year)}/">${escapeHtml(year)}</a>`).join("\n  ")}
 </div>
-<p class="index-note">${indexablePageCount} public content pages are available without JavaScript.</p>`;
+<p class="index-note">Use these links to jump straight into the song history, country context, or tournament year you remember.</p>`;
 }
 
 function generateUtilityPages() {
@@ -547,10 +637,10 @@ function generateUtilityPages() {
   );
 }
 
-function layout({ title, description, depth, path: pagePath, type = "website", schema, body }) {
+function layout({ title, description, depth, path: pagePath, type = "website", schema, body, image }) {
   const prefix = "../".repeat(depth);
   const canonicalUrl = `${site.url}${pagePath}`;
-  const imageUrl = `${site.url}/assets/hero-world-cup-music.png`;
+  const imageUrl = image || `${site.url}/assets/hero-world-cup-music.png`;
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -583,6 +673,7 @@ function layout({ title, description, depth, path: pagePath, type = "website", s
       <nav aria-label="Primary navigation">
         <a href="${prefix}index.html#trending">Trending</a>
         <a href="${prefix}index.html#library">Library</a>
+        <a href="${prefix}artists/">Artists</a>
         <a href="${prefix}timeline/">Timeline</a>
         <a href="${prefix}glossary/">Glossary</a>
         <a href="${prefix}about/">About</a>
@@ -592,6 +683,7 @@ function layout({ title, description, depth, path: pagePath, type = "website", s
     <footer class="site-footer">
       <p>${site.name} publishes original summaries and links to official or reputable music sources.</p>
       <div class="footer-links">
+        <a href="${prefix}artists/">Artists</a>
         <a href="${prefix}timeline/">Timeline</a>
         <a href="${prefix}glossary/">Glossary</a>
         <a href="${prefix}about/">About</a>
@@ -646,6 +738,7 @@ function headIntegrations() {
 }
 
 function articleSchema(song) {
+  const songMedia = mediaForSong(song);
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -670,6 +763,7 @@ function articleSchema(song) {
       song.status,
     ],
     citation: song.sourceUrl,
+    image: songMedia?.url,
     inLanguage: "en",
   };
 }
@@ -691,6 +785,59 @@ function collectionSchema({ title, description, path: pagePath, items }) {
       itemListElement: items.map((song, index) => ({
         "@type": "ListItem",
         position: index + 1,
+        name: song.title,
+        url: `${site.url}/songs/${song.slug}/`,
+      })),
+    },
+    inLanguage: "en",
+  };
+}
+
+function artistCollectionSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "World Cup Music Artists",
+    description: "Artists, supporter groups, and teams connected to World Cup music pages.",
+    url: `${site.url}/artists/`,
+    isPartOf: {
+      "@type": "WebSite",
+      name: site.name,
+      url: site.url,
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: artists.map((artist, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: artist.name,
+        url: `${site.url}/artists/${artist.slug}/`,
+      })),
+    },
+    inLanguage: "en",
+  };
+}
+
+function artistPageSchema(artist, artistSongs) {
+  const artistMedia = mediaForArtist(artist);
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    name: `${artist.name} World Cup music profile`,
+    description: artistSummary(artist, artistSongs),
+    url: `${site.url}/artists/${artist.slug}/`,
+    isPartOf: {
+      "@type": "WebSite",
+      name: site.name,
+      url: site.url,
+    },
+    mainEntity: {
+      "@type": artist.kind === "Artist" ? "Person" : "Organization",
+      name: artist.name,
+      image: artistMedia?.url,
+      description: artistWhyHere(artist, artistSongs),
+      subjectOf: artistSongs.map((song) => ({
+        "@type": "MusicRecording",
         name: song.title,
         url: `${site.url}/songs/${song.slug}/`,
       })),
@@ -823,9 +970,9 @@ function faqItem(item) {
   </article>`;
 }
 
-function statList(song) {
+function statList(song, prefix) {
   const stats = [
-    ["Artist", song.artist],
+    ["Artist", artistInlineLinks(song, prefix), true],
     ["Year", song.year],
     ["Tournament", song.tournament],
     ["Country", song.country],
@@ -836,9 +983,9 @@ function statList(song) {
   return `<dl class="stat-list">
     ${stats
       .map(
-        ([key, value]) => `<div>
+        ([key, value, isHtml]) => `<div>
           <dt>${escapeHtml(key)}</dt>
-          <dd>${escapeHtml(value)}</dd>
+          <dd>${isHtml ? value : escapeHtml(value)}</dd>
         </div>`
       )
       .join("")}
@@ -875,7 +1022,7 @@ function watchSection(song) {
   return `<section class="watch-section" aria-labelledby="watch-title-${escapeHtml(song.slug)}">
     <div class="watch-heading">
       <p class="kicker">Watch / Listen</p>
-      <h2 id="watch-title-${escapeHtml(song.slug)}">Official ways to follow this song</h2>
+      <h2 id="watch-title-${escapeHtml(song.slug)}">Official listening links</h2>
     </div>
     ${embed}
     <div class="watch-actions">
@@ -890,16 +1037,104 @@ function watchSection(song) {
   </section>`;
 }
 
-function songContextSection(song) {
+function songExplainer(song) {
+  const sections = [
+    {
+      title: "What is this song?",
+      body: whatIsSong(song),
+    },
+    {
+      title: "Is it official?",
+      body: officialStatusAnswer(song),
+    },
+    {
+      title: "Who performs it?",
+      body: performerAnswer(song),
+    },
+    {
+      title: "Language and country context",
+      body: languageContextAnswer(song),
+      extra: contextExtras(song),
+    },
+    {
+      title: "When was it used?",
+      body: usageTimingAnswer(song),
+    },
+    {
+      title: "Why fans search for it",
+      body: searchIntentAnswer(song),
+      extra: searchAngleList(song),
+    },
+  ];
+
+  return `<section class="explainer-stack" aria-label="${escapeHtml(song.title)} explainer">
+    ${sections.map((section) => explainerBlock(section)).join("")}
+  </section>`;
+}
+
+function explainerBlock({ title, body, extra = "" }) {
+  return `<section class="explainer-block">
+    <h2>${escapeHtml(title)}</h2>
+    <p>${escapeHtml(body)}</p>
+    ${extra}
+  </section>`;
+}
+
+function whatIsSong(song) {
+  const base = `${song.title} is cataloged here under the "${song.status}" label for ${song.tournament}. ${song.summary}`;
+  if (song.story) return `${base} ${song.story}`;
+  return base;
+}
+
+function officialStatusAnswer(song) {
+  if (song.type === "fan") {
+    return `${song.title} is treated as an unofficial fan anthem, not a FIFA official song. The page keeps it in the library because supporters connect it strongly with ${song.country} and ${song.tournament}.`;
+  }
+  if (song.type === "official") {
+    return `${song.title} is listed under the "${song.status}" label because the cited source places it inside the official ${song.tournament} music program. If FIFA changes the label later, this page should follow the source wording instead of guessing.`;
+  }
+  if (song.status.toLowerCase().includes("official")) {
+    return `${song.title} is covered under the "${song.status}" label for its tournament cycle. The page uses the exact source wording rather than calling every track the main World Cup song.`;
+  }
+  return `${song.title} is cataloged under the "${song.status}" label, which means it belongs in World Cup music history but should not automatically be described as the main official song.`;
+}
+
+function performerAnswer(song) {
+  if (song.type === "fan") {
+    return `The performer credit is best understood as ${song.artist}. For fan anthems, the important point is usually the supporter community and match context, not only a recording artist.`;
+  }
+  return `The credited artist line is ${song.artist}. This matters for search because many visitors arrive through the artist names first and only then discover the World Cup connection.`;
+}
+
+function languageContextAnswer(song) {
+  const countryText =
+    song.country === "Global"
+      ? "a global tournament music context rather than one national team page"
+      : `${song.country} context`;
+  return `${song.title} is tracked as ${song.language} and connected to ${countryText}. Language and country labels help separate official soundtrack entries, local host-country angles, and supporter songs that travel beyond one match.`;
+}
+
+function usageTimingAnswer(song) {
+  if (song.type === "official" && song.year === "2026") {
+    return `${song.title} belongs to the 2026 tournament cycle, so the page should be refreshed as FIFA releases more official music details, videos, or platform links.`;
+  }
+  if (song.type === "fan") {
+    return `${song.title} is useful when people search for the song attached to a team, player, or fan moment around ${song.tournament}. Fan-anthems can stay relevant long after the match or tournament that made them famous.`;
+  }
+  return `${song.title} is tied to the ${song.year} cycle and is kept as evergreen World Cup music history. These pages usually become useful again when a new tournament makes fans revisit older songs.`;
+}
+
+function searchIntentAnswer(song) {
+  return `${song.whyItMatters} The strongest search angles are ${naturalList(song.searchAngles)}, so this page is written to answer label, artist, year, country, and listening-source questions quickly.`;
+}
+
+function contextExtras(song) {
   const hasStory = Boolean(song.story);
   const hasFacts = Array.isArray(song.facts) && song.facts.length > 0;
   const hasPeople = Array.isArray(song.people) && song.people.length > 0;
-  if (!hasStory && !hasFacts && !hasPeople) return "";
+  if (!hasFacts && !hasPeople) return "";
 
-  return `<section class="context-section" aria-labelledby="context-title-${escapeHtml(song.slug)}">
-    <p class="kicker">Background notes</p>
-    <h2 id="context-title-${escapeHtml(song.slug)}">Story behind the song</h2>
-    ${hasStory ? `<p>${escapeHtml(song.story)}</p>` : ""}
+  return `<div class="context-section compact-context">
     ${
       hasFacts
         ? `<ul class="context-facts">
@@ -914,7 +1149,66 @@ function songContextSection(song) {
           </div>`
         : ""
     }
+  </div>`;
+}
+
+function searchAngleList(song) {
+  return `<ul class="context-facts search-angle-list">
+    ${song.searchAngles.map((angle) => `<li>${escapeHtml(angle)}</li>`).join("")}
+  </ul>`;
+}
+
+function songFaqSection(song) {
+  return `<section class="faq-section song-faq" aria-labelledby="faq-title-${escapeHtml(song.slug)}">
+    <h2 id="faq-title-${escapeHtml(song.slug)}">${escapeHtml(song.title)} FAQ</h2>
+    ${songFaqs(song).map((item) => faqItem(item)).join("")}
   </section>`;
+}
+
+function songFaqSchema(song) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    name: `${song.title} FAQ`,
+    url: `${site.url}/songs/${song.slug}/`,
+    mainEntity: songFaqs(song).map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+    inLanguage: "en",
+  };
+}
+
+function songFaqs(song) {
+  return [
+    {
+      question: `Is ${song.title} an official World Cup song?`,
+      answer: officialStatusAnswer(song),
+    },
+    {
+      question: `Who performs ${song.title}?`,
+      answer: performerAnswer(song),
+    },
+    {
+      question: `What language is ${song.title} in?`,
+      answer: `${song.title} is listed as ${song.language}. The page also tracks its ${song.country} connection so users can browse by country, year, and song type.`,
+    },
+    {
+      question: `Where can I listen to ${song.title}?`,
+      answer: `Use the linked ${song.watchLabel || song.sourceLabel || "official source"} on this page. World Cup Music Atlas links out to official or reputable sources and does not host audio, lyrics, or copied video.`,
+    },
+  ];
+}
+
+function naturalList(items) {
+  if (!items.length) return "artist, year, country, and song type";
+  if (items.length === 1) return items[0];
+  if (items.length === 2) return `${items[0]} and ${items[1]}`;
+  return `${items.slice(0, -1).join(", ")}, and ${items.at(-1)}`;
 }
 
 function personLink(person) {
@@ -922,6 +1216,208 @@ function personLink(person) {
     <span>${escapeHtml(person.role)}</span>
     <strong>${escapeHtml(person.name)}</strong>
   </a>`;
+}
+
+function mediaForSong(song) {
+  const direct = mediaLibrary.songs?.[song.slug];
+  if (direct) return direct;
+  for (const name of artistNames(song)) {
+    const media = mediaLibrary.artists?.[artistSlug(name)];
+    if (media) return media;
+  }
+  return null;
+}
+
+function mediaForArtist(artist) {
+  const slug = typeof artist === "string" ? artist : artist.slug;
+  return mediaLibrary.artists?.[slug] || null;
+}
+
+function mediaFigure(media, className, altFallback) {
+  if (!media) return "";
+  return `<figure class="${escapeHtml(className)}">
+    <a class="media-preview-link" href="${escapeHtml(media.sourceUrl)}" target="_blank" rel="noreferrer" aria-label="View larger image and license source">
+      <img src="${escapeHtml(media.url)}" alt="${escapeHtml(media.alt || altFallback)}" loading="lazy" decoding="async" />
+    </a>
+    <figcaption>${imageCredit(media)}</figcaption>
+  </figure>`;
+}
+
+function cardMedia(media, altFallback) {
+  if (!media) return "";
+  return `<div class="card-media">
+    <img src="${escapeHtml(media.url)}" alt="${escapeHtml(media.alt || altFallback)}" loading="lazy" decoding="async" />
+  </div>`;
+}
+
+function imageCredit(media) {
+  const creator = media.creator || "Wikimedia Commons contributor";
+  return `Image: <a href="${escapeHtml(media.sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(creator)}</a>, <a href="${escapeHtml(media.licenseUrl)}" target="_blank" rel="noreferrer">${escapeHtml(media.license)}</a>`;
+}
+
+function artistImagePolicy(artist, media) {
+  if (media) {
+    return `${artist.name} is shown using a reusable Wikimedia Commons image with visible attribution and license metadata. Social-media avatars, copied profile photos, and unlicensed press images are not used.`;
+  }
+  return `No artist photo is shown for ${artist.name} yet because a clearly reusable source has not been verified. The page uses a text avatar until a public-domain, Creative Commons, or licensed press-kit image is available.`;
+}
+
+function buildArtists(items) {
+  const artistMap = new Map();
+  for (const song of items) {
+    for (const name of artistNames(song)) {
+      const slug = artistSlug(name);
+      if (!artistMap.has(slug)) {
+        artistMap.set(slug, {
+          slug,
+          name,
+          kind: artistKind(name),
+        });
+      }
+    }
+  }
+  return Array.from(artistMap.values()).sort((left, right) => left.name.localeCompare(right.name));
+}
+
+function groupByArtist(items) {
+  const map = new Map();
+  for (const song of items) {
+    for (const name of artistNames(song)) {
+      const slug = artistSlug(name);
+      if (!map.has(slug)) map.set(slug, []);
+      map.get(slug).push(song);
+    }
+  }
+  return map;
+}
+
+function artistNames(song) {
+  return splitArtistNames(song.artist);
+}
+
+function splitArtistNames(value) {
+  return String(value)
+    .split(/,|\band\b|featuring|feat\.?/i)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function artistSlug(name) {
+  return String(name)
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function artistKind(name) {
+  const lower = String(name).toLowerCase();
+  if (lower.includes("supporters")) return "Supporter group";
+  if (lower.includes("team")) return "Team context";
+  return "Artist";
+}
+
+function artistInlineLinks(song, prefix) {
+  return artistNames(song)
+    .map((name) => `<a class="artist-link" href="${prefix}artists/${artistSlug(name)}/">${escapeHtml(name)}</a>`)
+    .join('<span class="artist-separator">, </span>');
+}
+
+function artistCard(artist, prefix) {
+  const artistSongs = byArtist.get(artist.slug) || [];
+  const media = mediaForArtist(artist);
+  return `<article class="artist-card">
+    ${media ? cardMedia(media, `${artist.name} portrait`) : artistAvatar(artist)}
+    <div>
+      <span>${escapeHtml(artist.kind)}</span>
+      <h2>${escapeHtml(artist.name)}</h2>
+      <p>${escapeHtml(artistConnectionSummary(artistSongs))}</p>
+      <a class="text-link" href="${prefix}artists/${artist.slug}/">Open artist page</a>
+    </div>
+  </article>`;
+}
+
+function artistAvatar(artist) {
+  const initials = artist.name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+  return `<div class="artist-avatar" aria-hidden="true">${escapeHtml(initials || "♪")}</div>`;
+}
+
+function artistSummary(artist, artistSongs) {
+  const imageNote = mediaForArtist(artist)
+    ? "The image is sourced from Wikimedia Commons with attribution."
+    : "This profile is text-first until reusable image rights are confirmed.";
+  return `${artist.name} appears in the atlas through ${artistConnectionSummary(artistSongs)} ${imageNote}`;
+}
+
+function artistWhyHere(artist, artistSongs) {
+  const songTitles = naturalList(artistSongs.map((song) => song.title));
+  if (artist.kind === "Supporter group") {
+    return `${artist.name} is included because supporter-led music can become part of World Cup memory even when it is not an official tournament release. Related page: ${songTitles}.`;
+  }
+  const subject = artistSongs.length === 1 ? `${songTitles} connects` : `${songTitles} connect`;
+  return `${artist.name} is included because ${subject} the artist to World Cup music search, tournament context, or fan discovery.`;
+}
+
+function artistConnectionSummary(artistSongs) {
+  if (!artistSongs.length) return "no current song entries.";
+  const years = Array.from(new Set(artistSongs.map((song) => song.year))).sort((left, right) => Number(right) - Number(left));
+  const labels = Array.from(new Set(artistSongs.map((song) => song.status))).join(", ");
+  return `${artistSongs.length} ${artistSongs.length === 1 ? "song entry" : "song entries"} across ${naturalList(years)}: ${labels}.`;
+}
+
+function artistSongLinks(artistSongs) {
+  return `<ul class="context-facts artist-song-list">
+    ${artistSongs
+      .map(
+        (song) =>
+          `<li><a class="text-link" href="../../songs/${song.slug}/">${escapeHtml(song.title)}</a> · ${escapeHtml(song.year)} · ${escapeHtml(song.status)}</li>`
+      )
+      .join("")}
+  </ul>`;
+}
+
+function artistExternalLinks(artist, artistSongs) {
+  const links = new Map();
+  for (const song of artistSongs) {
+    links.set(song.sourceUrl, song.sourceLabel || "Source");
+    if (song.watchUrl) links.set(song.watchUrl, song.watchLabel || "Watch");
+  }
+  if (!links.size) return "";
+  return `<div class="source-links artist-source-links">
+    ${Array.from(links.entries())
+      .map(([url, label]) => `<a href="${escapeHtml(url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`)
+      .join("")}
+  </div>`;
+}
+
+function artistStatList(artist, artistSongs, artistMedia = mediaForArtist(artist)) {
+  const years = Array.from(new Set(artistSongs.map((song) => song.year))).sort((left, right) => Number(right) - Number(left));
+  const countries = Array.from(new Set(artistSongs.map((song) => song.country))).sort();
+  const stats = [
+    ["Type", artist.kind],
+    ["Songs", String(artistSongs.length)],
+    ["Years", naturalList(years)],
+    ["Countries", naturalList(countries)],
+    ["Image", artistMedia ? `${artistMedia.license} via Wikimedia Commons` : "Text avatar only"],
+  ];
+  return `<dl class="stat-list">
+    ${stats
+      .map(
+        ([key, value]) => `<div>
+          <dt>${escapeHtml(key)}</dt>
+          <dd>${escapeHtml(value)}</dd>
+        </div>`
+      )
+      .join("")}
+  </dl>`;
 }
 
 function relatedList(title, items, prefix) {
@@ -943,14 +1439,16 @@ function collectionGrid(items, prefix) {
 }
 
 function songCard(song, prefix) {
+  const media = mediaForSong(song);
   return `<article class="song-card">
+    ${cardMedia(media, `${song.title} visual`)}
     <div class="song-meta">
       <span class="pill ${song.type}">${escapeHtml(song.status)}</span>
       <span class="pill">${escapeHtml(song.year)}</span>
       <span class="pill">${escapeHtml(song.country)}</span>
     </div>
     <h3>${escapeHtml(song.title)}</h3>
-    <p class="artist">${escapeHtml(song.artist)}</p>
+    <p class="artist">${artistInlineLinks(song, prefix)}</p>
     <p class="note">${escapeHtml(song.summary)}</p>
     <a href="${prefix}songs/${song.slug}/">Open detail page</a>
   </article>`;
@@ -966,10 +1464,15 @@ function sortedSongs(items) {
 }
 
 function adBox() {
-  return `<aside class="ad-slot detail-ad" aria-label="Reserved advertising space">
-    <span>Ad space</span>
-    <strong>Reserved for review</strong>
-    <p>AdSense review is in progress. This space will stay quiet until ads are approved.</p>
+  return `<aside class="ad-slot detail-ad" aria-label="More ways to browse">
+    <span>Keep exploring</span>
+    <strong>Find the next song</strong>
+    <p>Jump from this song into the timeline, glossary, or full library to compare years, labels, and fan moments.</p>
+    <div class="ad-slot-links">
+      <a class="text-link" href="../../timeline/">Timeline</a>
+      <a class="text-link" href="../../glossary/">Glossary</a>
+      <a class="text-link" href="../../index.html#library">Library</a>
+    </div>
   </aside>`;
 }
 
@@ -977,6 +1480,11 @@ function writePage(segments, html) {
   const dir = path.join(root, ...segments);
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, "index.html"), html);
+}
+
+function readJsonIfExists(filePath, fallback) {
+  if (!fs.existsSync(filePath)) return fallback;
+  return JSON.parse(fs.readFileSync(filePath, "utf8"));
 }
 
 function groupBy(items, getKey) {

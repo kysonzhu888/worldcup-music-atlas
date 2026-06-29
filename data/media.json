@@ -1,0 +1,332 @@
+{
+  "artists": {
+    "21-savage": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/21_Savage_2018.jpg/960px-21_Savage_2018.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:21_Savage_2018.jpg",
+      "creator": "Ralph Arvesen",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "alt": "21 Savage performing on stage in 2018"
+    },
+    "andrea-bocelli": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/2025_Andrea_Bocelli_in_the_White_House_Oval_Office_on_October_17_%28cropped%29.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:2025_Andrea_Bocelli_in_the_White_House_Oval_Office_on_October_17_(cropped).jpg",
+      "creator": "The White House",
+      "license": "Public domain",
+      "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Public_domain",
+      "alt": "Andrea Bocelli in the White House Oval Office"
+    },
+    "anitta": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/23/Anitta_for_Attractive_Mindset_podcast_02.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Anitta_for_Attractive_Mindset_podcast_02.jpg",
+      "creator": "Attractive Mindset",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "alt": "Anitta during a podcast appearance"
+    },
+    "baddiel": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/David_Baddiel_at_the_2025_Edinburgh_International_Book_Festival-02_%28cropped%29.jpg/960px-David_Baddiel_at_the_2025_Edinburgh_International_Book_Festival-02_%28cropped%29.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:David_Baddiel_at_the_2025_Edinburgh_International_Book_Festival-02_(cropped).jpg",
+      "creator": "Bryan Berlin",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt": "David Baddiel at the Edinburgh International Book Festival"
+    },
+    "belinda": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Belinda_Huawei_2021.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Belinda_Huawei_2021.jpg",
+      "creator": "Axioma Films",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "alt": "Belinda at a 2021 media appearance"
+    },
+    "burna-boy": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Untold_2024_-Burna_Boy_%2853926047977%29_%28cropped%29.jpg/960px-Untold_2024_-Burna_Boy_%2853926047977%29_%28cropped%29.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Untold_2024_-Burna_Boy_(53926047977)_(cropped).jpg",
+      "creator": "Nuta Lucian",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "alt": "Burna Boy performing at Untold 2024"
+    },
+    "carin-leon": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Carin_Le%C3%B3n.jpg/960px-Carin_Le%C3%B3n.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Carin_Le%C3%B3n.jpg",
+      "creator": "Colleen Sturtevant",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt": "Carin Leon in 2026"
+    },
+    "claudia-leitte": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/COMBATCHY_-_Espa%C3%A7o_das_Am%C3%A9ricas_%2837663604825%29.jpg/960px-COMBATCHY_-_Espa%C3%A7o_das_Am%C3%A9ricas_%2837663604825%29.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:COMBATCHY_-_Espa%C3%A7o_das_Am%C3%A9ricas_(37663604825).jpg",
+      "creator": "Teca Lamboglia",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "alt": "Claudia Leitte performing on stage"
+    },
+    "daddy-yankee": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Daddy_Yankee_-_The_Kingdom_%28Official_Q_%26_A%29.png",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Daddy_Yankee_-_The_Kingdom_(Official_Q_%26_A).png",
+      "creator": "Daddy Yankee",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "alt": "Daddy Yankee in a public Q and A video still"
+    },
+    "daryl-hall": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/1a/DHall_by_Matthew_Becker.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:DHall_by_Matthew_Becker.jpg",
+      "creator": "Matthew Becker",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "alt": "Daryl Hall photographed in 2011"
+    },
+    "david-guetta": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/2023-11-16_Gala_de_los_Latin_Grammy%2C_22_%28David_Guetta%29.jpg/960px-2023-11-16_Gala_de_los_Latin_Grammy%2C_22_%28David_Guetta%29.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:2023-11-16_Gala_de_los_Latin_Grammy,_22_(David_Guetta).jpg",
+      "creator": "Junta de Andalucia",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "alt": "David Guetta at the Latin Grammy gala"
+    },
+    "davido": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Davido_2024_%28cropped%29.jpg/960px-Davido_2024_%28cropped%29.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Davido_2024_(cropped).jpg",
+      "creator": "Olamiposi Daniel",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt": "Davido in 2024"
+    },
+    "edoardo-bennato": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/PERX0133_15.jpg/960px-PERX0133_15.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:PERX0133_15.jpg",
+      "creator": "Gorup de Besanez",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt": "Edoardo Bennato performing in Luxembourg"
+    },
+    "elyanna": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Elyanna_UAM.jpg/960px-Elyanna_UAM.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Elyanna_UAM.jpg",
+      "creator": "United Arabic Music",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt": "Elyanna portrait"
+    },
+    "era-istrefi": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/97/Era_Istrefi_Russia_2018.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Era_Istrefi_Russia_2018.jpg",
+      "creator": "Anton Zaitsev",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "alt": "Era Istrefi at the 2018 World Cup closing ceremony"
+    },
+    "fahad-al-kubaisi": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/a/ad/8bef0c062ca211e3ba0522000ae8030f_7_%D9%81%D9%87%D8%AF_%D8%A7%D9%84%D9%83%D8%A8%D9%8A%D8%B3%D9%8A_2013.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:8bef0c062ca211e3ba0522000ae8030f_7_%D9%81%D9%87%D8%AF_%D8%A7%D9%84%D9%83%D8%A8%D9%8A%D8%B3%D9%8A_2013.jpg",
+      "creator": "Nuwair Fawaz",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt": "Fahad Al Kubaisi in 2013"
+    },
+    "french-montana": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/FM_PRESS03-A.png/960px-FM_PRESS03-A.png",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:FM_PRESS03-A.png",
+      "creator": "Epic Records",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt": "French Montana press photo"
+    },
+    "freshlyground": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Freshlyground_%28from_Capetown%29_%285971070825%29.jpg/960px-Freshlyground_%28from_Capetown%29_%285971070825%29.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Freshlyground_(from_Capetown)_(5971070825).jpg",
+      "creator": "Brenda Lee",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "alt": "Freshlyground performing"
+    },
+    "future": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Future_-_Openair_Frauenfeld_2019_01_%28cropped%29.jpg/960px-Future_-_Openair_Frauenfeld_2019_01_%28cropped%29.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Future_-_Openair_Frauenfeld_2019_01_(cropped).jpg",
+      "creator": "Frank Schwichtenberg",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt": "Future performing at Openair Frauenfeld"
+    },
+    "gianna-nannini": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/2017_Gianna_Nannini_-_by_2eight_-_DSC3677.jpg/960px-2017_Gianna_Nannini_-_by_2eight_-_DSC3677.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:2017_Gianna_Nannini_-_by_2eight_-_DSC3677.jpg",
+      "creator": "Stefan Brending",
+      "license": "CC BY-SA 3.0 DE",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+      "alt": "Gianna Nannini performing live in 2017"
+    },
+    "jelly-roll": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Jellyroll_Performing_at_Global_Citizen_Festival_%E2%80%93_September_28%2C_2024_%28cropped%29.jpg/960px-Jellyroll_Performing_at_Global_Citizen_Festival_%E2%80%93_September_28%2C_2024_%28cropped%29.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jellyroll_Performing_at_Global_Citizen_Festival_%E2%80%93_September_28,_2024_(cropped).jpg",
+      "creator": "Setoxxx",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt": "Jelly Roll performing at Global Citizen Festival"
+    },
+    "jennifer-lopez": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Jennifer_Lopez_at_the_2025_Sundance_Film_Festival_%28cropped_3%29.jpg/960px-Jennifer_Lopez_at_the_2025_Sundance_Film_Festival_%28cropped_3%29.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jennifer_Lopez_at_the_2025_Sundance_Film_Festival_(cropped_3).jpg",
+      "creator": "Everwest",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "alt": "Jennifer Lopez at the Sundance Film Festival"
+    },
+    "jessie-reyez": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Jessie_Reyez_-_Collision_2019_Toronto_%2847105669284%29_%28cropped%29.jpg/960px-Jessie_Reyez_-_Collision_2019_Toronto_%2847105669284%29_%28cropped%29.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jessie_Reyez_-_Collision_2019_Toronto_(47105669284)_(cropped).jpg",
+      "creator": "Eoin Noonan / Collision via Sportsfile",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "alt": "Jessie Reyez speaking at Collision 2019"
+    },
+    "jung-kook": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Jung_Kook_of_BTS%2C_February_12%2C_2026_%281%29.png/960px-Jung_Kook_of_BTS%2C_February_12%2C_2026_%281%29.png",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jung_Kook_of_BTS,_February_12,_2026_(1).png",
+      "creator": "TV10",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "alt": "Jung Kook at a 2026 photocall"
+    },
+    "k-naan": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/K%27naan_Warsame_at_the_2024_Toronto_International_Film_Festival.jpg/960px-K%27naan_Warsame_at_the_2024_Toronto_International_Film_Festival.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:K%27naan_Warsame_at_the_2024_Toronto_International_Film_Festival.jpg",
+      "creator": "John Sears",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt": "K'naan at the Toronto International Film Festival"
+    },
+    "lisa": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/20240314_Lisa_Manoban_07.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:20240314_Lisa_Manoban_07.jpg",
+      "creator": "TV10",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "alt": "LISA at a Bulgari Studio photocall"
+    },
+    "los-angeles-azules": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Los_%C3%81ngeles_Azules.jpg/960px-Los_%C3%81ngeles_Azules.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Los_%C3%81ngeles_Azules.jpg",
+      "creator": "Karla Gil / Secretaria de Cultura de la Ciudad de Mexico",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "alt": "Los Angeles Azules performing in Mexico City"
+    },
+    "major-lazer": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Diplo_and_Walshy_Fire_of_Major_Lazer_%40_Flow_2015.jpg/960px-Diplo_and_Walshy_Fire_of_Major_Lazer_%40_Flow_2015.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Diplo_and_Walshy_Fire_of_Major_Lazer_@_Flow_2015.jpg",
+      "creator": "Kim Metso",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt": "Major Lazer performing at Flow Festival"
+    },
+    "megan-thee-stallion": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Megan_Thee_Stallion_Adweek_pose.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Megan_Thee_Stallion_Adweek_pose.jpg",
+      "creator": "Adweek",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "alt": "Megan Thee Stallion in an Adweek interview"
+    },
+    "nata-cano": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Cano6_%28cropped%29.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cano6_(cropped).jpg",
+      "creator": "EL BARBAS PRODUCTION",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "alt": "Natanael Cano performing"
+    },
+    "nelly-furtado": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Nelly_Furtado_at_Radio_Regenbogen_Award_2017_%285%29.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nelly_Furtado_at_Radio_Regenbogen_Award_2017_(5).jpg",
+      "creator": "Sven Mandel",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt": "Nelly Furtado at Radio Regenbogen Award"
+    },
+    "nicky-jam": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Nicky_Jam_2024_%28cropped%29.jpg/960px-Nicky_Jam_2024_%28cropped%29.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nicky_Jam_2024_(cropped).jpg",
+      "creator": "Emmanuel1152",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt": "Nicky Jam in 2024"
+    },
+    "pitbull": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Pitbull_%2852703405994%29_%28cropped%29.jpg/960px-Pitbull_%2852703405994%29_%28cropped%29.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pitbull_(52703405994)_(cropped).jpg",
+      "creator": "Zach Catanzareti Photo",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "alt": "Pitbull on stage"
+    },
+    "rema": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/03/Rema_at_2019_LFW_%28cropped%292.png",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rema_at_2019_LFW_(cropped)2.png",
+      "creator": "Thealfe Studios",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt": "Rema at Lagos Fashion Week"
+    },
+    "ricky-martin": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/df/Ricky_Martin_Golden_Globe_Awards_2018.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ricky_Martin_Golden_Globe_Awards_2018.jpg",
+      "creator": "Steve Granitz",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "alt": "Ricky Martin at the Golden Globe Awards"
+    },
+    "shakira": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2023-11-16_Gala_de_los_Latin_Grammy%2C_03_%28cropped%2902.jpg/960px-2023-11-16_Gala_de_los_Latin_Grammy%2C_03_%28cropped%2902.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:2023-11-16_Gala_de_los_Latin_Grammy,_03_(cropped)02.jpg",
+      "creator": "Junta de Andalucia",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "alt": "Shakira at the Latin Grammy gala"
+    },
+    "shenseea": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Shenseea_March_2023.jpg/960px-Shenseea_March_2023.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Shenseea_March_2023.jpg",
+      "creator": "Amy Lee",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "alt": "Shenseea in March 2023"
+    },
+    "skinner": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/4/40/FrankSkinGarrick270120-3_%28cropped%29.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:FrankSkinGarrick270120-3_(cropped).jpg",
+      "creator": "Raph PH",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "alt": "Frank Skinner at the Garrick Theatre"
+    },
+    "the-lightning-seeds": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/The_Lightning_Seeds.jpg/960px-The_Lightning_Seeds.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Lightning_Seeds.jpg",
+      "creator": "Conall",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "alt": "The Lightning Seeds performing in 2025"
+    },
+    "tyla": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/87/Guests_at_the_2026_Met_Gala_384_%28Tyla%29.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Guests_at_the_2026_Met_Gala_384_(Tyla).jpg",
+      "creator": "SWinxy",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "alt": "Tyla at the 2026 Met Gala"
+    },
+    "will-smith": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/TechCrunch_Disrupt_San_Francisco_2019_-_Day_1_%2848834070763%29_%28cropped%29.jpg/960px-TechCrunch_Disrupt_San_Francisco_2019_-_Day_1_%2848834070763%29_%28cropped%29.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:TechCrunch_Disrupt_San_Francisco_2019_-_Day_1_(48834070763)_(cropped).jpg",
+      "creator": "TechCrunch",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "alt": "Will Smith speaking at TechCrunch Disrupt"
+    }
+  }
+}
