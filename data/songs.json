@@ -16,6 +16,26 @@
     "sourceLabel": "FIFA album announcement",
     "sourceUrl": "https://inside.fifa.com/media-releases/unveils-official-album-biggest-world-cup-2026-history",
     "spotifyUrl": "https://open.spotify.com/track/0kosUz0jePvjiz4ctmR6wL",
+    "references": [
+      {
+        "kind": "Official",
+        "label": "FIFA album announcement",
+        "url": "https://inside.fifa.com/media-releases/unveils-official-album-biggest-world-cup-2026-history",
+        "note": "Best starting point for the official 2026 label and album context."
+      },
+      {
+        "kind": "Social search",
+        "label": "X search: Dai Dai World Cup",
+        "url": "https://x.com/search?q=%22Dai%20Dai%22%20World%20Cup%20Shakira%20Burna%20Boy&src=typed_query",
+        "note": "Useful for checking whether fans, journalists, and music accounts are discussing the track today."
+      },
+      {
+        "kind": "Live search",
+        "label": "Instagram hashtag: World Cup 2026",
+        "url": "https://www.instagram.com/explore/tags/worldcup2026/",
+        "note": "A visual discovery route for current tournament music posts and artist promotion."
+      }
+    ],
     "timelineFeatured": true,
     "timelineRank": 1,
     "timelineNote": "The 2026 cycle starts with a headline global-pop entry built for the expanded North American tournament.",
@@ -232,6 +252,26 @@
     "searchAngles": ["Argentina Muchachos chant meaning", "what song do Argentina fans sing", "Messi World Cup anthem"],
     "sourceLabel": "GOAL explainer",
     "sourceUrl": "https://www.goal.com/en-us/news/argentina-muchachos-chant-lyrics-meaning-lionel-messi-favourite-world-cup-song/blte091925b91d22644",
+    "references": [
+      {
+        "kind": "Editorial",
+        "label": "GOAL explainer",
+        "url": "https://www.goal.com/en-us/news/argentina-muchachos-chant-lyrics-meaning-lionel-messi-favourite-world-cup-song/blte091925b91d22644",
+        "note": "Good for understanding why the chant became attached to Argentina's 2022 title run."
+      },
+      {
+        "kind": "Fan discussion",
+        "label": "Reddit search: Argentina Muchachos",
+        "url": "https://www.reddit.com/search/?q=Argentina%20Muchachos%20chant%20World%20Cup",
+        "note": "A fan-discussion lead for how supporters talk about the chant; not a primary factual source."
+      },
+      {
+        "kind": "Social search",
+        "label": "X search: Muchachos Messi",
+        "url": "https://x.com/search?q=Muchachos%20Messi%20Argentina%20World%20Cup&src=typed_query",
+        "note": "Useful for seeing how the song resurfaces around Messi and Argentina moments."
+      }
+    ],
     "story": "Muchachos is valuable because it behaves like a living fan-culture page rather than a static song listing: people search for the meaning, the Argentina connection, and why it became attached to the 2022 title run.",
     "facts": [
       "This page should explain the chant without reproducing lyrics.",
@@ -274,6 +314,32 @@
     "youtubeId": "RJqimlFcJsM",
     "watchLabel": "Official music video",
     "watchUrl": "https://www.youtube.com/watch?v=RJqimlFcJsM",
+    "references": [
+      {
+        "kind": "Editorial",
+        "label": "ESPN: how Three Lions became England's anthem",
+        "url": "https://www.espn.com/soccer/story/_/id/48776399/its-coming-home-world-cup-2026-how-three-lions-became-england-unofficial-tournament-song",
+        "note": "Best source on the fan-culture distinction between official tournament music and England's unofficial anthem."
+      },
+      {
+        "kind": "Watch",
+        "label": "Official music video",
+        "url": "https://www.youtube.com/watch?v=RJqimlFcJsM",
+        "note": "A safe video destination without embedding copied uploads."
+      },
+      {
+        "kind": "Fan discussion",
+        "label": "Reddit search: Three Lions coming home",
+        "url": "https://www.reddit.com/search/?q=Three%20Lions%20coming%20home%20World%20Cup",
+        "note": "Useful for seeing how the phrase is debated, celebrated, and joked about by football fans."
+      },
+      {
+        "kind": "Social search",
+        "label": "X search: football's coming home",
+        "url": "https://x.com/search?q=%22football%27s%20coming%20home%22%20World%20Cup&src=typed_query",
+        "note": "A live pulse check for current tournament usage."
+      }
+    ],
     "story": "Three Lions is a strong example of tournament music outgrowing its original release window. For World Cup searches, the useful answer is usually the distinction between England fan culture and FIFA official music.",
     "facts": [
       "Treat it as an unofficial England anthem rather than a FIFA World Cup official song.",
@@ -342,6 +408,32 @@
     "youtubeId": "pRpeEdMmmQ0",
     "watchLabel": "Official music video",
     "watchUrl": "https://www.youtube.com/watch?v=pRpeEdMmmQ0",
+    "references": [
+      {
+        "kind": "Watch",
+        "label": "Official YouTube video",
+        "url": "https://www.youtube.com/watch?v=pRpeEdMmmQ0",
+        "note": "The safest high-recognition destination for readers who remember the video before the tournament details."
+      },
+      {
+        "kind": "Primary source",
+        "label": "World Cup songs index",
+        "url": "https://en.wikipedia.org/wiki/List_of_FIFA_World_Cup_songs_and_anthems",
+        "note": "Useful for confirming how the song is categorized in broader World Cup music history."
+      },
+      {
+        "kind": "Social search",
+        "label": "X search: Waka Waka World Cup",
+        "url": "https://x.com/search?q=Waka%20Waka%20World%20Cup%20Shakira&src=typed_query",
+        "note": "A quick way to see how the song resurfaces during new tournament cycles."
+      },
+      {
+        "kind": "Live search",
+        "label": "Instagram hashtag: Waka Waka",
+        "url": "https://www.instagram.com/explore/tags/wakawaka/",
+        "note": "Visual social context; use it as discovery, not as a factual source."
+      }
+    ],
     "story": "Waka Waka is the benchmark evergreen page for this site: users return to it every tournament because they remember the song before they remember the exact tournament metadata.",
     "facts": [
       "A useful detail page should connect the song to South Africa 2010, Shakira, Freshlyground, and official listening links.",
@@ -384,6 +476,32 @@
     "youtubeId": "WTJSt4wP2ME",
     "watchLabel": "Official music video",
     "watchUrl": "https://www.youtube.com/watch?v=WTJSt4wP2ME",
+    "references": [
+      {
+        "kind": "Watch",
+        "label": "Official music video",
+        "url": "https://www.youtube.com/watch?v=WTJSt4wP2ME",
+        "note": "The safest video reference for users who remember the Coca-Cola celebration mix era."
+      },
+      {
+        "kind": "Primary source",
+        "label": "World Cup songs index",
+        "url": "https://en.wikipedia.org/wiki/List_of_FIFA_World_Cup_songs_and_anthems",
+        "note": "Useful for explaining why people confuse this campaign song with the main official song."
+      },
+      {
+        "kind": "Fan discussion",
+        "label": "Reddit search: Wavin' Flag World Cup",
+        "url": "https://www.reddit.com/search/?q=Wavin%20Flag%20World%20Cup%202010",
+        "note": "Good for seeing how fans compare it with Waka Waka and other 2010 memories."
+      },
+      {
+        "kind": "Social search",
+        "label": "X search: Wavin' Flag 2010",
+        "url": "https://x.com/search?q=Wavin%20Flag%202010%20World%20Cup&src=typed_query",
+        "note": "A live social route for nostalgia posts and current tournament callbacks."
+      }
+    ],
     "timelineFeatured": true,
     "timelineRank": 2,
     "timelineNote": "A perfect confusion node: widely remembered from 2010, but searched alongside the official-song conversation.",

@@ -90,6 +90,7 @@ function generateSongPages() {
             </section>
             <section class="detail-grid">
               <article class="detail-main">
+                ${songReferencesSection(song)}
                 ${songStorySection(song)}
                 ${songExplainer(song)}
                 ${watchSection(song)}
@@ -1392,6 +1393,83 @@ function sourceTrail(song) {
       .map((link) => `<a href="${escapeHtml(link.url)}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`)
       .join("")}
   </div>`;
+}
+
+function songReferencesSection(song) {
+  const references = referencesForSong(song);
+  if (!references.length) return "";
+
+  return `<section class="reference-section" aria-labelledby="references-title-${escapeHtml(song.slug)}">
+    <div class="reference-heading">
+      <p class="kicker">Around the song</p>
+      <h2 id="references-title-${escapeHtml(song.slug)}">Where to follow the context</h2>
+      <p>Use these links to verify the official label, watch the safe version, or follow how fans and media talk about the song. Social and forum links are discovery leads, not primary sources.</p>
+    </div>
+    <div class="reference-grid">
+      ${references.map((reference) => referenceCard(reference)).join("")}
+    </div>
+  </section>`;
+}
+
+function referencesForSong(song) {
+  const references = Array.isArray(song.references) ? [...song.references] : [];
+  if (song.sourceUrl) {
+    references.push({
+      kind: "Primary source",
+      label: song.sourceLabel || "Primary source",
+      url: song.sourceUrl,
+      note: "Use this first when checking the song label, tournament context, or source wording.",
+    });
+  }
+  if (song.watchUrl && song.watchUrl !== song.sourceUrl) {
+    references.push({
+      kind: "Watch",
+      label: song.watchLabel || "Official video",
+      url: song.watchUrl,
+      note: "A safer viewing route than copied uploads, clips, or rehosted video.",
+    });
+  }
+  if (song.spotifyUrl) {
+    references.push({
+      kind: "Listen",
+      label: "Spotify track",
+      url: song.spotifyUrl,
+      note: "A licensed listening link for users who want the track without this site hosting audio.",
+    });
+  }
+  return uniqueReferences(references).slice(0, 8);
+}
+
+function uniqueReferences(references) {
+  const seen = new Set();
+  return references.filter((reference) => {
+    if (!reference?.url || !reference?.label) return false;
+    if (seen.has(reference.url)) return false;
+    seen.add(reference.url);
+    return true;
+  });
+}
+
+function referenceCard(reference) {
+  const kind = reference.kind || "Reference";
+  return `<article class="reference-card ${escapeHtml(referenceKindClass(kind))}">
+    <span>${escapeHtml(kind)}</span>
+    <h3><a href="${escapeHtml(reference.url)}" target="_blank" rel="${escapeHtml(referenceRel(kind))}">${escapeHtml(reference.label)}</a></h3>
+    <p>${escapeHtml(reference.note || "External context link for readers who want to go deeper.")}</p>
+  </article>`;
+}
+
+function referenceKindClass(kind) {
+  return `reference-${kind.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "link"}`;
+}
+
+function referenceRel(kind) {
+  const lower = kind.toLowerCase();
+  const base = ["noreferrer", "noopener"];
+  if (lower.includes("fan") || lower.includes("social") || lower.includes("live") || lower.includes("forum")) {
+    base.push("nofollow");
+  }
+  return base.join(" ");
 }
 
 function explainerBlock({ title, body, extra = "" }) {
