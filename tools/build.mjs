@@ -83,12 +83,14 @@ function generateSongPages() {
               <div>
                 <p class="kicker">${escapeHtml(song.status)} · ${escapeHtml(song.tournament)}</p>
                 <h1>${escapeHtml(song.title)}</h1>
+                ${heroListenActions(song)}
                 <p>${escapeHtml(song.summary)}</p>
               </div>
               ${mediaFigure(songMedia, "hero-media", `${song.title} World Cup music visual`)}
             </section>
             <section class="detail-grid">
               <article class="detail-main">
+                ${songStorySection(song)}
                 ${songExplainer(song)}
                 ${watchSection(song)}
                 ${songFaqSection(song)}
@@ -584,30 +586,56 @@ function generateUtilityPages() {
     ["about"],
     layout({
       title: "About",
-      description: `About ${site.name}.`,
+      description: `${site.name} is an independent guide to World Cup songs, official anthems, soundtrack tracks, and fan music culture.`,
       depth: 1,
       path: "/about/",
-      schema: simplePageSchema("About", `About ${site.name}.`, "/about/"),
+      schema: simplePageSchema(
+        "About",
+        `${site.name} is an independent guide to World Cup songs, official anthems, soundtrack tracks, and fan music culture.`,
+        "/about/"
+      ),
       body: `
         <main class="article-page utility-page">
           ${simpleBreadcrumb("About", "../")}
           <section class="detail-hero">
             <p class="kicker">About</p>
             <h1>About ${escapeHtml(site.name)}</h1>
-            <p>${escapeHtml(site.description)}</p>
+            <p>An independent editorial guide to World Cup songs, official anthems, soundtrack tracks, and fan music culture.</p>
           </section>
           <article class="detail-main">
             <h2>What this site does</h2>
             <p>
-              ${escapeHtml(site.name)} is a lightweight editorial reference for World Cup music:
-              official songs, tournament anthems, fan songs, soundtrack entries, and the cultural
-              context around them.
+              ${escapeHtml(site.name)} collects and explains the music people search for around the
+              FIFA World Cup: official songs, tournament anthems, soundtrack singles, opening ceremony
+              performances, and fan anthems that become part of matchday culture.
+            </p>
+            <p>
+              The goal is simple: help readers quickly understand what a song is, which tournament it
+              belongs to, who performs it, whether it is official or fan-led, and where to listen on
+              licensed platforms.
             </p>
             <h2>Editorial approach</h2>
             <p>
-              We use short original summaries and link to primary or reputable public sources.
-              We do not reproduce lyrics, upload audio, or present unofficial fan chants as official
-              tournament songs.
+              Pages use original summaries, compact metadata, and links to primary or reputable public
+              sources. Labels such as official song, anthem, soundtrack single, fan anthem, and chant
+              follow the source wording as closely as possible.
+            </p>
+            <p>
+              We do not reproduce lyrics, host audio files, upload copied video, or treat unofficial fan
+              chants as official tournament songs. Listening links point to platforms such as Spotify,
+              YouTube, or cited source pages instead.
+            </p>
+            <h2>Independence</h2>
+            <p>
+              ${escapeHtml(site.name)} is independently maintained and is not affiliated with FIFA,
+              Spotify, YouTube, national football associations, artists, labels, or tournament organizers.
+              Trademarks and platform names belong to their respective owners.
+            </p>
+            <h2>Corrections and rights questions</h2>
+            <p>
+              Music credits, official labels, and platform availability can change. If you notice a
+              mistake, have a source suggestion, or need to raise a rights concern, email
+              <a class="text-link" href="mailto:${escapeHtml(site.contactEmail)}">${escapeHtml(site.contactEmail)}</a>.
             </p>
           </article>
         </main>
@@ -1111,6 +1139,36 @@ function atlasPlaylistActions() {
   </div>`;
 }
 
+function heroListenActions(song) {
+  const actions = [
+    {
+      label: song.spotifyUrl ? "Listen on Spotify" : "Find on Spotify",
+      url: song.spotifyUrl || spotifySearchUrl(song),
+      style: "primary",
+      external: true,
+    },
+  ];
+
+  if (song.watchUrl) {
+    actions.push({
+      label: "Watch video",
+      url: song.watchUrl,
+      style: "secondary",
+      external: true,
+    });
+  }
+
+  return `<div class="quick-listen" aria-label="Quick listening links">
+    <span>Listen</span>
+    ${actions
+      .map(
+        (action) =>
+          `<a class="listen-chip ${action.style}" href="${escapeHtml(action.url)}"${action.external ? ' target="_blank" rel="noreferrer"' : ""}>${escapeHtml(action.label)}</a>`
+      )
+      .join("")}
+  </div>`;
+}
+
 function listeningActions(song) {
   const actions = [];
   actions.push({
@@ -1192,6 +1250,148 @@ function songExplainer(song) {
   return `<section class="explainer-stack" aria-label="${escapeHtml(song.title)} explainer">
     ${sections.map((section) => explainerBlock(section)).join("")}
   </section>`;
+}
+
+function songStorySection(song) {
+  const cards = songStoryCards(song);
+  return `<section class="story-lab" aria-labelledby="story-title-${escapeHtml(song.slug)}">
+    <div class="story-lab-heading">
+      <p class="kicker">${escapeHtml(storyKicker(song))}</p>
+      <h2 id="story-title-${escapeHtml(song.slug)}">${escapeHtml(storyTitle(song))}</h2>
+      <p>${escapeHtml(storyIntro(song))}</p>
+    </div>
+    <div class="story-card-grid">
+      ${cards.map((card, index) => storyCard(card, index === 0)).join("")}
+    </div>
+    ${sourceTrail(song)}
+  </section>`;
+}
+
+function storyKicker(song) {
+  if (song.type === "fan") return "Fan culture notes";
+  if (song.year === "2026") return "2026 watch notes";
+  if (song.type === "classic") return "Classic song notes";
+  return "Behind the song";
+}
+
+function storyTitle(song) {
+  if (song.type === "fan") return "Why supporters attached to it";
+  if (song.year === "2026") return "What to watch as this track develops";
+  if (song.type === "classic") return "Why it keeps coming back";
+  return "The context behind the listing";
+}
+
+function storyIntro(song) {
+  if (song.story) return song.story;
+  if (song.type === "fan") {
+    return `${song.title} is useful as a supporter-culture entry: the important story is not only who recorded it, but when fans use it and why it travels through match memory.`;
+  }
+  if (song.year === "2026") {
+    return `${song.title} is part of a live tournament cycle. This page should become more specific as official videos, performances, and fan reactions appear.`;
+  }
+  return `${song.title} is tracked here because tournament songs often return through memory first: a year, a host country, a performer, or a phrase people remember without knowing the full context.`;
+}
+
+function songStoryCards(song) {
+  const cards = [
+    {
+      title: song.type === "fan" ? "The fan angle" : "The useful distinction",
+      body: officialStatusAnswer(song),
+    },
+    {
+      title: "Why people search it",
+      body: song.whyItMatters,
+      list: song.searchAngles,
+    },
+    {
+      title: "Rights-safe listening",
+      body: "This page explains the context in original wording and sends visitors to official, licensed, or reputable platforms for audio, video, and source material.",
+      links: rightsSafeLinks(song),
+    },
+  ];
+
+  if (Array.isArray(song.facts) && song.facts.length > 0) {
+    cards.splice(1, 0, {
+      title: "Quick notes",
+      body: "These are the compact editorial notes worth checking before calling the track official, fan-made, classic, or current-cycle.",
+      list: song.facts,
+    });
+  }
+
+  if (Array.isArray(song.people) && song.people.length > 0) {
+    cards.push({
+      title: "People and context",
+      body: "Open the linked context pages when you need names, teams, or artist background. The atlas does not copy biographies from external sites.",
+      people: song.people,
+    });
+  }
+
+  return cards;
+}
+
+function storyCard(card, open) {
+  return `<details class="story-card"${open ? " open" : ""}>
+    <summary>
+      <span>${escapeHtml(card.title)}</span>
+      <strong>Read</strong>
+    </summary>
+    <div class="story-card-body">
+      <p>${escapeHtml(card.body)}</p>
+      ${card.list ? storyList(card.list) : ""}
+      ${card.links ? storyLinks(card.links) : ""}
+      ${card.people ? `<div class="people-links story-people-links">${card.people.map((person) => personLink(person)).join("")}</div>` : ""}
+    </div>
+  </details>`;
+}
+
+function storyList(items) {
+  return `<ul class="context-facts story-facts">
+    ${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+  </ul>`;
+}
+
+function storyLinks(links) {
+  if (!links.length) return "";
+  return `<div class="story-links">
+    ${links
+      .map(
+        (link) =>
+          `<a class="text-link" href="${escapeHtml(link.url)}"${link.external ? ' target="_blank" rel="noreferrer"' : ""}>${escapeHtml(link.label)}</a>`
+      )
+      .join("")}
+  </div>`;
+}
+
+function rightsSafeLinks(song) {
+  return listeningActions(song).map((action) => ({
+    label: action.label,
+    url: action.url,
+    external: action.external,
+  }));
+}
+
+function sourceTrail(song) {
+  const links = [];
+  if (song.sourceUrl) {
+    links.push({
+      label: song.sourceLabel || "Primary source",
+      url: song.sourceUrl,
+    });
+  }
+  if (song.watchUrl && song.watchUrl !== song.sourceUrl) {
+    links.push({
+      label: song.watchLabel || "Official video",
+      url: song.watchUrl,
+    });
+  }
+  if (!links.length) return "";
+
+  return `<div class="source-trail" aria-label="Source trail">
+    <span>Source trail</span>
+    ${links
+      .map((link) => `<a href="${escapeHtml(link.url)}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`)
+      .join("")}
+  </div>`;
 }
 
 function explainerBlock({ title, body, extra = "" }) {
