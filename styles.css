@@ -1098,6 +1098,114 @@ h1 {
   font-weight: 900;
 }
 
+.usage-section {
+  display: grid;
+  gap: 18px;
+  margin-top: 18px;
+  padding: 24px;
+  border: 1px solid rgba(56, 176, 108, 0.28);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, rgba(56, 176, 108, 0.08), rgba(246, 196, 83, 0.045)),
+    rgba(255, 255, 255, 0.035);
+}
+
+.usage-heading {
+  display: grid;
+  gap: 10px;
+}
+
+.usage-heading h2,
+.usage-heading p {
+  margin: 0;
+}
+
+.usage-heading h2 {
+  max-width: 17ch;
+  font-size: clamp(1.42rem, 2.8vw, 2.25rem);
+  line-height: 1.05;
+}
+
+.usage-grid,
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.usage-card,
+.metric-card {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(8, 11, 12, 0.48);
+}
+
+.usage-card span,
+.metric-card span {
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.usage-card strong,
+.metric-card strong {
+  color: var(--ink);
+  font-size: clamp(1rem, 1.8vw, 1.28rem);
+  line-height: 1.12;
+}
+
+.usage-card p,
+.metric-card p {
+  margin: 0;
+  color: var(--soft);
+  font-size: 0.94rem;
+}
+
+.metric-grid {
+  padding-top: 2px;
+}
+
+.metric-card {
+  border-color: rgba(246, 196, 83, 0.24);
+  background:
+    linear-gradient(180deg, rgba(246, 196, 83, 0.07), rgba(255, 255, 255, 0.025)),
+    rgba(8, 11, 12, 0.5);
+}
+
+.metric-card strong {
+  color: var(--gold);
+}
+
+.metric-source {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.metric-source a {
+  color: var(--gold);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.metric-source a:hover {
+  text-decoration: underline;
+}
+
+.metric-source small {
+  color: var(--muted);
+}
+
 .reference-section {
   display: grid;
   gap: 18px;
@@ -1931,6 +2039,8 @@ h1 {
   .visual-hero,
   .detail-grid,
   .reference-grid,
+  .usage-grid,
+  .metric-grid,
   .people-links,
   .artist-grid,
   .artist-hero,

@@ -9,19 +9,25 @@
     "countrySlug": "global",
     "language": "Multilingual",
     "type": "official",
-    "status": "Official 2026",
+    "status": "Official song",
     "summary": "The headline 2026 World Cup song entry from Shakira and Burna Boy, useful for users looking for the main tournament song rather than the broader album.",
     "whyItMatters": "Current-tournament official songs attract short bursts of search interest, but the page can become evergreen if it clearly explains title, artist lineup, tournament role, language, and how it differs from other 2026 album tracks.",
     "searchAngles": ["Dai Dai World Cup song", "World Cup 2026 official song", "Shakira Burna Boy World Cup"],
-    "sourceLabel": "FIFA album announcement",
-    "sourceUrl": "https://inside.fifa.com/media-releases/unveils-official-album-biggest-world-cup-2026-history",
+    "sourceLabel": "FIFA official song release",
+    "sourceUrl": "https://inside.fifa.com/media-releases/shakira-burna-boy-dai-dai-official-world-cup-2026",
     "spotifyUrl": "https://open.spotify.com/track/0kosUz0jePvjiz4ctmR6wL",
     "references": [
       {
         "kind": "Official",
+        "label": "FIFA official song release",
+        "url": "https://inside.fifa.com/media-releases/shakira-burna-boy-dai-dai-official-world-cup-2026",
+        "note": "Confirms Dai Dai as the Official FIFA World Cup 2026 Song and explains the education-fund tie-in."
+      },
+      {
+        "kind": "Official",
         "label": "FIFA album announcement",
         "url": "https://inside.fifa.com/media-releases/unveils-official-album-biggest-world-cup-2026-history",
-        "note": "Best starting point for the official 2026 label and album context."
+        "note": "Useful for the wider Official FIFA World Cup 2026 Album context."
       },
       {
         "kind": "Social search",
@@ -36,10 +42,42 @@
         "note": "A visual discovery route for current tournament music posts and artist promotion."
       }
     ],
+    "metrics": [
+      {
+        "label": "Spotify global chart",
+        "value": "#2",
+        "note": "FIFA reported Dai Dai at number 2 on Spotify's Top 50 Global Chart.",
+        "sourceLabel": "FIFA group-stage benchmark",
+        "sourceUrl": "https://inside.fifa.com/news/records-world-cup-2026-group-stage-sets-new-benchmark",
+        "checked": "2026-07-03"
+      },
+      {
+        "label": "Shazam global chart",
+        "value": "#5",
+        "note": "FIFA reported Dai Dai at number 5 on Shazam's Global Top 200.",
+        "sourceLabel": "FIFA group-stage benchmark",
+        "sourceUrl": "https://inside.fifa.com/news/records-world-cup-2026-group-stage-sets-new-benchmark",
+        "checked": "2026-07-03"
+      },
+      {
+        "label": "Album streams",
+        "value": "374M",
+        "note": "FIFA reported 374 million digital streams for the Official FIFA World Cup 2026 Album as of 22 June.",
+        "sourceLabel": "FIFA group-stage benchmark",
+        "sourceUrl": "https://inside.fifa.com/news/records-world-cup-2026-group-stage-sets-new-benchmark",
+        "checked": "2026-07-03"
+      }
+    ],
+    "story": "Dai Dai now works as more than a song listing: FIFA describes it as the Official FIFA World Cup 2026 Song and connects it to the FIFA Global Citizen Education Fund, so the useful reader answer is both musical and purpose-driven.",
+    "facts": [
+      "FIFA labels Dai Dai as the Official FIFA World Cup 2026 Song.",
+      "The song is tied to the FIFA Global Citizen Education Fund rather than only to the album rollout.",
+      "Because the 2026 cycle is live, chart snapshots should be treated as dated evidence, not permanent rankings."
+    ],
     "timelineFeatured": true,
     "timelineRank": 1,
     "timelineNote": "The 2026 cycle starts with a headline global-pop entry built for the expanded North American tournament.",
-    "lastChecked": "2026-06-29"
+    "lastChecked": "2026-07-03"
   },
   {
     "slug": "dna",
@@ -55,15 +93,35 @@
     "summary": "A focused anthem page for users who want to know whether DNA is the official anthem, who performs it, and how it fits into the broader 2026 soundtrack.",
     "whyItMatters": "Users often confuse official song, official anthem, campaign song, and fan chant. This page can answer the distinction quickly, then point to official listening and tournament sources.",
     "searchAngles": ["DNA World Cup anthem", "World Cup 2026 anthem", "official anthem vs official song"],
-    "sourceLabel": "FIFA Sound",
-    "sourceUrl": "https://www.youtube.com/watch?v=alTzdOAAMhc",
+    "sourceLabel": "FIFA official anthem release",
+    "sourceUrl": "https://inside.fifa.com/media-releases/world-cup-official-anthem-dna-andrea-bocelli-david-guetta-megan-thee-stallion-ejae-2026",
     "spotifyUrl": "https://open.spotify.com/track/40qwbrvCXsiOPh9xOupCMp",
     "watchLabel": "Watch on YouTube",
     "watchUrl": "https://www.youtube.com/watch?v=alTzdOAAMhc",
+    "references": [
+      {
+        "kind": "Official",
+        "label": "FIFA official anthem release",
+        "url": "https://inside.fifa.com/media-releases/world-cup-official-anthem-dna-andrea-bocelli-david-guetta-megan-thee-stallion-ejae-2026",
+        "note": "Confirms DNA as the Official FIFA World Cup 2026 Anthem and describes its opening ceremony role."
+      },
+      {
+        "kind": "Watch",
+        "label": "FIFA Sound video",
+        "url": "https://www.youtube.com/watch?v=alTzdOAAMhc",
+        "note": "A platform-safe video route for readers who want to hear the anthem."
+      }
+    ],
+    "story": "DNA is valuable because it gives the 2026 archive a clear anthem page separate from Dai Dai. FIFA frames it as the ceremonial and emotional signature of the tournament, with a first performance planned for the Mexico City opening ceremony.",
+    "facts": [
+      "FIFA labels DNA as the Official FIFA World Cup 2026 Anthem.",
+      "The performer lineup deliberately mixes classical vocals, electronic production, rap, and global pop.",
+      "This page should stay separate from the Dai Dai page because official song and official anthem answer different reader questions."
+    ],
     "timelineFeatured": true,
     "timelineRank": 2,
     "timelineNote": "A clean example of why the site separates anthem, album track, official song, and fan chant labels.",
-    "lastChecked": "2026-06-29"
+    "lastChecked": "2026-07-03"
   },
   {
     "slug": "game-time",
@@ -445,9 +503,11 @@
         "note": "Useful for seeing how the song resurfaces around Messi and Argentina moments."
       }
     ],
-    "story": "Muchachos is valuable because it behaves like a living fan-culture page rather than a static song listing: people search for the meaning, the Argentina connection, and why it became attached to the 2022 title run.",
+    "story": "Muchachos is valuable because it behaves like a living fan-culture page rather than a static song listing: people search for the meaning, the Argentina connection, and why it became attached to the 2022 title run. The story should stay focused on supporter adoption, Messi-era emotion, and Argentina's tournament arc rather than treating the chant as an official FIFA release.",
     "facts": [
       "This page should explain the chant without reproducing lyrics.",
+      "The strongest reader question is meaning and origin, not streaming availability.",
+      "Keep Messi, Maradona, Copa America, and the 2022 title run as context signals without turning the page into a player biography.",
       "It belongs in fan-anthem browsing, not in a list of FIFA official songs."
     ],
     "people": [
@@ -465,7 +525,7 @@
     "timelineFeatured": true,
     "timelineRank": 1,
     "timelineNote": "A fan anthem became one of the defining sounds of Argentina's 2022 title run.",
-    "lastChecked": "2026-06-29"
+    "lastChecked": "2026-07-03"
   },
   {
     "slug": "three-lions-england",
@@ -513,9 +573,11 @@
         "note": "A live pulse check for current tournament usage."
       }
     ],
-    "story": "Three Lions is a strong example of tournament music outgrowing its original release window. For World Cup searches, the useful answer is usually the distinction between England fan culture and FIFA official music.",
+    "story": "Three Lions is a strong example of tournament music outgrowing its original release window. For World Cup searches, the useful answer is usually the distinction between England fan culture and FIFA official music: the song comes from England tournament culture, but the phrase keeps returning whenever England enters another major event.",
     "facts": [
       "Treat it as an unofficial England anthem rather than a FIFA World Cup official song.",
+      "The page should answer the phrase meaning and why it resurfaces, not only the release date.",
+      "This is a useful internal link target for the glossary term fan anthem.",
       "Good for glossary links explaining fan anthem, chant, and official song."
     ],
     "people": [
@@ -538,7 +600,7 @@
     "timelineFeatured": true,
     "timelineRank": 1,
     "timelineNote": "The clearest proof that a tournament song can become bigger as fan culture than as an official release.",
-    "lastChecked": "2026-06-29"
+    "lastChecked": "2026-07-03"
   },
   {
     "slug": "country-roads-usmnt",
@@ -607,9 +669,11 @@
         "note": "Visual social context; use it as discovery, not as a factual source."
       }
     ],
-    "story": "Waka Waka is the benchmark evergreen page for this site: users return to it every tournament because they remember the song before they remember the exact tournament metadata.",
+    "story": "Waka Waka is the benchmark evergreen page for this site: users return to it every tournament because they remember the song before they remember the exact tournament metadata. The behind-the-song angle is the mix of a global pop star, South African band Freshlyground, and a host-country tournament that made the official song feel tied to place rather than only to FIFA branding.",
     "facts": [
       "A useful detail page should connect the song to South Africa 2010, Shakira, Freshlyground, and official listening links.",
+      "The title and video are often remembered before users remember the exact year or official label.",
+      "The best companion page is Wavin' Flag, because users often compare the official song with the Coca-Cola campaign song from the same tournament.",
       "Do not reproduce lyrics; the value is context, status, and safe outbound links."
     ],
     "people": [
@@ -627,7 +691,7 @@
     "timelineFeatured": true,
     "timelineRank": 1,
     "timelineNote": "The modern World Cup pop reference point: official, globally remembered, and rediscovered every tournament.",
-    "lastChecked": "2026-06-29"
+    "lastChecked": "2026-07-03"
   },
   {
     "slug": "wavin-flag",
@@ -658,9 +722,9 @@
       },
       {
         "kind": "Primary source",
-        "label": "World Cup songs index",
-        "url": "https://en.wikipedia.org/wiki/List_of_FIFA_World_Cup_songs_and_anthems",
-        "note": "Useful for explaining why people confuse this campaign song with the main official song."
+        "label": "Coca-Cola campaign announcement",
+        "url": "https://investors.coca-colacompany.com/news-events/press-releases/detail/23/coca-cola-scores-global-hit-with-campaign-anthem-by-knaan-for-fifa-world-cup-sponsorship",
+        "note": "Best source for the campaign-song label and chart snapshot."
       },
       {
         "kind": "Fan discussion",
@@ -675,10 +739,34 @@
         "note": "A live social route for nostalgia posts and current tournament callbacks."
       }
     ],
+    "metrics": [
+      {
+        "label": "Campaign chart reach",
+        "value": "Top 10 in 11 countries",
+        "note": "Coca-Cola reported that the Celebration Mix had already broken into the top ten on music charts in eleven countries.",
+        "sourceLabel": "Coca-Cola campaign announcement",
+        "sourceUrl": "https://investors.coca-colacompany.com/news-events/press-releases/detail/23/coca-cola-scores-global-hit-with-campaign-anthem-by-knaan-for-fifa-world-cup-sponsorship",
+        "checked": "2026-07-03"
+      },
+      {
+        "label": "Number-one markets",
+        "value": "7 listed",
+        "note": "Coca-Cola listed China, Mexico, Germany, Canada, Austria, Switzerland, and Luxembourg as number-one markets for the campaign mix.",
+        "sourceLabel": "Coca-Cola campaign announcement",
+        "sourceUrl": "https://investors.coca-colacompany.com/news-events/press-releases/detail/23/coca-cola-scores-global-hit-with-campaign-anthem-by-knaan-for-fifa-world-cup-sponsorship",
+        "checked": "2026-07-03"
+      }
+    ],
+    "story": "Wavin' Flag is the site's cleanest campaign-song explainer: it became inseparable from South Africa 2010 for many listeners through Coca-Cola's sponsorship campaign, while still needing to be distinguished from FIFA's official song for that tournament.",
+    "facts": [
+      "Treat this as a World Cup campaign anthem, not the main FIFA official song.",
+      "The Coca-Cola Celebration Mix is the version most users connect with the 2010 tournament.",
+      "This page should sit next to Waka Waka because users often compare the two songs."
+    ],
     "timelineFeatured": true,
     "timelineRank": 2,
     "timelineNote": "A perfect confusion node: widely remembered from 2010, but searched alongside the official-song conversation.",
-    "lastChecked": "2026-06-29"
+    "lastChecked": "2026-07-03"
   },
   {
     "slug": "the-cup-of-life",
@@ -700,9 +788,11 @@
     "youtubeId": "dZDj2CnG5dE",
     "watchLabel": "Official music video",
     "watchUrl": "https://www.youtube.com/watch?v=dZDj2CnG5dE",
-    "story": "The Cup of Life is a useful older anchor because many users search by performer first, then discover the 1998 tournament connection and the Spanish title La Copa de la Vida.",
+    "story": "The Cup of Life is a useful older anchor because many users search by performer first, then discover the 1998 tournament connection and the Spanish title La Copa de la Vida. The detail page should act like a bridge between pre-streaming World Cup memory and modern platform search.",
     "facts": [
       "Good internal links: 1998, France, Ricky Martin, La Copa de la Vida.",
+      "Keep both English and Spanish titles visible because users search both names.",
+      "The song is especially useful for artist-led discovery: people often remember Ricky Martin before they remember France 1998.",
       "The page should help users distinguish the English title from the Spanish title without copying lyrics."
     ],
     "people": [
@@ -715,7 +805,7 @@
     "timelineFeatured": true,
     "timelineRank": 1,
     "timelineNote": "A late-90s pop milestone that still connects Ricky Martin searches back to France 1998.",
-    "lastChecked": "2026-06-29"
+    "lastChecked": "2026-07-03"
   },
   {
     "slug": "we-are-one-ole-ola",
@@ -809,7 +899,13 @@
     "youtubeId": "vyDjFVZgJoo",
     "watchLabel": "Official soundtrack video",
     "watchUrl": "https://www.youtube.com/watch?v=vyDjFVZgJoo",
-    "lastChecked": "2026-06-29"
+    "story": "Hayya Hayya is a good starting point for explaining Qatar 2022's multi-song soundtrack strategy: it is official, but it sits beside other soundtrack singles rather than owning the whole tournament music story by itself.",
+    "facts": [
+      "Best paired with Arhbo and Light The Sky because FIFA referenced all three around the closing ceremony.",
+      "Useful for explaining that recent tournaments can have multiple official soundtrack releases.",
+      "The page should avoid calling it the only Qatar 2022 song."
+    ],
+    "lastChecked": "2026-07-03"
   },
   {
     "slug": "dreamers",
@@ -855,6 +951,12 @@
     "youtubeId": "AbNE7KMmK_M",
     "watchLabel": "Official soundtrack video",
     "watchUrl": "https://www.youtube.com/watch?v=AbNE7KMmK_M",
+    "story": "Arhbo's page is strongest when it is treated as part of the Qatar 2022 soundtrack cluster. FIFA listed it in the closing ceremony music lineup, which makes it more than a loose World Cup-adjacent pop song.",
+    "facts": [
+      "FIFA's closing ceremony article places Arhbo alongside Hayya Hayya and Light The Sky.",
+      "The multilingual artist lineup makes it useful for Spanish, French, and Arabic search paths.",
+      "It should be described as an official soundtrack single, not as the only Qatar 2022 official song."
+    ],
     "timelineFeatured": true,
     "timelineRank": 3,
     "timelineNote": "A 2022 official soundtrack single that helps explain the multi-song Qatar cycle.",
@@ -883,6 +985,12 @@
         "url": "https://www.fifa.com/en/articles/fifa-world-cup-qatar-2022-tm-official-soundtrack-release-all-female-line-up",
         "note": "Useful for confirming the Official Soundtrack release context."
       }
+    ],
+    "story": "Light The Sky adds a different story angle to the Qatar 2022 set: FIFA highlighted the full female lineup for the official soundtrack, and later referenced the song again in the closing ceremony music roundup.",
+    "facts": [
+      "This is a useful page for readers searching by artist lineup rather than by song title.",
+      "The page should preserve the Official Soundtrack wording and avoid copying lyrics.",
+      "It belongs with Hayya Hayya and Arhbo in the Qatar 2022 soundtrack cluster."
     ],
     "timelineFeatured": true,
     "timelineRank": 4,
@@ -923,6 +1031,38 @@
     "searchAngles": ["Tukoh Taka World Cup", "Nicki Minaj Maluma World Cup song", "FIFA Fan Festival anthem"],
     "sourceLabel": "FIFA Fan Festival page",
     "sourceUrl": "https://inside.fifa.com/tournament-organisation/fifa-fan-festival/fifa-fan-fest-fifa-world-cup",
+    "metrics": [
+      {
+        "label": "US iTunes release week",
+        "value": "#1",
+        "note": "FIFA says Tukoh Taka debuted as the number 1 iTunes song in the US.",
+        "sourceLabel": "FIFA Fan Festival page",
+        "sourceUrl": "https://inside.fifa.com/tournament-organisation/fifa-fan-festival/fifa-fan-fest-fifa-world-cup",
+        "checked": "2026-07-03"
+      },
+      {
+        "label": "YouTube global videos",
+        "value": "#1",
+        "note": "FIFA says the song also hit number 1 on YouTube's global top music videos list in release week.",
+        "sourceLabel": "FIFA Fan Festival page",
+        "sourceUrl": "https://inside.fifa.com/tournament-organisation/fifa-fan-festival/fifa-fan-fest-fifa-world-cup",
+        "checked": "2026-07-03"
+      },
+      {
+        "label": "Doha Fan Festival",
+        "value": "1.85M visitors",
+        "note": "FIFA's Qatar 2022 one-month recap reported 1.85 million visitors at the FIFA Fan Festival in Doha.",
+        "sourceLabel": "FIFA Qatar 2022 recap",
+        "sourceUrl": "https://inside.fifa.com/news/one-month-on-5-billion-engaged-with-the-fifa-world-cup-qatar-2022-tm",
+        "checked": "2026-07-03"
+      }
+    ],
+    "story": "Tukoh Taka is useful because the precise label is the story: it was not the main World Cup song, but FIFA calls it the first-ever official anthem of the FIFA Fan Festival, tying it to the live fan experience around Qatar 2022.",
+    "facts": [
+      "FIFA labels Tukoh Taka as the first-ever official anthem of the FIFA Fan Festival.",
+      "The song belongs in Qatar 2022 music history because the Fan Festival was a central official fan experience, not just a side party.",
+      "The page should keep the Fan Festival label visible so readers do not confuse it with the tournament's main official soundtrack singles."
+    ],
     "timelineFeatured": true,
     "timelineRank": 5,
     "timelineNote": "A Fan Festival anthem node that explains a common official-label distinction from Qatar 2022.",

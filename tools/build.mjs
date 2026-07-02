@@ -90,8 +90,9 @@ function generateSongPages() {
             </section>
             <section class="detail-grid">
               <article class="detail-main">
-                ${songReferencesSection(song)}
+                ${songUsageSection(song)}
                 ${songStorySection(song)}
+                ${songReferencesSection(song)}
                 ${songExplainer(song)}
                 ${watchSection(song)}
                 ${songFaqSection(song)}
@@ -1408,6 +1409,100 @@ function sourceTrail(song) {
       .map((link) => `<a href="${escapeHtml(link.url)}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>`)
       .join("")}
   </div>`;
+}
+
+function songUsageSection(song) {
+  const items = usageSnapshotItems(song);
+  const metrics = Array.isArray(song.metrics) ? song.metrics.filter((metric) => metric?.label && metric?.value) : [];
+  return `<section class="usage-section" aria-labelledby="usage-title-${escapeHtml(song.slug)}">
+    <div class="usage-heading">
+      <p class="kicker">Usage snapshot</p>
+      <h2 id="usage-title-${escapeHtml(song.slug)}">How this song is used in the atlas</h2>
+      <p>This section separates stable context from fast-changing music data. Numbers appear only when a cited source gives a clear snapshot.</p>
+    </div>
+    <div class="usage-grid">
+      ${items.map((item) => usageCard(item)).join("")}
+    </div>
+    ${metrics.length ? metricGrid(metrics) : ""}
+  </section>`;
+}
+
+function usageSnapshotItems(song) {
+  return [
+    {
+      label: "Tournament role",
+      value: song.status,
+      text: tournamentRoleNote(song),
+    },
+    {
+      label: "Best search match",
+      value: song.searchAngles?.[0] || `${song.title} World Cup song`,
+      text: "The page title, FAQ, and related links are written to answer this query quickly.",
+    },
+    {
+      label: "Browse paths",
+      value: `${song.year} · ${song.country} · ${song.type}`,
+      text: `Readers can reach this page through the ${song.year} year collection, the ${song.country} country collection, artist pages, and related songs.`,
+    },
+    {
+      label: "Freshness",
+      value: song.year === "2026" ? "Live-cycle page" : "Evergreen archive",
+      text: freshnessNote(song),
+    },
+  ];
+}
+
+function usageCard(item) {
+  return `<article class="usage-card">
+    <span>${escapeHtml(item.label)}</span>
+    <strong>${escapeHtml(item.value)}</strong>
+    <p>${escapeHtml(item.text)}</p>
+  </article>`;
+}
+
+function metricGrid(metrics) {
+  return `<div class="metric-grid" aria-label="Source-backed data snapshots">
+    ${metrics.map((metric) => metricCard(metric)).join("")}
+  </div>`;
+}
+
+function metricCard(metric) {
+  const source = metric.sourceUrl
+    ? `<a href="${escapeHtml(metric.sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(metric.sourceLabel || "Source")}</a>`
+    : "";
+  const checked = metric.checked ? `<small>Checked ${escapeHtml(metric.checked)}</small>` : "";
+  return `<article class="metric-card">
+    <span>${escapeHtml(metric.label)}</span>
+    <strong>${escapeHtml(metric.value)}</strong>
+    <p>${escapeHtml(metric.note || "A source-backed snapshot, not a live counter.")}</p>
+    <div class="metric-source">
+      ${source}
+      ${checked}
+    </div>
+  </article>`;
+}
+
+function tournamentRoleNote(song) {
+  if (song.type === "fan") {
+    return "This is included for supporter culture and search demand, not because it is a FIFA official song.";
+  }
+  if (song.status.toLowerCase().includes("album")) {
+    return "This is part of a broader tournament music program, so it should not be confused with the main official song.";
+  }
+  if (song.status.toLowerCase().includes("anthem")) {
+    return "This is useful for readers comparing anthem, official song, soundtrack single, and fan anthem labels.";
+  }
+  return "The source wording is kept visible so the page does not overstate or flatten the song's role.";
+}
+
+function freshnessNote(song) {
+  if (song.year === "2026") {
+    return "Refresh this page when FIFA, artists, streaming platforms, or official videos add new context.";
+  }
+  if (song.type === "fan") {
+    return "Fan anthem pages can change when supporter culture revives the song in a new tournament cycle.";
+  }
+  return "Older entries should stay stable, with updates focused on better sources, official videos, and safe listening links.";
 }
 
 function songReferencesSection(song) {
