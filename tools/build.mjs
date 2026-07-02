@@ -208,6 +208,7 @@ function generateArtistPages() {
 function generateCountryPages() {
   for (const [countrySlug, countrySongs] of byCountry.entries()) {
     const country = countrySongs[0].country;
+    const sortedCountrySongs = sortedSongs(countrySongs);
     writePage(
       ["countries", countrySlug],
       layout({
@@ -219,7 +220,7 @@ function generateCountryPages() {
           title: `${country} World Cup music`,
           description: `Official songs, soundtrack entries, and useful music-history pages connected to ${country}.`,
           path: `/countries/${countrySlug}/`,
-          items: countrySongs,
+          items: sortedCountrySongs,
         }),
         body: `
           <main class="article-page">
@@ -229,7 +230,7 @@ function generateCountryPages() {
               <h1>${escapeHtml(country)} World Cup music</h1>
               <p>Official songs, soundtrack entries, and useful music-history pages connected to ${escapeHtml(country)}.</p>
             </section>
-            ${collectionGrid(countrySongs, "../../")}
+            ${collectionGrid(sortedCountrySongs, "../../")}
           </main>
         `,
       })
@@ -239,6 +240,7 @@ function generateCountryPages() {
 
 function generateYearPages() {
   for (const [year, yearSongs] of byYear.entries()) {
+    const sortedYearSongs = sortedSongs(yearSongs);
     writePage(
       ["years", year],
       layout({
@@ -250,7 +252,7 @@ function generateYearPages() {
           title: `${year} World Cup songs`,
           description: `A compact music guide for the ${year} tournament cycle.`,
           path: `/years/${year}/`,
-          items: yearSongs,
+          items: sortedYearSongs,
         }),
         body: `
           <main class="article-page">
@@ -260,7 +262,7 @@ function generateYearPages() {
               <h1>${escapeHtml(year)} World Cup songs</h1>
               <p>A compact music guide for the ${escapeHtml(year)} tournament cycle.</p>
             </section>
-            ${collectionGrid(yearSongs, "../../")}
+            ${collectionGrid(sortedYearSongs, "../../")}
           </main>
         `,
       })
@@ -1873,8 +1875,20 @@ function sortedSongs(items) {
     const typeRank = { official: 0, classic: 1, fan: 2 };
     const typeDelta = (typeRank[left.type] ?? 9) - (typeRank[right.type] ?? 9);
     if (typeDelta !== 0) return typeDelta;
+    const statusDelta = statusRank(left.status) - statusRank(right.status);
+    if (statusDelta !== 0) return statusDelta;
     return left.title.localeCompare(right.title);
   });
+}
+
+function statusRank(status) {
+  const lower = String(status).toLowerCase();
+  if (lower === "official 2026" || lower === "official song") return 0;
+  if (lower.includes("fan festival")) return 3;
+  if (lower.includes("official anthem")) return 1;
+  if (lower.includes("official soundtrack") || lower.includes("official album")) return 2;
+  if (lower.includes("opening ceremony")) return 3;
+  return 4;
 }
 
 function adBox() {
@@ -1922,7 +1936,11 @@ function commentSection({ key, kicker, title, placeholder }) {
 function writePage(segments, html) {
   const dir = path.join(root, ...segments);
   fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, "index.html"), html);
+  fs.writeFileSync(path.join(dir, "index.html"), stripTrailingWhitespace(html));
+}
+
+function stripTrailingWhitespace(value) {
+  return String(value).replace(/[ \t]+$/gm, "");
 }
 
 function readJsonIfExists(filePath, fallback) {
