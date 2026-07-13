@@ -1,0 +1,57 @@
+name: Weekly content discovery
+
+on:
+  schedule:
+    - cron: "17 9 * * 1"
+      timezone: "Asia/Shanghai"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: world-cup-weekly-content-discovery
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    name: Discover review candidates
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify the site and discovery rules
+        run: |
+          npm test
+          npm run check
+
+      - name: Discover weekly candidates
+        run: npm run update:weekly
+
+      - name: Add the review report to the run summary
+        run: |
+          {
+            echo "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            echo
+            cat .updates/weekly-report.md
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload candidate review artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: world-cup-weekly-candidates-${{ github.run_id }}
+          path: |
+            .updates/weekly-candidates.json
+            .updates/weekly-report.md
+          if-no-files-found: error
+          retention-days: 30
