@@ -25,7 +25,9 @@ Keeping editorial records in Git makes every weekly change reviewable, reversibl
 
 ## Weekly Discovery Workflow
 
-Run the discovery pass manually once a week:
+GitHub Actions runs the discovery pass every Monday at 09:17 in
+`Asia/Shanghai`. It can also be started manually from the Actions tab. To run
+the same pass locally:
 
 ```bash
 npm run update:weekly
@@ -35,6 +37,10 @@ The command reads approved sources from `data/update-sources.json` and writes lo
 
 - `.updates/weekly-candidates.json` contains structured candidate records and provenance.
 - `.updates/weekly-report.md` is the human review list.
+
+The scheduled run uploads both files as a 30-day Actions artifact and copies
+the Markdown report into the run summary. It has read-only repository
+permission and does not commit, deploy, or edit canonical content.
 
 The discovery script never edits `data/songs.json` and never republishes third-party descriptions. For each candidate:
 
