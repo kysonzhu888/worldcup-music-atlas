@@ -1,7 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  currentCycleSection,
+  songCurrentUpdateSection,
+  yearIntroduction,
+} from "./current-cycle.mjs";
 import { absolutizeInternalUrls } from "./internal-url.mjs";
+import { notFoundPage } from "./not-found-page.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -277,41 +283,6 @@ function generateYearPages() {
   }
 }
 
-function yearIntroduction(year) {
-  if (year === "2026") {
-    return "The official song, official anthem, album tracks, and fan moments for the live 2026 tournament cycle, with source checks separated from speculation.";
-  }
-  return `A compact music guide for the ${year} tournament cycle.`;
-}
-
-function currentCycleSection(year, yearSongs) {
-  if (year !== "2026") return "";
-  const updates = yearSongs.filter((song) => song.currentUpdate).slice(0, 3);
-  if (!updates.length) return "";
-
-  return `<section class="usage-section current-cycle-section" aria-labelledby="current-cycle-title">
-    <div class="usage-heading">
-      <p class="kicker">Checked 13 July 2026</p>
-      <h2 id="current-cycle-title">Final week: three music roles to track</h2>
-      <p>The tournament final is scheduled for 19 July. These notes keep FIFA's official song, official anthem, and album-track labels separate as the final week begins.</p>
-      <a class="text-link" href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums" target="_blank" rel="noreferrer noopener">Check the official FIFA match schedule</a>
-    </div>
-    <div class="usage-grid">
-      ${updates.map((song) => currentUpdateCard(song)).join("")}
-    </div>
-  </section>`;
-}
-
-function currentUpdateCard(song) {
-  const update = song.currentUpdate;
-  return `<article class="usage-card">
-    <span>${escapeHtml(song.status)}</span>
-    <strong>${escapeHtml(song.title)}</strong>
-    <p>${escapeHtml(update.body)}</p>
-    <a class="text-link" href="${escapeHtml(update.sourceUrl)}" target="_blank" rel="noreferrer noopener">${escapeHtml(update.sourceLabel)}</a>
-  </article>`;
-}
-
 function generateTimelinePage() {
   const timelineSongs = timelineItems();
   const timelineYears = new Set(timelineSongs.map((song) => song.year));
@@ -506,31 +477,10 @@ function generateAdsTxt() {
 }
 
 function generateNotFoundPage() {
-  const html = `<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
-    <title>Page not found | ${escapeHtml(site.name)}</title>
-    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="/styles.css">
-  </head>
-  <body>
-    <main class="article-page utility-page">
-      <section class="detail-hero">
-        <p class="kicker">404</p>
-        <h1>That page is not in the atlas</h1>
-        <p>The address may be incomplete or may combine sections that do not belong together.</p>
-        <div class="hero-actions">
-          <a class="button primary" href="/">Return home</a>
-          <a class="button secondary" href="/years/2026/">Browse 2026 music</a>
-        </div>
-      </section>
-    </main>
-  </body>
-</html>`;
-  fs.writeFileSync(path.join(root, "404.html"), stripTrailingWhitespace(html));
+  fs.writeFileSync(
+    path.join(root, "404.html"),
+    stripTrailingWhitespace(notFoundPage(site.name))
+  );
 }
 
 function updateHomeIntegrations() {
@@ -1500,31 +1450,6 @@ function songUsageSection(song) {
     </div>
     ${metrics.length ? metricGrid(metrics) : ""}
   </section>`;
-}
-
-function songCurrentUpdateSection(song) {
-  const update = song.currentUpdate;
-  if (!update) return "";
-
-  return `<section class="usage-section current-song-update" aria-labelledby="current-update-${escapeHtml(song.slug)}">
-    <div class="usage-heading">
-      <p class="kicker">${escapeHtml(update.label)}</p>
-      <h2 id="current-update-${escapeHtml(song.slug)}">Where ${escapeHtml(song.title)} stands now</h2>
-      <p>${escapeHtml(update.body)}</p>
-      <a class="text-link" href="${escapeHtml(update.sourceUrl)}" target="_blank" rel="noreferrer noopener">${escapeHtml(update.sourceLabel)}</a>
-      <small>Checked ${escapeHtml(formatCheckedDate(update.checked))}</small>
-    </div>
-  </section>`;
-}
-
-function formatCheckedDate(value) {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value || "")) return value || "";
-  const [year, month, day] = value.split("-");
-  const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December",
-  ];
-  return `${Number(day)} ${monthNames[Number(month) - 1]} ${year}`;
 }
 
 function usageSnapshotItems(song) {
