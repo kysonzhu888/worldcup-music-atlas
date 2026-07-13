@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "shakira",
+    "name": "Shakira",
+    "kind": "Artist",
+    "summary": "Shakira is one of the clearest multi-tournament links in this atlas. Her entries connect the 2010 South Africa cycle, where Waka Waka became a defining official-song memory, with the 2026 cycle through Dai Dai, a new official song credited jointly with Burna Boy.",
+    "worldCupContext": "The sixteen-year gap between the two indexed releases makes this profile useful for comparing how World Cup music changed. Waka Waka sits in the era of one globally dominant tournament song and a highly recognisable video. Dai Dai arrives in a broader official-album program, where one headline song is surrounded by many cross-market collaborations. The two entries should therefore be compared as products of different release strategies, not treated as interchangeable versions of the same role.",
+    "background": "This page stays focused on the documented tournament connection rather than reproducing a general celebrity biography. FIFA's 2026 release confirms the status and artist credit for Dai Dai, while FIFA's retrospective playlist places Waka Waka in the organisation's World Cup anthem history. The linked Wikidata record is used only to disambiguate the artist identity. Song-level pages contain the detailed release notes and listening links.",
+    "facts": [
+      "The atlas currently connects Shakira to the 2010 and 2026 tournament cycles.",
+      "Waka Waka is indexed as a classic official song; Dai Dai is indexed as an official song.",
+      "Both entries are collaborations, with Freshlyground in 2010 and Burna Boy in 2026.",
+      "The profile separates verified organiser labels from fan memory and present-day social discussion."
+    ],
+    "sources": [
+      {
+        "kind": "Official",
+        "label": "FIFA: Dai Dai official song release",
+        "url": "https://inside.fifa.com/media-releases/shakira-burna-boy-dai-dai-official-world-cup-2026",
+        "note": "Confirms the 2026 title, performers, and official-song label."
+      },
+      {
+        "kind": "Official retrospective",
+        "label": "FIFA: World Cup anthems playlist",
+        "url": "https://www.fifa.com/en/articles/listen-to-the-fifa-world-cup-anthems-spotify-playlist-music-qatar-2022",
+        "note": "Places Waka Waka in FIFA's retrospective World Cup music selection."
+      },
+      {
+        "kind": "Reference data",
+        "label": "Wikidata: Shakira",
+        "url": "https://www.wikidata.org/wiki/Q34424",
+        "note": "Used to disambiguate the artist identity."
+      }
+    ],
+    "contentUpdatedAt": "2026-07-13",
+    "lastCheckedAt": "2026-07-13"
+  },
+  {
+    "slug": "burna-boy",
+    "name": "Burna Boy",
+    "kind": "Artist",
+    "summary": "Burna Boy enters the atlas through Dai Dai, the official FIFA World Cup 2026 song performed with Shakira. The profile is deliberately narrow: it documents the tournament credit, its place in the 2026 music program, and the sources needed to distinguish confirmed status from promotional or fan language.",
+    "worldCupContext": "Dai Dai gives Burna Boy a headline role in the 2026 collection rather than a background association inferred from social media. FIFA's own release supplies the official-song label and joint artist credit. That matters because the same tournament also has an official album with many tracks and several different labels. Readers should use the song page to compare Dai Dai with album tracks and anthems instead of assuming every 2026 release has the same status.",
+    "background": "This is a World Cup music profile, not a complete career biography. It records only the identity and tournament relationship needed to navigate the atlas. The FIFA announcement is the primary evidence for the music claim; the Wikidata entity helps keep the artist record distinct and machine-readable. Future updates can add another cycle only after a similarly authoritative release or organiser source is available.",
+    "facts": [
+      "The atlas currently has one Burna Boy entry, from the 2026 tournament cycle.",
+      "Dai Dai is credited to Shakira and Burna Boy and is indexed as the official song.",
+      "The page does not treat other 2026 official-album tracks as equivalent to the headline official song.",
+      "The tournament relationship is based on FIFA's release, not on scraped social posts."
+    ],
+    "sources": [
+      {
+        "kind": "Official",
+        "label": "FIFA: Dai Dai official song release",
+        "url": "https://inside.fifa.com/media-releases/shakira-burna-boy-dai-dai-official-world-cup-2026",
+        "note": "Primary evidence for the title, credit, and official-song status."
+      },
+      {
+        "kind": "Reference data",
+        "label": "Wikidata: Burna Boy",
+        "url": "https://www.wikidata.org/wiki/Q17305712",
+        "note": "Used to disambiguate the artist identity."
+      }
+    ],
+    "contentUpdatedAt": "2026-07-13",
+    "lastCheckedAt": "2026-07-13"
+  },
+  {
+    "slug": "davido",
+    "name": "Davido",
+    "kind": "Artist",
+    "summary": "Davido connects two consecutive World Cup cycles in the atlas. He is credited on Hayya Hayya (Better Together), the first single from Qatar 2022's multi-song official soundtrack, and on No Place Like Home, an official-album track in the 2026 collection.",
+    "worldCupContext": "These two credits show why precise release labels matter. Hayya Hayya introduced FIFA's 2022 soundtrack program and was presented around the final draw. No Place Like Home belongs to the larger 2026 official album rather than being labelled the tournament's main official song. Keeping those categories separate helps readers understand the artist's recurring World Cup connection without exaggerating the status of either track.",
+    "background": "The profile is built from organiser announcements and the entries already maintained in the atlas. FIFA's 2022 release explicitly names Trinidad Cardona, Davido, and Aisha, while the 2026 album announcement provides the later program context. Wikidata is included as an identity reference. General chart history, unrelated releases, and social-media claims are outside this page's scope unless they directly clarify a documented World Cup music connection.",
+    "facts": [
+      "The atlas currently connects Davido to the 2022 and 2026 tournament cycles.",
+      "Hayya Hayya is indexed as an official soundtrack single, not as the only official song of 2022.",
+      "No Place Like Home is indexed as a 2026 official-album track.",
+      "Both entries are collaborations with artists from multiple music markets."
+    ],
+    "sources": [
+      {
+        "kind": "Official",
+        "label": "FIFA: Hayya Hayya soundtrack launch",
+        "url": "https://inside.fifa.com/tournaments/mens/worldcup/qatar2022/media-releases/trinidad-cardona-joins-davido-and-aisha-for-hayya-hayya-better-together-the",
+        "note": "Confirms the 2022 soundtrack role and artist credit."
+      },
+      {
+        "kind": "Official",
+        "label": "FIFA: 2026 official album announcement",
+        "url": "https://inside.fifa.com/organisation/media-releases/unveils-official-album-biggest-world-cup-2026-history",
+        "note": "Provides the official-album context for the later entry."
+      },
+      {
+        "kind": "Reference data",
+        "label": "Wikidata: Davido",
+        "url": "https://www.wikidata.org/wiki/Q16234484",
+        "note": "Used to disambiguate the artist identity."
+      }
+    ],
+    "contentUpdatedAt": "2026-07-13",
+    "lastCheckedAt": "2026-07-13"
+  },
+  {
+    "slug": "nora-fatehi",
+    "name": "Nora Fatehi",
+    "kind": "Artist",
+    "summary": "Nora Fatehi appears in two atlas entries across consecutive tournament cycles: Light The Sky from the Qatar 2022 official soundtrack and Siir Siir from the 2026 official album. Together they form a compact example of FIFA's shift toward larger, multi-artist music programs.",
+    "worldCupContext": "Light The Sky was released with an all-female lineup and sits within the multi-song 2022 soundtrack. Siir Siir is catalogued as a 2026 official-album track with Vegedream and Sanjoy. Neither entry should be casually promoted as the single definitive tournament song. Their value here is the continuity of the artist credit across two different official collections and the contrast between the soundtrack and album labels.",
+    "background": "The profile limits itself to the two connections supported by FIFA material and the current atlas records. The organiser releases establish the program labels; Wikidata provides an identity reference. It does not copy social biographies or treat hashtags as evidence. A future weekly review can update the profile when FIFA changes track metadata or when a new authoritative source clarifies the live-performance history.",
+    "facts": [
+      "The atlas currently connects Nora Fatehi to the 2022 and 2026 tournament cycles.",
+      "Light The Sky is indexed as an official soundtrack single with an all-female lineup.",
+      "Siir Siir is indexed as an official-album track credited with Vegedream and Sanjoy.",
+      "The two entries use different organiser labels and are presented separately."
+    ],
+    "sources": [
+      {
+        "kind": "Official",
+        "label": "FIFA: Light The Sky release",
+        "url": "https://www.fifa.com/en/articles/fifa-world-cup-qatar-2022-tm-official-soundtrack-release-all-female-line-up",
+        "note": "Confirms the 2022 official-soundtrack context and performers."
+      },
+      {
+        "kind": "Official",
+        "label": "FIFA: 2026 official album announcement",
+        "url": "https://inside.fifa.com/organisation/media-releases/unveils-official-album-biggest-world-cup-2026-history",
+        "note": "Provides the official-album context for the 2026 entry."
+      },
+      {
+        "kind": "Reference data",
+        "label": "Wikidata: Nora Fatehi",
+        "url": "https://www.wikidata.org/wiki/Q18720168",
+        "note": "Used to disambiguate the artist identity."
+      }
+    ],
+    "contentUpdatedAt": "2026-07-13",
+    "lastCheckedAt": "2026-07-13"
+  },
+  {
+    "slug": "ricky-martin",
+    "name": "Ricky Martin",
+    "kind": "Artist",
+    "summary": "Ricky Martin's atlas entry centres on The Cup of Life from the 1998 tournament cycle. It is one of the site's historical reference points for the era when a single multilingual pop release could become the most recognisable musical shorthand for an entire World Cup.",
+    "worldCupContext": "The page treats The Cup of Life as a classic official song and links it to the France 1998 cycle. FIFA's later anthem playlist includes the track under its Spanish title, La Copa de la Vida, with the English title alongside it. That title variation is also a useful maintenance lesson: weekly discovery tools may surface both versions, so a human reviewer must merge aliases rather than publishing a duplicate page.",
+    "background": "This profile is intentionally tournament-specific. FIFA's retrospective selection supports the music connection, and Wikidata identifies the performer. The atlas writes its own context and sends readers to licensed listening destinations; it does not reproduce lyrics or a full biography. Historical details beyond the song's World Cup role remain candidates until they are supported by primary archives or reputable contemporaneous reporting.",
+    "facts": [
+      "The atlas currently has one Ricky Martin entry, tied to the 1998 tournament cycle.",
+      "The Cup of Life also appears in sources under the Spanish title La Copa de la Vida.",
+      "The entry is indexed as a classic official song.",
+      "Alias review prevents the Spanish and English titles from becoming duplicate pages."
+    ],
+    "sources": [
+      {
+        "kind": "Official retrospective",
+        "label": "FIFA: World Cup anthems playlist",
+        "url": "https://www.fifa.com/en/articles/listen-to-the-fifa-world-cup-anthems-spotify-playlist-music-qatar-2022",
+        "note": "Lists La Copa de la Vida (The Cup of Life) for 1998."
+      },
+      {
+        "kind": "Reference data",
+        "label": "Wikidata: Ricky Martin",
+        "url": "https://www.wikidata.org/wiki/Q128799",
+        "note": "Used to disambiguate the artist identity."
+      }
+    ],
+    "contentUpdatedAt": "2026-07-13",
+    "lastCheckedAt": "2026-07-13"
+  },
+  {
+    "slug": "pitbull",
+    "name": "Pitbull",
+    "kind": "Artist",
+    "summary": "Pitbull's World Cup entry in the atlas is We Are One (Ole Ola), the official song associated with Brazil 2014 and performed with Jennifer Lopez and Claudia Leitte. The collaboration anchors his profile in a specific organiser-labelled release rather than in general football-themed music.",
+    "worldCupContext": "FIFA's retrospective anthem playlist includes We Are One, and a later FIFA release again describes it as the official song of the 2014 tournament. Those sources help separate the track from unofficial fan favourites and from Pitbull's later FIFA Club World Cup work. The atlas currently indexes only the men's World Cup entry, while keeping the later reference as supporting context rather than creating an unrelated page.",
+    "background": "This page is a focused navigation record. It documents the 2014 credit, the collaborating performers, and the status language used by FIFA. Wikidata is linked to identify the artist, not as a substitute for the organiser's music evidence. Listening and release details remain on the song page, where they can be checked without copying lyrics, videos, or platform descriptions.",
+    "facts": [
+      "The atlas currently has one Pitbull entry, tied to the 2014 tournament cycle.",
+      "We Are One is credited with Jennifer Lopez and Claudia Leitte.",
+      "FIFA material describes the track as the official song of Brazil 2014.",
+      "Later Club World Cup work is supporting context and is not counted as another men's World Cup entry."
+    ],
+    "sources": [
+      {
+        "kind": "Official retrospective",
+        "label": "FIFA: World Cup anthems playlist",
+        "url": "https://www.fifa.com/en/articles/listen-to-the-fifa-world-cup-anthems-spotify-playlist-music-qatar-2022",
+        "note": "Includes We Are One in FIFA's tournament music selection."
+      },
+      {
+        "kind": "Official",
+        "label": "FIFA: Pitbull and RedOne official song release",
+        "url": "https://www.fifa.com/en/articles/pitbull-redone-official-song-we-will-rock-you",
+        "note": "Retrospectively identifies We Are One as the 2014 official song."
+      },
+      {
+        "kind": "Reference data",
+        "label": "Wikidata: Pitbull",
+        "url": "https://www.wikidata.org/wiki/Q187844",
+        "note": "Used to disambiguate the artist identity."
+      }
+    ],
+    "contentUpdatedAt": "2026-07-13",
+    "lastCheckedAt": "2026-07-13"
+  },
+  {
+    "slug": "k-naan",
+    "name": "K'naan",
+    "kind": "Artist",
+    "summary": "K'naan's atlas profile is built around Wavin' Flag, a 2010 campaign song that became inseparable from many fans' World Cup memories. Its inclusion also illustrates an important editorial distinction: cultural recognition does not automatically make a track FIFA's main official tournament song.",
+    "worldCupContext": "Coca-Cola's campaign release is the primary evidence for the celebration-mix role, while FIFA's retrospective playlist shows how firmly the track entered World Cup music memory. The atlas therefore labels Wavin' Flag as a campaign song and avoids collapsing it into Waka Waka's official-song category. That difference is useful for readers comparing what organisers released with what sponsors and supporters popularised.",
+    "background": "The page records the artist identity, the campaign relationship, and the 2010 cycle. It does not use social popularity as proof of official status. The Coca-Cola announcement and FIFA retrospective provide complementary evidence, while Wikidata helps disambiguate the artist. Any future claims about charts, regional versions, or performances should be added only with a dated source and a new content-update timestamp.",
+    "facts": [
+      "The atlas currently has one K'naan entry, tied to the 2010 tournament cycle.",
+      "Wavin' Flag is indexed as a campaign song rather than the main official tournament song.",
+      "The distinction preserves both the sponsor campaign history and the track's fan recognition.",
+      "The profile uses organiser and sponsor sources instead of social-post scraping."
+    ],
+    "sources": [
+      {
+        "kind": "Campaign primary source",
+        "label": "Coca-Cola: Wavin' Flag campaign announcement",
+        "url": "https://investors.coca-colacompany.com/news-events/press-releases/detail/23/coca-cola-scores-global-hit-with-campaign-anthem-by-knaan-for-fifa-world-cup-sponsorship",
+        "note": "Supports the campaign-song label and sponsorship context."
+      },
+      {
+        "kind": "Official retrospective",
+        "label": "FIFA: World Cup anthems playlist",
+        "url": "https://www.fifa.com/en/articles/listen-to-the-fifa-world-cup-anthems-spotify-playlist-music-qatar-2022",
+        "note": "Shows the song in FIFA's later World Cup music selection."
+      },
+      {
+        "kind": "Reference data",
+        "label": "Wikidata: K'naan",
+        "url": "https://www.wikidata.org/wiki/Q297693",
+        "note": "Used to disambiguate the artist identity."
+      }
+    ],
+    "contentUpdatedAt": "2026-07-13",
+    "lastCheckedAt": "2026-07-13"
+  },
+  {
+    "slug": "jung-kook",
+    "name": "Jung Kook",
+    "kind": "Artist",
+    "summary": "Jung Kook appears through Dreamers, a Qatar 2022 official-soundtrack release connected directly to the tournament's opening. The atlas pairs the recording with Fahad Al Kubaisi's ceremony credit and keeps the page centred on that documented World Cup moment.",
+    "worldCupContext": "FIFA released Dreamers at the start of the tournament and announced that Jung Kook would perform it with Qatari singer Fahad Al Kubaisi during the opening ceremony. That makes the entry both a soundtrack release and a ceremony moment. The profile retains the more specific opening-ceremony label used in the atlas while linking to FIFA's broader soundtrack explanation for readers comparing it with the other 2022 singles.",
+    "background": "This profile does not attempt to summarise BTS or Jung Kook's wider career. It uses FIFA's release as the primary record for the song, date, collaborators, and ceremony relationship. Wikidata is an identity reference. The song page carries listening links and fuller tournament context, while this page provides a stable artist route that can receive a dated update if another verified World Cup credit appears.",
+    "facts": [
+      "The atlas currently has one Jung Kook entry, tied to the 2022 tournament cycle.",
+      "Dreamers is indexed as an opening-ceremony song within the official soundtrack program.",
+      "Fahad Al Kubaisi shares the documented performance and recording connection.",
+      "The profile separates the 2022 World Cup role from the artist's broader catalogue."
+    ],
+    "sources": [
+      {
+        "kind": "Official",
+        "label": "FIFA: Dreamers release and opening ceremony",
+        "url": "https://www.fifa.com/en/articles/bts-jung-kooks-dreamers-unveiled-to-celebrate-the-start-of-fifa-world-cup-2022",
+        "note": "Confirms the soundtrack release and planned opening-ceremony performance."
+      },
+      {
+        "kind": "Reference data",
+        "label": "Wikidata: Jung Kook",
+        "url": "https://www.wikidata.org/wiki/Q22338877",
+        "note": "Used to disambiguate the artist identity."
+      }
+    ],
+    "contentUpdatedAt": "2026-07-13",
+    "lastCheckedAt": "2026-07-13"
+  }
+]

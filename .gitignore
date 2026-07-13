@@ -5,6 +5,7 @@ node_modules/
 # Local deployment/cache artifacts
 .deploy/
 .wrangler/
+.updates/
 *.zip
 
 # Internal handoff notes stay local. Keep the public README.

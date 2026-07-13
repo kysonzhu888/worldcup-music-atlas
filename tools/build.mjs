@@ -2,11 +2,27 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import {
+  artistNames,
+  artistSlug,
+  buildArtistProfiles,
+  buildCollectionOverview,
+} from "./lib/content-model.mjs";
+import {
+  artistConnectionSummary,
+  artistCreditIndex,
+  artistEditorialSections,
+  artistStatRows,
+  artistSummary,
+  artistWhyHere,
+} from "./lib/artist-content.mjs";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const songs = JSON.parse(fs.readFileSync(path.join(root, "data", "songs.json"), "utf8"));
 const config = JSON.parse(fs.readFileSync(path.join(root, "site.config.json"), "utf8"));
 const mediaLibrary = readJsonIfExists(path.join(root, "data", "media.json"), { artists: {}, songs: {} });
+const artistProfileRecords = readJsonIfExists(path.join(root, "data", "artists.json"), []);
 
 const site = {
   name: config.name,
@@ -23,9 +39,13 @@ const site = {
 
 const byYear = groupBy(songs, (song) => song.year);
 const byCountry = groupBy(songs, (song) => song.countrySlug);
-const artists = buildArtists(songs);
+const artists = buildArtistProfiles(songs, artistProfileRecords);
+const curatedArtists = artists.filter((artist) => artist.isCurated);
 const byArtist = groupByArtist(songs);
-const siteUpdatedAt = latestDate(songs.map((song) => song.lastChecked));
+const siteUpdatedAt = latestDate([
+  ...songs.map(contentUpdatedAt),
+  ...curatedArtists.map((artist) => artist.contentUpdatedAt),
+]);
 
 cleanGenerated();
 generateSongPages();
@@ -117,6 +137,7 @@ function generateSongPages() {
 }
 
 function generateArtistPages() {
+  const indexOnlyArtists = artists.filter((artist) => !artist.isCurated);
   writePage(
     ["artists"],
     layout({
@@ -131,10 +152,21 @@ function generateArtistPages() {
           <section class="detail-hero">
             <p class="kicker">Artists and supporter groups</p>
             <h1>World Cup music artists</h1>
-            <p>Browse the artists, supporter groups, and team contexts connected to official songs, soundtrack entries, classic tracks, and fan anthems.</p>
+            <p>Start with ${curatedArtists.length} researched profiles that include original World Cup context, dated review notes, and at least two cited sources. The full credit index remains available for navigation while its thinner records await editorial review.</p>
           </section>
+          <section class="related-section" aria-labelledby="researched-artists-title">
+            <h2 id="researched-artists-title">Researched artist profiles</h2>
+            <p>These pages are included in the public sitemap because their tournament connection and identity sources have been checked.</p>
           <section class="artist-grid" aria-label="World Cup music artists">
-            ${artists.map((artist) => artistCard(artist, "../")).join("")}
+              ${curatedArtists.map((artist) => artistCard(artist, "../")).join("")}
+          </section>
+          </section>
+          <section class="explainer-stack" aria-labelledby="credit-index-title">
+            <section class="explainer-block">
+              <h2 id="credit-index-title">Full song-credit index</h2>
+              <p>${indexOnlyArtists.length} additional names are linked from song credits. Their pages are marked noindex until an editor adds original context, an update date, and at least two reliable sources.</p>
+              ${artistCreditIndex(indexOnlyArtists, byArtist, "../")}
+            </section>
           </section>
         </main>
       `,
@@ -148,44 +180,28 @@ function generateArtistPages() {
       ["artists", artist.slug],
       layout({
         title: `${artist.name} World Cup Songs and Music Context`,
-        description: `Songs, tournament context, and source-backed notes for ${artist.name} on World Cup Music Atlas.`,
+        description: artist.isCurated
+          ? artist.summary
+          : `Song-credit index for ${artist.name} on World Cup Music Atlas. This record awaits editorial research.`,
         image: artistMedia?.url,
         depth: 2,
         path: `/artists/${artist.slug}/`,
-        schema: artistPageSchema(artist, artistSongs),
+        robots: artist.isCurated ? "index, follow" : "noindex, follow",
+        schema: artist.isCurated ? artistPageSchema(artist, artistSongs) : undefined,
         body: `
           <main class="article-page artist-page">
             ${breadcrumb("Artists")}
             <section class="detail-hero artist-hero">
               ${artistMedia ? mediaFigure(artistMedia, "artist-portrait", `${artist.name} portrait`) : artistAvatar(artist)}
               <div>
-                <p class="kicker">${escapeHtml(artist.kind)}</p>
+                <p class="kicker">${escapeHtml(artist.kind)} · ${artist.isCurated ? "Curated research profile" : "Credit index"}</p>
                 <h1>${escapeHtml(artist.name)}</h1>
-                <p>${escapeHtml(artistSummary(artist, artistSongs))}</p>
+                <p>${escapeHtml(artistSummary(artist, artistSongs, Boolean(artistMedia)))}</p>
               </div>
             </section>
             <section class="detail-grid">
               <article class="detail-main">
-                <section class="explainer-stack" aria-label="${escapeHtml(artist.name)} artist profile">
-                  <section class="explainer-block">
-                    <h2>Why this artist appears here</h2>
-                    <p>${escapeHtml(artistWhyHere(artist, artistSongs))}</p>
-                  </section>
-                  <section class="explainer-block">
-                    <h2>World Cup music connections</h2>
-                    <p>${escapeHtml(artistConnectionSummary(artistSongs))}</p>
-                    ${artistSongLinks(artistSongs)}
-                  </section>
-                  <section class="explainer-block">
-                    <h2>Official and source links</h2>
-                    <p>This profile only links to official or reputable sources. It does not copy profile photos, social posts, lyrics, or biographies from external platforms.</p>
-                    ${artistExternalLinks(artist, artistSongs)}
-                  </section>
-                  <section class="explainer-block">
-                    <h2>Image policy</h2>
-                    <p>${escapeHtml(artistImagePolicy(artist, artistMedia))}</p>
-                  </section>
-                </section>
+                ${artistEditorialSections(artist, artistSongs, artistMedia, artistImagePolicy(artist, artistMedia))}
               </article>
               <aside class="detail-aside">
                 ${artistStatList(artist, artistSongs, artistMedia)}
@@ -210,6 +226,7 @@ function generateCountryPages() {
   for (const [countrySlug, countrySongs] of byCountry.entries()) {
     const country = countrySongs[0].country;
     const sortedCountrySongs = sortedSongs(countrySongs);
+    const overview = buildCollectionOverview({ label: country, kind: "country", items: sortedCountrySongs });
     writePage(
       ["countries", countrySlug],
       layout({
@@ -229,8 +246,9 @@ function generateCountryPages() {
             <section class="detail-hero">
               <p class="kicker">Country collection</p>
               <h1>${escapeHtml(country)} World Cup music</h1>
-              <p>Official songs, soundtrack entries, and useful music-history pages connected to ${escapeHtml(country)}.</p>
+              <p>${escapeHtml(overview.lead)}</p>
             </section>
+            ${collectionOverviewSection(overview, sortedCountrySongs)}
             ${collectionGrid(sortedCountrySongs, "../../")}
           </main>
         `,
@@ -242,6 +260,7 @@ function generateCountryPages() {
 function generateYearPages() {
   for (const [year, yearSongs] of byYear.entries()) {
     const sortedYearSongs = sortedSongs(yearSongs);
+    const overview = buildCollectionOverview({ label: year, kind: "year", items: sortedYearSongs });
     writePage(
       ["years", year],
       layout({
@@ -261,8 +280,9 @@ function generateYearPages() {
             <section class="detail-hero">
               <p class="kicker">Tournament year</p>
               <h1>${escapeHtml(year)} World Cup songs</h1>
-              <p>A compact music guide for the ${escapeHtml(year)} tournament cycle.</p>
+              <p>${escapeHtml(overview.lead)}</p>
             </section>
+            ${collectionOverviewSection(overview, sortedYearSongs)}
             ${collectionGrid(sortedYearSongs, "../../")}
           </main>
         `,
@@ -400,16 +420,15 @@ function generateSitemap() {
   for (const song of songs) {
     urls.push({
       path: `/songs/${song.slug}/`,
-      lastmod: song.lastChecked,
+      lastmod: contentUpdatedAt(song),
       changefreq: song.year === "2026" ? "daily" : "monthly",
       priority: song.year === "2026" ? "0.9" : "0.7",
     });
   }
-  for (const artist of artists) {
-    const artistSongs = byArtist.get(artist.slug) || [];
+  for (const artist of curatedArtists) {
     urls.push({
       path: `/artists/${artist.slug}/`,
-      lastmod: latestDate(artistSongs.map((song) => song.lastChecked)),
+      lastmod: artist.contentUpdatedAt,
       changefreq: "monthly",
       priority: "0.6",
     });
@@ -741,7 +760,7 @@ function generateUtilityPages() {
   );
 }
 
-function layout({ title, description, depth, path: pagePath, type = "website", schema, body, image }) {
+function layout({ title, description, depth, path: pagePath, type = "website", schema, body, image, robots = "index, follow" }) {
   const prefix = "../".repeat(depth);
   const canonicalUrl = `${site.url}${pagePath}`;
   const imageUrl = image || `${site.url}/assets/hero-world-cup-music.png`;
@@ -752,6 +771,7 @@ function layout({ title, description, depth, path: pagePath, type = "website", s
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>${escapeHtml(title)} | ${site.name}</title>
     <meta name="description" content="${escapeHtml(description)}" />
+    <meta name="robots" content="${escapeHtml(robots)}" />
     <link rel="canonical" href="${canonicalUrl}" />
     <meta property="og:site_name" content="${escapeHtml(site.name)}" />
     <meta property="og:type" content="${escapeHtml(type)}" />
@@ -799,6 +819,7 @@ function layout({ title, description, depth, path: pagePath, type = "website", s
       </div>
     </footer>
     <script src="${prefix}script.js"></script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8766e0f1c5cf486f81c867118dce77c5"}'></script>
   </body>
 </html>
 `;
@@ -852,7 +873,7 @@ function articleSchema(song) {
     headline: `${song.title} World Cup Song: Year, Artist and Context`,
     description: song.summary,
     mainEntityOfPage: `${site.url}/songs/${song.slug}/`,
-    dateModified: song.lastChecked,
+    dateModified: contentUpdatedAt(song),
     author: {
       "@type": "Organization",
       name: site.name,
@@ -914,7 +935,7 @@ function artistCollectionSchema() {
     },
     mainEntity: {
       "@type": "ItemList",
-      itemListElement: artists.map((artist, index) => ({
+      itemListElement: curatedArtists.map((artist, index) => ({
         "@type": "ListItem",
         position: index + 1,
         name: artist.name,
@@ -931,8 +952,9 @@ function artistPageSchema(artist, artistSongs) {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
     name: `${artist.name} World Cup music profile`,
-    description: artistSummary(artist, artistSongs),
+    description: artistSummary(artist, artistSongs, Boolean(artistMedia)),
     url: `${site.url}/artists/${artist.slug}/`,
+    dateModified: artist.contentUpdatedAt,
     isPartOf: {
       "@type": "WebSite",
       name: site.name,
@@ -1085,7 +1107,8 @@ function statList(song, prefix) {
     ["Country", song.country],
     ["Language", song.language],
     ["Type", song.status],
-    ["Checked", song.lastChecked],
+    ["Content updated", contentUpdatedAt(song)],
+    ["Sources checked", song.lastChecked],
   ];
   return `<dl class="stat-list">
     ${stats
@@ -1772,23 +1795,6 @@ function artistImagePolicy(artist, media) {
   return `No artist photo is shown for ${artist.name} yet because a clearly reusable source has not been verified. The page uses a text avatar until a public-domain, Creative Commons, or licensed press-kit image is available.`;
 }
 
-function buildArtists(items) {
-  const artistMap = new Map();
-  for (const song of items) {
-    for (const name of artistNames(song)) {
-      const slug = artistSlug(name);
-      if (!artistMap.has(slug)) {
-        artistMap.set(slug, {
-          slug,
-          name,
-          kind: artistKind(name),
-        });
-      }
-    }
-  }
-  return Array.from(artistMap.values()).sort((left, right) => left.name.localeCompare(right.name));
-}
-
 function groupByArtist(items) {
   const map = new Map();
   for (const song of items) {
@@ -1799,34 +1805,6 @@ function groupByArtist(items) {
     }
   }
   return map;
-}
-
-function artistNames(song) {
-  return splitArtistNames(song.artist);
-}
-
-function splitArtistNames(value) {
-  return String(value)
-    .split(/,|\band\b|featuring|feat\.?/i)
-    .map((item) => item.trim())
-    .filter(Boolean);
-}
-
-function artistSlug(name) {
-  return String(name)
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/&/g, " and ")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
-function artistKind(name) {
-  const lower = String(name).toLowerCase();
-  if (lower.includes("supporters")) return "Supporter group";
-  if (lower.includes("team")) return "Team context";
-  return "Artist";
 }
 
 function artistInlineLinks(song, prefix) {
@@ -1841,9 +1819,10 @@ function artistCard(artist, prefix) {
   return `<article class="artist-card">
     ${media ? cardMedia(media, `${artist.name} portrait`) : artistAvatar(artist)}
     <div>
-      <span>${escapeHtml(artist.kind)}</span>
+      <span>${escapeHtml(artist.kind)} · ${artist.isCurated ? "researched" : "index record"}</span>
       <h2>${escapeHtml(artist.name)}</h2>
-      <p>${escapeHtml(artistConnectionSummary(artistSongs))}</p>
+      <p>${escapeHtml(artist.isCurated ? artist.summary : artistConnectionSummary(artistSongs))}</p>
+      ${artist.isCurated ? `<p class="policy-date">Content updated: <time datetime="${escapeHtml(artist.contentUpdatedAt)}">${escapeHtml(artist.contentUpdatedAt)}</time></p>` : ""}
       <a class="text-link" href="${prefix}artists/${artist.slug}/">Open artist page</a>
     </div>
   </article>`;
@@ -1860,65 +1839,9 @@ function artistAvatar(artist) {
   return `<div class="artist-avatar" aria-hidden="true">${escapeHtml(initials || "♪")}</div>`;
 }
 
-function artistSummary(artist, artistSongs) {
-  const imageNote = mediaForArtist(artist)
-    ? "The image is sourced from Wikimedia Commons with attribution."
-    : "This profile is text-first until reusable image rights are confirmed.";
-  return `${artist.name} appears in the atlas through ${artistConnectionSummary(artistSongs)} ${imageNote}`;
-}
-
-function artistWhyHere(artist, artistSongs) {
-  const songTitles = naturalList(artistSongs.map((song) => song.title));
-  if (artist.kind === "Supporter group") {
-    return `${artist.name} is included because supporter-led music can become part of World Cup memory even when it is not an official tournament release. Related page: ${songTitles}.`;
-  }
-  const subject = artistSongs.length === 1 ? `${songTitles} connects` : `${songTitles} connect`;
-  return `${artist.name} is included because ${subject} the artist to World Cup music search, tournament context, or fan discovery.`;
-}
-
-function artistConnectionSummary(artistSongs) {
-  if (!artistSongs.length) return "no current song entries.";
-  const years = Array.from(new Set(artistSongs.map((song) => song.year))).sort((left, right) => Number(right) - Number(left));
-  const labels = Array.from(new Set(artistSongs.map((song) => song.status))).join(", ");
-  return `${artistSongs.length} ${artistSongs.length === 1 ? "song entry" : "song entries"} across ${naturalList(years)}: ${labels}.`;
-}
-
-function artistSongLinks(artistSongs) {
-  return `<ul class="context-facts artist-song-list">
-    ${artistSongs
-      .map(
-        (song) =>
-          `<li><a class="text-link" href="../../songs/${song.slug}/">${escapeHtml(song.title)}</a> · ${escapeHtml(song.year)} · ${escapeHtml(song.status)}</li>`
-      )
-      .join("")}
-  </ul>`;
-}
-
-function artistExternalLinks(artist, artistSongs) {
-  const links = new Map();
-  for (const song of artistSongs) {
-    links.set(song.sourceUrl, song.sourceLabel || "Source");
-    if (song.watchUrl) links.set(song.watchUrl, song.watchLabel || "Watch");
-    if (song.spotifyUrl) links.set(song.spotifyUrl, "Spotify");
-  }
-  if (!links.size) return "";
-  return `<div class="source-links artist-source-links">
-    ${Array.from(links.entries())
-      .map(([url, label]) => `<a href="${escapeHtml(url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`)
-      .join("")}
-  </div>`;
-}
-
 function artistStatList(artist, artistSongs, artistMedia = mediaForArtist(artist)) {
-  const years = Array.from(new Set(artistSongs.map((song) => song.year))).sort((left, right) => Number(right) - Number(left));
-  const countries = Array.from(new Set(artistSongs.map((song) => song.country))).sort();
-  const stats = [
-    ["Type", artist.kind],
-    ["Songs", String(artistSongs.length)],
-    ["Years", naturalList(years)],
-    ["Countries", naturalList(countries)],
-    ["Image", artistMedia ? `${artistMedia.license} via Wikimedia Commons` : "Text avatar only"],
-  ];
+  const imageLabel = artistMedia ? `${artistMedia.license} via Wikimedia Commons` : "Text avatar only";
+  const stats = artistStatRows(artist, artistSongs, imageLabel);
   return `<dl class="stat-list">
     ${stats
       .map(
@@ -1938,6 +1861,20 @@ function relatedList(title, items, prefix) {
     <div class="cards-grid">
       ${items.map((song) => songCard(song, prefix)).join("")}
     </div>
+  </section>`;
+}
+
+function collectionOverviewSection(overview, items) {
+  const updatedAt = latestDate(items.map(contentUpdatedAt));
+  return `<section class="explainer-stack" aria-label="Collection notes">
+    <section class="explainer-block">
+      <h2>What this collection contains</h2>
+      <ul class="context-facts">
+        ${overview.facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}
+      </ul>
+      <p>The counts and labels come from the entries currently published in this atlas. “Official”, “soundtrack”, “campaign”, and “fan” are kept separate because they describe different relationships to a tournament; a popular song is not automatically an organiser-designated release.</p>
+      <p class="policy-date">Collection content updated: <time datetime="${escapeHtml(updatedAt)}">${escapeHtml(updatedAt)}</time>. New discoveries enter a review queue before they can change these totals.</p>
+    </section>
   </section>`;
 }
 
@@ -2076,6 +2013,10 @@ function normalizeSiteUrl(url) {
 
 function latestDate(values) {
   return values.filter(Boolean).sort().at(-1) || new Date().toISOString().slice(0, 10);
+}
+
+function contentUpdatedAt(record) {
+  return record.contentUpdatedAt || record.lastChecked;
 }
 
 function indentBlock(value, spaces) {
