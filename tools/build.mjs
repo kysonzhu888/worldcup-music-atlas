@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { absolutizeInternalUrls } from "./internal-url.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -36,9 +37,11 @@ generateTimelinePage();
 generateUtilityPages();
 updateHomeIntegrations();
 updateHomeStaticLinks();
+updateHomeInternalUrls();
 generateSitemap();
 generateRobots();
 generateAdsTxt();
+generateNotFoundPage();
 
 console.log(
   `Generated ${songs.length} song pages, ${artists.length} artist pages, ${byCountry.size} country pages, ${byYear.size} year pages.`
@@ -51,6 +54,7 @@ function cleanGenerated() {
   fs.rmSync(path.join(root, "sitemap.xml"), { force: true });
   fs.rmSync(path.join(root, "robots.txt"), { force: true });
   fs.rmSync(path.join(root, "ads.txt"), { force: true });
+  fs.rmSync(path.join(root, "404.html"), { force: true });
 }
 
 function generateSongPages() {
@@ -91,6 +95,7 @@ function generateSongPages() {
             <section class="detail-grid">
               <article class="detail-main">
                 ${songUsageSection(song)}
+                ${songCurrentUpdateSection(song)}
                 ${songStorySection(song)}
                 ${songReferencesSection(song)}
                 ${songExplainer(song)}
@@ -261,14 +266,50 @@ function generateYearPages() {
             <section class="detail-hero">
               <p class="kicker">Tournament year</p>
               <h1>${escapeHtml(year)} World Cup songs</h1>
-              <p>A compact music guide for the ${escapeHtml(year)} tournament cycle.</p>
+              <p>${escapeHtml(yearIntroduction(year))}</p>
             </section>
+            ${currentCycleSection(year, sortedYearSongs)}
             ${collectionGrid(sortedYearSongs, "../../")}
           </main>
         `,
       })
     );
   }
+}
+
+function yearIntroduction(year) {
+  if (year === "2026") {
+    return "The official song, official anthem, album tracks, and fan moments for the live 2026 tournament cycle, with source checks separated from speculation.";
+  }
+  return `A compact music guide for the ${year} tournament cycle.`;
+}
+
+function currentCycleSection(year, yearSongs) {
+  if (year !== "2026") return "";
+  const updates = yearSongs.filter((song) => song.currentUpdate).slice(0, 3);
+  if (!updates.length) return "";
+
+  return `<section class="usage-section current-cycle-section" aria-labelledby="current-cycle-title">
+    <div class="usage-heading">
+      <p class="kicker">Checked 13 July 2026</p>
+      <h2 id="current-cycle-title">Final week: three music roles to track</h2>
+      <p>The tournament final is scheduled for 19 July. These notes keep FIFA's official song, official anthem, and album-track labels separate as the final week begins.</p>
+      <a class="text-link" href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums" target="_blank" rel="noreferrer noopener">Check the official FIFA match schedule</a>
+    </div>
+    <div class="usage-grid">
+      ${updates.map((song) => currentUpdateCard(song)).join("")}
+    </div>
+  </section>`;
+}
+
+function currentUpdateCard(song) {
+  const update = song.currentUpdate;
+  return `<article class="usage-card">
+    <span>${escapeHtml(song.status)}</span>
+    <strong>${escapeHtml(song.title)}</strong>
+    <p>${escapeHtml(update.body)}</p>
+    <a class="text-link" href="${escapeHtml(update.sourceUrl)}" target="_blank" rel="noreferrer noopener">${escapeHtml(update.sourceLabel)}</a>
+  </article>`;
 }
 
 function generateTimelinePage() {
@@ -464,6 +505,34 @@ function generateAdsTxt() {
   fs.writeFileSync(path.join(root, "ads.txt"), content);
 }
 
+function generateNotFoundPage() {
+  const html = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Page not found | ${escapeHtml(site.name)}</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="article-page utility-page">
+      <section class="detail-hero">
+        <p class="kicker">404</p>
+        <h1>That page is not in the atlas</h1>
+        <p>The address may be incomplete or may combine sections that do not belong together.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="/">Return home</a>
+          <a class="button secondary" href="/years/2026/">Browse 2026 music</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>`;
+  fs.writeFileSync(path.join(root, "404.html"), stripTrailingWhitespace(html));
+}
+
 function updateHomeIntegrations() {
   const indexPath = path.join(root, "index.html");
   const html = fs.readFileSync(indexPath, "utf8");
@@ -491,6 +560,12 @@ function updateHomeStaticLinks() {
   fs.writeFileSync(indexPath, nextHtml);
 }
 
+function updateHomeInternalUrls() {
+  const indexPath = path.join(root, "index.html");
+  const html = fs.readFileSync(indexPath, "utf8");
+  fs.writeFileSync(indexPath, absolutizeInternalUrls(html));
+}
+
 function homepageStaticLinks() {
   const countries = Array.from(byCountry.entries())
     .map(([slug, countrySongs]) => [slug, countrySongs[0].country])
@@ -501,13 +576,13 @@ function homepageStaticLinks() {
   <p>Browse songs, countries, tournament years, timeline highlights, and plain-English music terms.</p>
 </div>
 <div class="link-cloud" aria-label="Atlas browsing links">
-  <a href="artists/">Artists</a>
-  <a href="timeline/">Timeline</a>
-  <a href="listen/">Listen</a>
-  <a href="glossary/">Glossary</a>
-  ${songs.map((song) => `<a href="songs/${encodeURIComponent(song.slug)}/">${escapeHtml(song.title)}</a>`).join("\n  ")}
-  ${countries.map(([slug, label]) => `<a href="countries/${encodeURIComponent(slug)}/">${escapeHtml(label)}</a>`).join("\n  ")}
-  ${years.map((year) => `<a href="years/${encodeURIComponent(year)}/">${escapeHtml(year)}</a>`).join("\n  ")}
+  <a href="/artists/">Artists</a>
+  <a href="/timeline/">Timeline</a>
+  <a href="/listen/">Listen</a>
+  <a href="/glossary/">Glossary</a>
+  ${songs.map((song) => `<a href="/songs/${encodeURIComponent(song.slug)}/">${escapeHtml(song.title)}</a>`).join("\n  ")}
+  ${countries.map(([slug, label]) => `<a href="/countries/${encodeURIComponent(slug)}/">${escapeHtml(label)}</a>`).join("\n  ")}
+  ${years.map((year) => `<a href="/years/${encodeURIComponent(year)}/">${escapeHtml(year)}</a>`).join("\n  ")}
 </div>
 <p class="index-note">Use these links to jump straight into the song history, country context, or tournament year you remember.</p>`;
 }
@@ -1427,6 +1502,31 @@ function songUsageSection(song) {
   </section>`;
 }
 
+function songCurrentUpdateSection(song) {
+  const update = song.currentUpdate;
+  if (!update) return "";
+
+  return `<section class="usage-section current-song-update" aria-labelledby="current-update-${escapeHtml(song.slug)}">
+    <div class="usage-heading">
+      <p class="kicker">${escapeHtml(update.label)}</p>
+      <h2 id="current-update-${escapeHtml(song.slug)}">Where ${escapeHtml(song.title)} stands now</h2>
+      <p>${escapeHtml(update.body)}</p>
+      <a class="text-link" href="${escapeHtml(update.sourceUrl)}" target="_blank" rel="noreferrer noopener">${escapeHtml(update.sourceLabel)}</a>
+      <small>Checked ${escapeHtml(formatCheckedDate(update.checked))}</small>
+    </div>
+  </section>`;
+}
+
+function formatCheckedDate(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value || "")) return value || "";
+  const [year, month, day] = value.split("-");
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+  ];
+  return `${Number(day)} ${monthNames[Number(month) - 1]} ${year}`;
+}
+
 function usageSnapshotItems(song) {
   return [
     {
@@ -2031,7 +2131,10 @@ function commentSection({ key, kicker, title, placeholder }) {
 function writePage(segments, html) {
   const dir = path.join(root, ...segments);
   fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, "index.html"), stripTrailingWhitespace(html));
+  fs.writeFileSync(
+    path.join(dir, "index.html"),
+    stripTrailingWhitespace(absolutizeInternalUrls(html))
+  );
 }
 
 function stripTrailingWhitespace(value) {
