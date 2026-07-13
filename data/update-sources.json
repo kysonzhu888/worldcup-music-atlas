@@ -1,0 +1,12 @@
+[
+  {
+    "id": "beatify-world-cup-anthems",
+    "repository": "mholzi/beatify",
+    "path": "custom_components/beatify/playlists/world-cup-anthems.json",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/mholzi/beatify/blob/main/LICENSE",
+    "sourceUrl": "https://github.com/mholzi/beatify/blob/main/custom_components/beatify/playlists/world-cup-anthems.json",
+    "purpose": "candidate-discovery",
+    "notes": "Use titles, artist credits, years, and platform identifiers only. Never copy fun_fact or translated prose into the atlas."
+  }
+]
