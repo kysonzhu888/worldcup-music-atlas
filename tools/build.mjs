@@ -16,6 +16,11 @@ import {
   artistSummary,
   artistWhyHere,
 } from "./lib/artist-content.mjs";
+import {
+  finalHalftimeShow,
+  finalHalftimeShowSchema,
+  renderFinalHalftimeShowBody,
+} from "./lib/final-halftime-show.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -52,6 +57,7 @@ generateSongPages();
 generateArtistPages();
 generateCountryPages();
 generateYearPages();
+generateFinalHalftimeShowPage();
 generateTimelinePage();
 generateUtilityPages();
 updateHomeIntegrations();
@@ -65,7 +71,7 @@ console.log(
 );
 
 function cleanGenerated() {
-  for (const dir of ["songs", "artists", "countries", "years", "timeline", "listen", "glossary", "about", "contact", "privacy"]) {
+  for (const dir of ["songs", "artists", "countries", "years", "world-cup-2026-final-halftime-show", "timeline", "listen", "glossary", "about", "contact", "privacy"]) {
     fs.rmSync(path.join(root, dir), { recursive: true, force: true });
   }
   fs.rmSync(path.join(root, "sitemap.xml"), { force: true });
@@ -291,6 +297,21 @@ function generateYearPages() {
   }
 }
 
+function generateFinalHalftimeShowPage() {
+  writePage(
+    ["world-cup-2026-final-halftime-show"],
+    layout({
+      title: finalHalftimeShow.title,
+      description: finalHalftimeShow.description,
+      depth: 1,
+      path: finalHalftimeShow.path,
+      type: "article",
+      schema: finalHalftimeShowSchema(site.url),
+      body: renderFinalHalftimeShowBody(),
+    })
+  );
+}
+
 function generateTimelinePage() {
   const timelineSongs = timelineItems();
   const timelineYears = new Set(timelineSongs.map((song) => song.year));
@@ -409,6 +430,7 @@ function timelineAnimationScript() {
 function generateSitemap() {
   const urls = [
     { path: "/", lastmod: siteUpdatedAt, changefreq: "daily", priority: "1.0" },
+    { path: finalHalftimeShow.path, lastmod: finalHalftimeShow.updatedAt, changefreq: "daily", priority: "1.0" },
     { path: "/artists/", lastmod: siteUpdatedAt, changefreq: "weekly", priority: "0.8" },
     { path: "/timeline/", lastmod: siteUpdatedAt, changefreq: "weekly", priority: "0.8" },
     { path: "/listen/", lastmod: siteUpdatedAt, changefreq: "weekly", priority: "0.8" },
@@ -520,6 +542,7 @@ function homepageStaticLinks() {
   <p>Browse songs, countries, tournament years, timeline highlights, and plain-English music terms.</p>
 </div>
 <div class="link-cloud" aria-label="Atlas browsing links">
+  <a href="world-cup-2026-final-halftime-show/">2026 Final Halftime Show</a>
   <a href="artists/">Artists</a>
   <a href="timeline/">Timeline</a>
   <a href="listen/">Listen</a>
