@@ -5,6 +5,7 @@ import {
   appendCampaignToHref,
   buildConversionPayload,
   classifyConversionLink,
+  initConversionTracking,
   parseCampaign,
 } from "../conversion-tracking.js";
 
@@ -91,4 +92,44 @@ test("client payload contains only aggregate-safe fields", () => {
     "utmSource",
   ]);
   assert.doesNotMatch(JSON.stringify(payload), /referrer|userAgent|email|fullUrl|cookie/i);
+});
+
+test("browser integration uses keepalive JSON and propagates attribution on related clicks", () => {
+  const requests = [];
+  const listeners = {};
+  const windowRef = {
+    location: {
+      href: `https://worldcupmusicatlas.com/world-cup-2026-closing-ceremony/${trackedSearch}`,
+    },
+    fetch(url, options) {
+      requests.push({ url, options });
+      return Promise.resolve({ ok: true });
+    },
+  };
+  const documentRef = {
+    addEventListener(name, callback) {
+      listeners[name] = callback;
+    },
+  };
+
+  initConversionTracking({ windowRef, documentRef });
+  assert.equal(requests.length, 1);
+  assert.equal(requests[0].url, "/api/conversions");
+  assert.equal(requests[0].options.keepalive, true);
+  assert.equal(requests[0].options.headers["Content-Type"], "application/json");
+  assert.equal(JSON.parse(requests[0].options.body).eventName, "campaign_landing_viewed");
+
+  const anchor = {
+    href: "",
+    dataset: { conversion: "related_page", targetKey: "champion" },
+    getAttribute() {
+      return "/songs/champion-ishowspeed/";
+    },
+  };
+  listeners.click({ target: { closest: () => anchor } });
+
+  assert.equal(requests.length, 2);
+  assert.equal(JSON.parse(requests[1].options.body).eventName, "conversion_clicked");
+  assert.match(anchor.href, /utm_source=x/);
+  assert.match(anchor.href, /utm_campaign=wc26_final_week_202607/);
 });

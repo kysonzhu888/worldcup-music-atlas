@@ -142,13 +142,6 @@ export function initConversionTracking({ windowRef = window, documentRef = docum
 
 function transmit(payload, windowRef) {
   const body = JSON.stringify(payload);
-  try {
-    const blob = new windowRef.Blob([body], { type: "application/json" });
-    if (windowRef.navigator?.sendBeacon?.(CONVERSION_ENDPOINT, blob)) return;
-  } catch {
-    // Keep navigation independent from measurement failures.
-  }
-
   windowRef
     .fetch(CONVERSION_ENDPOINT, {
       method: "POST",
