@@ -21,6 +21,12 @@ import {
   finalHalftimeShowSchema,
   renderFinalHalftimeShowBody,
 } from "./lib/final-halftime-show.mjs";
+import {
+  currentCycleSection,
+  songCurrentUpdateSection,
+} from "./current-cycle.mjs";
+import { absolutizeInternalUrls } from "./internal-url.mjs";
+import { notFoundPage } from "./not-found-page.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -62,9 +68,11 @@ generateTimelinePage();
 generateUtilityPages();
 updateHomeIntegrations();
 updateHomeStaticLinks();
+updateHomeInternalUrls();
 generateSitemap();
 generateRobots();
 generateAdsTxt();
+generateNotFoundPage();
 
 console.log(
   `Generated ${songs.length} song pages, ${artists.length} artist pages, ${byCountry.size} country pages, ${byYear.size} year pages.`
@@ -77,6 +85,7 @@ function cleanGenerated() {
   fs.rmSync(path.join(root, "sitemap.xml"), { force: true });
   fs.rmSync(path.join(root, "robots.txt"), { force: true });
   fs.rmSync(path.join(root, "ads.txt"), { force: true });
+  fs.rmSync(path.join(root, "404.html"), { force: true });
 }
 
 function generateSongPages() {
@@ -117,6 +126,7 @@ function generateSongPages() {
             <section class="detail-grid">
               <article class="detail-main">
                 ${songUsageSection(song)}
+                ${songCurrentUpdateSection(song)}
                 ${songStorySection(song)}
                 ${songReferencesSection(song)}
                 ${songExplainer(song)}
@@ -289,6 +299,7 @@ function generateYearPages() {
               <p>${escapeHtml(overview.lead)}</p>
             </section>
             ${collectionOverviewSection(overview, sortedYearSongs)}
+            ${currentCycleSection(year, sortedYearSongs)}
             ${collectionGrid(sortedYearSongs, "../../")}
           </main>
         `,
@@ -505,6 +516,13 @@ function generateAdsTxt() {
   fs.writeFileSync(path.join(root, "ads.txt"), content);
 }
 
+function generateNotFoundPage() {
+  fs.writeFileSync(
+    path.join(root, "404.html"),
+    stripTrailingWhitespace(notFoundPage(site.name))
+  );
+}
+
 function updateHomeIntegrations() {
   const indexPath = path.join(root, "index.html");
   const html = fs.readFileSync(indexPath, "utf8");
@@ -532,6 +550,12 @@ function updateHomeStaticLinks() {
   fs.writeFileSync(indexPath, nextHtml);
 }
 
+function updateHomeInternalUrls() {
+  const indexPath = path.join(root, "index.html");
+  const html = fs.readFileSync(indexPath, "utf8");
+  fs.writeFileSync(indexPath, absolutizeInternalUrls(html));
+}
+
 function homepageStaticLinks() {
   const countries = Array.from(byCountry.entries())
     .map(([slug, countrySongs]) => [slug, countrySongs[0].country])
@@ -542,14 +566,14 @@ function homepageStaticLinks() {
   <p>Browse songs, countries, tournament years, timeline highlights, and plain-English music terms.</p>
 </div>
 <div class="link-cloud" aria-label="Atlas browsing links">
-  <a href="world-cup-2026-final-halftime-show/">2026 Final Halftime Show</a>
-  <a href="artists/">Artists</a>
-  <a href="timeline/">Timeline</a>
-  <a href="listen/">Listen</a>
-  <a href="glossary/">Glossary</a>
-  ${songs.map((song) => `<a href="songs/${encodeURIComponent(song.slug)}/">${escapeHtml(song.title)}</a>`).join("\n  ")}
-  ${countries.map(([slug, label]) => `<a href="countries/${encodeURIComponent(slug)}/">${escapeHtml(label)}</a>`).join("\n  ")}
-  ${years.map((year) => `<a href="years/${encodeURIComponent(year)}/">${escapeHtml(year)}</a>`).join("\n  ")}
+  <a href="/world-cup-2026-final-halftime-show/">2026 Final Halftime Show</a>
+  <a href="/artists/">Artists</a>
+  <a href="/timeline/">Timeline</a>
+  <a href="/listen/">Listen</a>
+  <a href="/glossary/">Glossary</a>
+  ${songs.map((song) => `<a href="/songs/${encodeURIComponent(song.slug)}/">${escapeHtml(song.title)}</a>`).join("\n  ")}
+  ${countries.map(([slug, label]) => `<a href="/countries/${encodeURIComponent(slug)}/">${escapeHtml(label)}</a>`).join("\n  ")}
+  ${years.map((year) => `<a href="/years/${encodeURIComponent(year)}/">${escapeHtml(year)}</a>`).join("\n  ")}
 </div>
 <p class="index-note">Use these links to jump straight into the song history, country context, or tournament year you remember.</p>`;
 }
@@ -1991,7 +2015,10 @@ function commentSection({ key, kicker, title, placeholder }) {
 function writePage(segments, html) {
   const dir = path.join(root, ...segments);
   fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, "index.html"), stripTrailingWhitespace(html));
+  fs.writeFileSync(
+    path.join(dir, "index.html"),
+    stripTrailingWhitespace(absolutizeInternalUrls(html))
+  );
 }
 
 function stripTrailingWhitespace(value) {
