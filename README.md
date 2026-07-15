@@ -19,7 +19,7 @@ Editorial content does not need a separate database at the current scale:
 - `data/songs.json` is the canonical song collection.
 - `data/artists.json` contains researched artist profiles with original context, sources, and `contentUpdatedAt` / `lastCheckedAt` dates.
 - `data/media.json` stores reusable-media metadata and attribution.
-- Cloudflare D1 remains limited to visitor comments through `functions/api/comments.js` and `schema.sql`.
+- Cloudflare D1 stores visitor comments and anonymous daily conversion totals through the Pages Functions under `functions/api/` and `schema.sql`. The conversion counter intentionally excludes IP addresses, cookies, user/session IDs, full URLs, and other per-visitor identifiers.
 
 Keeping editorial records in Git makes every weekly change reviewable, reversible, and deployable with the static site. Reconsider a content database only when multiple editors need concurrent writes, an admin UI becomes necessary, or the collection grows beyond a practical reviewed-file workflow.
 

@@ -55,6 +55,28 @@ test("2026 hub keeps final-week updates inside the confirmed fact boundary", () 
   );
 });
 
+test("generated pages expose one privacy-safe conversion client and explicit related CTAs", () => {
+  const closing = read("world-cup-2026-closing-ceremony/index.html");
+  const song = read("songs/champion-ishowspeed/index.html");
+  const homepage = read("index.html");
+  const privacy = read("privacy/index.html");
+
+  for (const html of [closing, song, homepage]) {
+    assert.equal(
+      (html.match(/src="\/script\.js"/g) || []).length,
+      1
+    );
+  }
+  assert.match(read("script.js"), /import\("\/conversion-tracking\.js"\)/);
+  assert.match(
+    closing,
+    /data-conversion="related_page" data-target-key="champion"/
+  );
+  assert.match(privacy, /Cloudflare Web Analytics/);
+  assert.match(privacy, /anonymous daily totals/i);
+  assert.doesNotMatch(privacy, /unique visitors from the conversion counter/i);
+});
+
 test("Search Console verification file keeps Google's exact public contract", () => {
   assert.equal(
     read("google1089c0cca1aa4f0a.html"),

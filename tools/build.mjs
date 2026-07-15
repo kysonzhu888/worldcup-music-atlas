@@ -797,11 +797,21 @@ function generateUtilityPages() {
             <p>This policy explains the basic analytics, advertising, and contact-data practices for this static website.</p>
           </section>
           <article class="detail-main">
-            <h2>Analytics</h2>
+            <h2>Analytics and anonymous conversion counts</h2>
             <p>
-              If Google Analytics is enabled, this site may collect aggregate usage data such as
-              page views, referring pages, approximate geography, browser, and device information.
+              This site uses Cloudflare Web Analytics for aggregate page-view statistics. Campaign
+              links may also include UTM tags so we can compare which published content brings
+              readers to the site.
             </p>
+            <p>
+              A first-party conversion counter stores anonymous daily totals for campaign landing
+              loads and clicks to related guides, Spotify, or YouTube. It stores the page path,
+              destination category, a short target key, and validated UTM tags. It does not store
+              IP addresses, user agents, referrers, cookies, email addresses, full URLs, user IDs,
+              session IDs, or device fingerprints. These totals measure load and click attempts,
+              not unique visitors.
+            </p>
+            ${site.googleAnalyticsId ? `<p>Google Analytics is also enabled and may collect aggregate usage data such as page views, referring pages, approximate geography, browser, and device information.</p>` : ""}
             <h2>Advertising</h2>
             <p>
               If Google AdSense or another advertising partner is enabled, advertising providers may
@@ -822,7 +832,7 @@ function generateUtilityPages() {
               Questions can be sent to
               <a class="text-link" href="mailto:${escapeHtml(site.contactEmail)}">${escapeHtml(site.contactEmail)}</a>.
             </p>
-            <p class="policy-date">Last updated: June 29, 2026.</p>
+            <p class="policy-date">Last updated: July 15, 2026.</p>
           </article>
         </main>
       `,
