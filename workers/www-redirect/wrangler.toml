@@ -1,0 +1,9 @@
+name = "worldcup-music-atlas-www-redirect"
+main = "src/index.mjs"
+compatibility_date = "2026-07-15"
+workers_dev = false
+preview_urls = false
+
+routes = [
+  { pattern = "www.worldcupmusicatlas.com", custom_domain = true },
+]
