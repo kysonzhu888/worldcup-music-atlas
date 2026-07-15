@@ -4,6 +4,11 @@ import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
+import {
+  DEFAULT_LIBRARY_LIMIT,
+  selectLibrarySongs,
+} from "../assets/library-view.mjs";
+
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 test("generated 404 is lightweight and excluded from search", () => {
@@ -33,6 +38,58 @@ test("generated navigation uses root-absolute internal URLs", () => {
       page
     );
   }
+});
+
+test("homepage library starts with six songs and expands only in the unfiltered view", () => {
+  const songs = Array.from({ length: 8 }, (_, index) => ({
+    title: `Song ${index + 1}`,
+    type: index % 2 === 0 ? "official" : "fan",
+  }));
+
+  const initial = selectLibrarySongs({ songs });
+  assert.equal(DEFAULT_LIBRARY_LIMIT, 6);
+  assert.equal(initial.matchingSongs.length, 8);
+  assert.equal(initial.visibleSongs.length, 6);
+  assert.equal(initial.canToggle, true);
+  assert.equal(initial.expanded, false);
+
+  const expanded = selectLibrarySongs({ songs, expanded: true });
+  assert.equal(expanded.visibleSongs.length, 8);
+  assert.equal(expanded.canToggle, true);
+  assert.equal(expanded.expanded, true);
+
+  const filtered = selectLibrarySongs({ songs, activeFilter: "official" });
+  assert.equal(filtered.matchingSongs.length, 4);
+  assert.equal(filtered.visibleSongs.length, 4);
+  assert.equal(filtered.canToggle, false);
+
+  const searched = selectLibrarySongs({ songs, query: "song 8" });
+  assert.deepEqual(searched.visibleSongs.map((song) => song.title), ["Song 8"]);
+  assert.equal(searched.canToggle, false);
+});
+
+test("homepage keeps library controls and every song detail link in static HTML", () => {
+  const homepage = read("index.html");
+  const songs = JSON.parse(read("data/songs.json"));
+
+  assert.match(homepage, /id="libraryActions"/);
+  assert.match(homepage, /data-library-count/);
+  assert.match(homepage, /data-library-toggle/);
+  for (const song of songs) {
+    assert.match(homepage, new RegExp(`href="/songs/${song.slug}/"`), song.slug);
+  }
+});
+
+test("browser shell wires progressive library controls and mobile navigation enhancement", () => {
+  const script = read("script.js");
+  const styles = read("styles.css");
+
+  assert.match(script, /import\("\/assets\/library-view\.mjs"\)/);
+  assert.match(script, /\[data-library-toggle\]/);
+  assert.match(script, /enhancePrimaryNavigation\(\)/);
+  assert.match(styles, /\.library-actions\s*\{/);
+  assert.match(styles, /\.nav-more\s*\{/);
+  assert.match(styles, /\.mobile-nav-enhanced/);
 });
 
 test("2026 hub keeps final-week updates inside the confirmed fact boundary", () => {

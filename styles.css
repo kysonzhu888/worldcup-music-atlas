@@ -89,6 +89,58 @@ nav a:hover {
   color: var(--ink);
 }
 
+.nav-more {
+  display: none;
+  position: relative;
+}
+
+.nav-more summary {
+  color: var(--muted);
+  cursor: pointer;
+  list-style: none;
+  white-space: nowrap;
+}
+
+.nav-more summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-more summary::after {
+  content: " +";
+}
+
+.nav-more[open] summary,
+.nav-more summary:hover {
+  color: var(--ink);
+}
+
+.nav-more[open] summary::after {
+  content: " −";
+}
+
+.nav-more-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  display: grid;
+  min-width: 150px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.nav-more-menu a {
+  padding: 8px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.nav-more-menu a:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
 .hero {
   position: relative;
   min-height: min(760px, calc(100vh - 72px));
@@ -435,6 +487,29 @@ h1 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
+}
+
+.library-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 20px 0 0;
+}
+
+.library-actions p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.library-actions button {
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+}
+
+.library-actions .button[hidden] {
+  display: none;
 }
 
 .song-card {
@@ -2137,6 +2212,20 @@ h1 {
     justify-content: space-between;
   }
 
+  html.mobile-nav-enhanced .site-header .primary-nav {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+  }
+
+  html.mobile-nav-enhanced .primary-nav > .nav-secondary {
+    display: none;
+  }
+
+  html.mobile-nav-enhanced .primary-nav > .nav-more {
+    display: block;
+    margin-left: auto;
+  }
+
   .brand {
     white-space: normal;
   }
@@ -2170,6 +2259,11 @@ h1 {
 
   .button {
     width: 100%;
+  }
+
+  .library-actions {
+    align-items: stretch;
+    flex-direction: column;
   }
 
   .section-grid,
