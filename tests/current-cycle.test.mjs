@@ -31,7 +31,9 @@ test("current-cycle rendering stays limited to 2026 and escapes source-backed co
 
   const section = currentCycleSection("2026", prioritySongs);
   assert.match(section, /Final week: three music roles to track/);
-  assert.match(section, /Final Halftime Show on 19 July/);
+  assert.match(section, /Closing Ceremony starts 90 minutes before kick-off/);
+  assert.match(section, /world-cup-2026-closing-ceremony/);
+  assert.match(section, /Final Halftime Show happens during the match interval/);
   assert.match(section, /Checked 15 July 2026/);
 
   const songSection = songCurrentUpdateSection({

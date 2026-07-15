@@ -22,6 +22,11 @@ import {
   renderFinalHalftimeShowBody,
 } from "./lib/final-halftime-show.mjs";
 import {
+  finalClosingCeremony,
+  finalClosingCeremonySchema,
+  renderFinalClosingCeremonyBody,
+} from "./lib/final-closing-ceremony.mjs";
+import {
   currentCycleSection,
   songCurrentUpdateSection,
 } from "./current-cycle.mjs";
@@ -63,6 +68,7 @@ generateSongPages();
 generateArtistPages();
 generateCountryPages();
 generateYearPages();
+generateFinalClosingCeremonyPage();
 generateFinalHalftimeShowPage();
 generateTimelinePage();
 generateUtilityPages();
@@ -79,7 +85,7 @@ console.log(
 );
 
 function cleanGenerated() {
-  for (const dir of ["songs", "artists", "countries", "years", "world-cup-2026-final-halftime-show", "timeline", "listen", "glossary", "about", "contact", "privacy"]) {
+  for (const dir of ["songs", "artists", "countries", "years", "world-cup-2026-closing-ceremony", "world-cup-2026-final-halftime-show", "timeline", "listen", "glossary", "about", "contact", "privacy"]) {
     fs.rmSync(path.join(root, dir), { recursive: true, force: true });
   }
   fs.rmSync(path.join(root, "sitemap.xml"), { force: true });
@@ -308,6 +314,21 @@ function generateYearPages() {
   }
 }
 
+function generateFinalClosingCeremonyPage() {
+  writePage(
+    ["world-cup-2026-closing-ceremony"],
+    layout({
+      title: finalClosingCeremony.title,
+      description: finalClosingCeremony.description,
+      depth: 1,
+      path: finalClosingCeremony.path,
+      type: "article",
+      schema: finalClosingCeremonySchema(site.url),
+      body: renderFinalClosingCeremonyBody(),
+    })
+  );
+}
+
 function generateFinalHalftimeShowPage() {
   writePage(
     ["world-cup-2026-final-halftime-show"],
@@ -441,6 +462,7 @@ function timelineAnimationScript() {
 function generateSitemap() {
   const urls = [
     { path: "/", lastmod: siteUpdatedAt, changefreq: "daily", priority: "1.0" },
+    { path: finalClosingCeremony.path, lastmod: finalClosingCeremony.updatedAt, changefreq: "daily", priority: "1.0" },
     { path: finalHalftimeShow.path, lastmod: finalHalftimeShow.updatedAt, changefreq: "daily", priority: "1.0" },
     { path: "/artists/", lastmod: siteUpdatedAt, changefreq: "weekly", priority: "0.8" },
     { path: "/timeline/", lastmod: siteUpdatedAt, changefreq: "weekly", priority: "0.8" },
@@ -566,6 +588,7 @@ function homepageStaticLinks() {
   <p>Browse songs, countries, tournament years, timeline highlights, and plain-English music terms.</p>
 </div>
 <div class="link-cloud" aria-label="Atlas browsing links">
+  <a href="/world-cup-2026-closing-ceremony/">2026 Closing Ceremony</a>
   <a href="/world-cup-2026-final-halftime-show/">2026 Final Halftime Show</a>
   <a href="/artists/">Artists</a>
   <a href="/timeline/">Timeline</a>
@@ -774,11 +797,21 @@ function generateUtilityPages() {
             <p>This policy explains the basic analytics, advertising, and contact-data practices for this static website.</p>
           </section>
           <article class="detail-main">
-            <h2>Analytics</h2>
+            <h2>Analytics and anonymous conversion counts</h2>
             <p>
-              If Google Analytics is enabled, this site may collect aggregate usage data such as
-              page views, referring pages, approximate geography, browser, and device information.
+              This site uses Cloudflare Web Analytics for aggregate page-view statistics. Campaign
+              links may also include UTM tags so we can compare which published content brings
+              readers to the site.
             </p>
+            <p>
+              A first-party conversion counter stores anonymous daily totals for campaign landing
+              loads and clicks to related guides, Spotify, or YouTube. It stores the page path,
+              destination category, a short target key, and validated UTM tags. It does not store
+              IP addresses, user agents, referrers, cookies, email addresses, full URLs, user IDs,
+              session IDs, or device fingerprints. These totals measure load and click attempts,
+              not unique visitors.
+            </p>
+            ${site.googleAnalyticsId ? `<p>Google Analytics is also enabled and may collect aggregate usage data such as page views, referring pages, approximate geography, browser, and device information.</p>` : ""}
             <h2>Advertising</h2>
             <p>
               If Google AdSense or another advertising partner is enabled, advertising providers may
@@ -799,7 +832,7 @@ function generateUtilityPages() {
               Questions can be sent to
               <a class="text-link" href="mailto:${escapeHtml(site.contactEmail)}">${escapeHtml(site.contactEmail)}</a>.
             </p>
-            <p class="policy-date">Last updated: June 29, 2026.</p>
+            <p class="policy-date">Last updated: July 15, 2026.</p>
           </article>
         </main>
       `,

@@ -280,3 +280,7 @@ async function readJsonResponse(response) {
   }
   return response.json();
 }
+
+import("/conversion-tracking.js").catch(() => {
+  // Measurement must never interfere with browsing or comments.
+});

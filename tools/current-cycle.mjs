@@ -11,7 +11,8 @@ export function currentCycleSection(year, yearSongs) {
     <div class="usage-heading">
       <p class="kicker">${CURRENT_CYCLE_CHECKED_LABEL}</p>
       <h2 id="current-cycle-title">Final week: three music roles to track</h2>
-      <p>The Final Halftime Show on 19 July has a confirmed performer lineup, but its complete song order has not been published. These notes keep the official song, official anthem, and album-track labels separate.</p>
+      <p>The Closing Ceremony starts 90 minutes before kick-off, while the Final Halftime Show happens during the match interval. Both have confirmed performers, but neither announcement supplies a complete song order. These notes keep the event and music-role labels separate.</p>
+      <a class="text-link" href="/world-cup-2026-closing-ceremony/">Open the source-checked Closing Ceremony guide</a>
       <a class="text-link" href="/world-cup-2026-final-halftime-show/">Open the source-checked Final Halftime Show guide</a>
     </div>
     <div class="usage-grid">
