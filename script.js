@@ -2,8 +2,14 @@ const grid = document.querySelector("#songGrid");
 const searchInput = document.querySelector("#searchInput");
 const filterButtons = Array.from(document.querySelectorAll(".filter-button"));
 const generatedLinks = document.querySelector("#generatedLinks");
+const libraryCount = document.querySelector("[data-library-count]");
+const libraryToggle = document.querySelector("[data-library-toggle]");
 let activeFilter = "all";
+let libraryExpanded = false;
+let selectLibrarySongs;
 let songs = [];
+
+enhancePrimaryNavigation();
 
 if (grid && searchInput) {
   init();
@@ -11,7 +17,11 @@ if (grid && searchInput) {
 
 async function init() {
   try {
-    const response = await fetch("/data/songs.json");
+    const [libraryView, response] = await Promise.all([
+      import("/assets/library-view.mjs"),
+      fetch("/data/songs.json"),
+    ]);
+    selectLibrarySongs = libraryView.selectLibrarySongs;
     songs = await response.json();
     applyInitialSearch();
     renderSongs();
@@ -19,40 +29,31 @@ async function init() {
   } catch (error) {
     grid.innerHTML =
       '<div class="empty-state">The song library could not load right now. Try refreshing the page.</div>';
+    updateLibraryControls({ unavailable: true });
     console.error(error);
   }
 }
 
-function normalize(value) {
-  return String(value).toLowerCase().trim();
-}
-
 function renderSongs() {
-  const query = normalize(searchInput.value);
-  const visibleSongs = songs.filter((song) => {
-    const matchesType = activeFilter === "all" || song.type === activeFilter;
-    const haystack = normalize(
-      [
-        song.title,
-        song.artist,
-        song.year,
-        song.tournament,
-        song.country,
-        song.language,
-        song.type,
-        song.status,
-        song.summary,
-      ].join(" ")
-    );
-    return matchesType && haystack.includes(query);
-  });
+  if (typeof selectLibrarySongs !== "function") {
+    updateLibraryControls({ loading: true });
+    return;
+  }
 
-  if (!visibleSongs.length) {
+  const view = selectLibrarySongs({
+    songs,
+    query: searchInput.value,
+    activeFilter,
+    expanded: libraryExpanded,
+  });
+  updateLibraryControls(view);
+
+  if (!view.matchingSongs.length) {
     grid.innerHTML = '<div class="empty-state">No songs match that search yet.</div>';
     return;
   }
 
-  grid.innerHTML = visibleSongs
+  grid.innerHTML = view.visibleSongs
     .map(
       (song) => `
         <article class="song-card">
@@ -70,6 +71,33 @@ function renderSongs() {
       `
     )
     .join("");
+}
+
+function updateLibraryControls({
+  matchingSongs = [],
+  visibleSongs = [],
+  canToggle = false,
+  expanded = false,
+  loading = false,
+  unavailable = false,
+} = {}) {
+  if (libraryCount) {
+    if (unavailable) {
+      libraryCount.textContent = "Song count unavailable.";
+    } else if (loading) {
+      libraryCount.textContent = "Loading songs...";
+    } else if (matchingSongs.length === visibleSongs.length) {
+      libraryCount.textContent = `${matchingSongs.length} songs`;
+    } else {
+      libraryCount.textContent = `Showing ${visibleSongs.length} of ${matchingSongs.length} songs`;
+    }
+  }
+
+  if (libraryToggle) {
+    libraryToggle.hidden = !canToggle;
+    libraryToggle.textContent = expanded ? "Show fewer" : `Show all ${matchingSongs.length} songs`;
+    libraryToggle.setAttribute("aria-expanded", String(expanded));
+  }
 }
 
 function renderGeneratedLinks() {
@@ -127,6 +155,32 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
+function enhancePrimaryNavigation() {
+  const nav = document.querySelector('.site-header nav[aria-label="Primary navigation"]');
+  if (nav && !nav.querySelector(".nav-more")) {
+    const primaryLabels = new Set(["Trending", "Library", "Timeline"]);
+    const secondaryLinks = Array.from(nav.children).filter(
+      (node) => node.matches("a") && !primaryLabels.has(node.textContent.trim())
+    );
+
+    if (secondaryLinks.length) {
+      nav.classList.add("primary-nav");
+      secondaryLinks.forEach((link) => link.classList.add("nav-secondary"));
+
+      const details = document.createElement("details");
+      details.className = "nav-more";
+      const summary = document.createElement("summary");
+      summary.textContent = "More";
+      const menu = document.createElement("div");
+      menu.className = "nav-more-menu";
+      secondaryLinks.forEach((link) => menu.append(link.cloneNode(true)));
+      details.append(summary, menu);
+      nav.append(details);
+      document.documentElement.classList.add("mobile-nav-enhanced");
+    }
+  }
+}
+
 if (grid && searchInput) {
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -138,6 +192,11 @@ if (grid && searchInput) {
 
   searchInput.addEventListener("input", () => {
     updateSearchUrl();
+    renderSongs();
+  });
+
+  libraryToggle?.addEventListener("click", () => {
+    libraryExpanded = !libraryExpanded;
     renderSongs();
   });
 }
