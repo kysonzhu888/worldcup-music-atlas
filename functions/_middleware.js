@@ -1,6 +1,28 @@
 import { classifyRequestPath } from "./path-policy.js";
 
+const SEARCH_CONSOLE_VERIFICATION_PATH = "/google1089c0cca1aa4f0a.html";
+const SEARCH_CONSOLE_VERIFICATION_BODY =
+  "google-site-verification: google1089c0cca1aa4f0a.html\n";
+
 export async function onRequest(context) {
+  const requestURL = new URL(context.request.url);
+  const servesVerificationFile =
+    (context.request.method === "GET" || context.request.method === "HEAD") &&
+    requestURL.pathname === SEARCH_CONSOLE_VERIFICATION_PATH;
+  if (servesVerificationFile) {
+    return new Response(
+      context.request.method === "HEAD" ? null : SEARCH_CONSOLE_VERIFICATION_BODY,
+      {
+        status: 200,
+        headers: {
+          "Cache-Control": "public, max-age=14400, must-revalidate",
+          "Content-Type": "text/plain; charset=UTF-8",
+          "X-Content-Type-Options": "nosniff",
+        },
+      }
+    );
+  }
+
   const { action } = classifyRequestPath(context.request.url);
   if (action === "continue") {
     return context.next();

@@ -99,3 +99,27 @@ test("middleware preserves normal request side effects and short-circuits only c
   assert.match(await blockedResponse.text(), /href="\/"/);
   assert.equal(nextCalls, 1);
 });
+
+test("middleware serves the exact Search Console verification URL without a pretty-URL redirect", async () => {
+  let nextCalls = 0;
+  const response = await onRequest({
+    request: new Request(
+      "https://worldcupmusicatlas.com/google1089c0cca1aa4f0a.html?verification=direct"
+    ),
+    next: async () => {
+      nextCalls += 1;
+      return new Response(null, {
+        status: 308,
+        headers: { Location: "/google1089c0cca1aa4f0a" },
+      });
+    },
+  });
+
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("Content-Type"), "text/plain; charset=UTF-8");
+  assert.equal(
+    await response.text(),
+    "google-site-verification: google1089c0cca1aa4f0a.html\n"
+  );
+  assert.equal(nextCalls, 0);
+});
