@@ -22,6 +22,11 @@ import {
   renderFinalHalftimeShowBody,
 } from "./lib/final-halftime-show.mjs";
 import {
+  finalClosingCeremony,
+  finalClosingCeremonySchema,
+  renderFinalClosingCeremonyBody,
+} from "./lib/final-closing-ceremony.mjs";
+import {
   currentCycleSection,
   songCurrentUpdateSection,
 } from "./current-cycle.mjs";
@@ -63,6 +68,7 @@ generateSongPages();
 generateArtistPages();
 generateCountryPages();
 generateYearPages();
+generateFinalClosingCeremonyPage();
 generateFinalHalftimeShowPage();
 generateTimelinePage();
 generateUtilityPages();
@@ -79,7 +85,7 @@ console.log(
 );
 
 function cleanGenerated() {
-  for (const dir of ["songs", "artists", "countries", "years", "world-cup-2026-final-halftime-show", "timeline", "listen", "glossary", "about", "contact", "privacy"]) {
+  for (const dir of ["songs", "artists", "countries", "years", "world-cup-2026-closing-ceremony", "world-cup-2026-final-halftime-show", "timeline", "listen", "glossary", "about", "contact", "privacy"]) {
     fs.rmSync(path.join(root, dir), { recursive: true, force: true });
   }
   fs.rmSync(path.join(root, "sitemap.xml"), { force: true });
@@ -308,6 +314,21 @@ function generateYearPages() {
   }
 }
 
+function generateFinalClosingCeremonyPage() {
+  writePage(
+    ["world-cup-2026-closing-ceremony"],
+    layout({
+      title: finalClosingCeremony.title,
+      description: finalClosingCeremony.description,
+      depth: 1,
+      path: finalClosingCeremony.path,
+      type: "article",
+      schema: finalClosingCeremonySchema(site.url),
+      body: renderFinalClosingCeremonyBody(),
+    })
+  );
+}
+
 function generateFinalHalftimeShowPage() {
   writePage(
     ["world-cup-2026-final-halftime-show"],
@@ -441,6 +462,7 @@ function timelineAnimationScript() {
 function generateSitemap() {
   const urls = [
     { path: "/", lastmod: siteUpdatedAt, changefreq: "daily", priority: "1.0" },
+    { path: finalClosingCeremony.path, lastmod: finalClosingCeremony.updatedAt, changefreq: "daily", priority: "1.0" },
     { path: finalHalftimeShow.path, lastmod: finalHalftimeShow.updatedAt, changefreq: "daily", priority: "1.0" },
     { path: "/artists/", lastmod: siteUpdatedAt, changefreq: "weekly", priority: "0.8" },
     { path: "/timeline/", lastmod: siteUpdatedAt, changefreq: "weekly", priority: "0.8" },
@@ -566,6 +588,7 @@ function homepageStaticLinks() {
   <p>Browse songs, countries, tournament years, timeline highlights, and plain-English music terms.</p>
 </div>
 <div class="link-cloud" aria-label="Atlas browsing links">
+  <a href="/world-cup-2026-closing-ceremony/">2026 Closing Ceremony</a>
   <a href="/world-cup-2026-final-halftime-show/">2026 Final Halftime Show</a>
   <a href="/artists/">Artists</a>
   <a href="/timeline/">Timeline</a>
