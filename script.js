@@ -11,7 +11,7 @@ if (grid && searchInput) {
 
 async function init() {
   try {
-    const response = await fetch("data/songs.json");
+    const response = await fetch("/data/songs.json");
     songs = await response.json();
     applyInitialSearch();
     renderSongs();
@@ -65,7 +65,7 @@ function renderSongs() {
           <h3>${escapeHtml(song.title)}</h3>
           <p class="artist">${escapeHtml(song.artist)}</p>
           <p class="note">${escapeHtml(song.summary)}</p>
-          <a href="songs/${encodeURIComponent(song.slug)}/">Open detail page</a>
+          <a href="/songs/${encodeURIComponent(song.slug)}/">Open detail page</a>
         </article>
       `
     )
@@ -81,15 +81,15 @@ function renderGeneratedLinks() {
       <p>Open a timeline, glossary, country, or tournament year to keep following the story.</p>
     </div>
     <div class="link-cloud">
-      <a href="timeline/">Timeline</a>
-      <a href="glossary/">Glossary</a>
+      <a href="/timeline/">Timeline</a>
+      <a href="/glossary/">Glossary</a>
       ${countries
         .slice(0, 8)
-        .map(([slug, label]) => `<a href="countries/${encodeURIComponent(slug)}/">${escapeHtml(label)}</a>`)
+        .map(([slug, label]) => `<a href="/countries/${encodeURIComponent(slug)}/">${escapeHtml(label)}</a>`)
         .join("")}
       ${years
         .slice(0, 8)
-        .map(([year]) => `<a href="years/${encodeURIComponent(year)}/">${escapeHtml(year)}</a>`)
+        .map(([year]) => `<a href="/years/${encodeURIComponent(year)}/">${escapeHtml(year)}</a>`)
         .join("")}
     </div>
   `;

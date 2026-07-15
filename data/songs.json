@@ -69,6 +69,13 @@
       }
     ],
     "story": "Dai Dai now works as more than a song listing: FIFA describes it as the Official FIFA World Cup 2026 Song and connects it to the FIFA Global Citizen Education Fund, so the useful reader answer is both musical and purpose-driven.",
+    "currentUpdate": {
+      "label": "Final week update",
+      "body": "FIFA confirms Shakira and Burna Boy in the Final Halftime Show lineup on 19 July. The complete song-by-song set list has not been published, so Dai Dai remains the official tournament song without a confirmed halftime performance.",
+      "sourceLabel": "FIFA updated Final Halftime Show lineup",
+      "sourceUrl": "https://inside.fifa.com/organisation/media-releases/justin-bieber-world-cup-2026-final-halftime-show-madonna-shakira-bts",
+      "checked": "2026-07-15"
+    },
     "facts": [
       "FIFA labels Dai Dai as the Official FIFA World Cup 2026 Song.",
       "The song is tied to the FIFA Global Citizen Education Fund rather than only to the album rollout.",
@@ -77,7 +84,7 @@
     "timelineFeatured": true,
     "timelineRank": 1,
     "timelineNote": "The 2026 cycle starts with a headline global-pop entry built for the expanded North American tournament.",
-    "lastChecked": "2026-07-03"
+    "lastChecked": "2026-07-15"
   },
   {
     "slug": "dna",
@@ -113,6 +120,13 @@
       }
     ],
     "story": "DNA is valuable because it gives the 2026 archive a clear anthem page separate from Dai Dai. FIFA frames it as the ceremonial and emotional signature of the tournament, with a first performance planned for the Mexico City opening ceremony.",
+    "currentUpdate": {
+      "label": "Final week update",
+      "body": "DNA's verified role remains the tournament-wide official anthem. FIFA's checked release ties its first live performance to the Mexico City opening ceremony on 11 June; this atlas does not claim a separate final performance without a FIFA source.",
+      "sourceLabel": "FIFA official anthem release",
+      "sourceUrl": "https://inside.fifa.com/organisation/media-releases/world-cup-official-anthem-dna-andrea-bocelli-david-guetta-megan-thee-stallion-ejae-2026",
+      "checked": "2026-07-15"
+    },
     "facts": [
       "FIFA labels DNA as the Official FIFA World Cup 2026 Anthem.",
       "The performer lineup deliberately mixes classical vocals, electronic production, rap, and global pop.",
@@ -121,7 +135,7 @@
     "timelineFeatured": true,
     "timelineRank": 2,
     "timelineNote": "A clean example of why the site separates anthem, album track, official song, and fan chant labels.",
-    "lastChecked": "2026-07-03"
+    "lastChecked": "2026-07-15"
   },
   {
     "slug": "game-time",
@@ -137,10 +151,37 @@
     "summary": "A 2026 soundtrack page aimed at users browsing the official album rather than only the headline song or anthem.",
     "whyItMatters": "Album-track pages can capture long-tail artist searches and help build topical depth around the 2026 music hub.",
     "searchAngles": ["Game Time World Cup song", "Future Tyla World Cup", "World Cup 2026 album songs"],
-    "sourceLabel": "FIFA album announcement",
-    "sourceUrl": "https://inside.fifa.com/organisation/media-releases/unveils-official-album-biggest-world-cup-2026-history",
+    "sourceLabel": "FIFA Game Time release",
+    "sourceUrl": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/future-and-tylas-game-time-to-be-performed-at-la-opening-ceremony",
     "spotifyUrl": "https://open.spotify.com/track/4KIRA3oOWWyYhuQkuoHnFr",
-    "lastChecked": "2026-06-29"
+    "references": [
+      {
+        "kind": "Official",
+        "label": "FIFA Game Time release",
+        "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/future-and-tylas-game-time-to-be-performed-at-la-opening-ceremony",
+        "note": "Confirms Game Time as an Official FIFA World Cup 2026 Album single and its planned live debut at the Los Angeles opening ceremony."
+      },
+      {
+        "kind": "Official",
+        "label": "FIFA official album hub",
+        "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/fifa-sound/official-album",
+        "note": "Lists Game Time in the official album and provides FIFA's official video route."
+      }
+    ],
+    "story": "Game Time is the clearest hip-hop-led entry point in the official 2026 album. FIFA introduced the Future and Tyla single for a live debut at the Los Angeles opening ceremony, which gives the page a specific tournament use rather than only an album listing.",
+    "facts": [
+      "FIFA lists Game Time as an Official FIFA World Cup 2026 Album single.",
+      "FIFA announced its live debut for the Los Angeles opening ceremony on 12 June.",
+      "Its verified label remains official album track, not official song or official anthem."
+    ],
+    "currentUpdate": {
+      "label": "Final week update",
+      "body": "Game Time's verified role remains an official album track with an opening-ceremony connection. FIFA announced its live debut for Los Angeles on 12 June; this atlas does not promote it to a final song without a FIFA source.",
+      "sourceLabel": "FIFA Game Time release",
+      "sourceUrl": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/future-and-tylas-game-time-to-be-performed-at-la-opening-ceremony",
+      "checked": "2026-07-15"
+    },
+    "lastChecked": "2026-07-15"
   },
   {
     "slug": "lighter",
