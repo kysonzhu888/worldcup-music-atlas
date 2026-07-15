@@ -20,6 +20,7 @@ test("generated navigation uses root-absolute internal URLs", () => {
     "artists/shakira/index.html",
     "years/2026/index.html",
     "timeline/index.html",
+    "world-cup-2026-closing-ceremony/index.html",
     "world-cup-2026-final-halftime-show/index.html",
   ];
 
@@ -28,7 +29,7 @@ test("generated navigation uses root-absolute internal URLs", () => {
     assert.doesNotMatch(html, /(?:href|src)="(?:\.\.\/)+/, page);
     assert.doesNotMatch(
       html,
-      /(?:href|src)="(?:index\.html|styles\.css|script\.js|assets\/|data\/|songs\/|artists\/|countries\/|years\/|timeline\/|listen\/|glossary\/|about\/|contact\/|privacy\/|world-cup-2026-final-halftime-show\/)/,
+      /(?:href|src)="(?:index\.html|styles\.css|script\.js|assets\/|data\/|songs\/|artists\/|countries\/|years\/|timeline\/|listen\/|glossary\/|about\/|contact\/|privacy\/|world-cup-2026-closing-ceremony\/|world-cup-2026-final-halftime-show\/)/,
       page
     );
   }
@@ -37,7 +38,8 @@ test("generated navigation uses root-absolute internal URLs", () => {
 test("2026 hub keeps final-week updates inside the confirmed fact boundary", () => {
   const hub = read("years/2026/index.html");
   assert.match(hub, /Final week: three music roles to track/);
-  assert.match(hub, /Final Halftime Show on 19 July/);
+  assert.match(hub, /Closing Ceremony starts 90 minutes before kick-off/);
+  assert.match(hub, /Final Halftime Show happens during the match interval/);
   assert.match(hub, /Checked 15 July 2026/);
 
   const daiDai = read("songs/dai-dai/index.html");
