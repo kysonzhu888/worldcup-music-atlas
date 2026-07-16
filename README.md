@@ -54,4 +54,15 @@ Research-pending artist credit pages are generated for navigation but carry `noi
 
 ## Deploy
 
-The site is static and can be deployed from the repository root, or from a generated deployment directory if your host prefers one.
+Build and validate the dedicated deployment artifact before publishing:
+
+```bash
+npm run deploy:prepare
+npx wrangler whoami
+npx wrangler pages deploy .deploy --project-name worldcupmusicatlas --branch "$(git branch --show-current)"
+```
+
+Deploy only `.deploy`, never the repository root. The preparation command runs the build,
+link checks, and tests before copying the public asset allowlist. It also includes the
+explicit `_routes.json` contract, so only comments, conversion tracking, and the exact
+Search Console verification URL can invoke Pages Functions.
