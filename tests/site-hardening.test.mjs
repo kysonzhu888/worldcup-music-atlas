@@ -1,47 +1,19 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import test from "node:test";
 
-import { onRequest } from "../functions/_middleware.js";
-import { classifyRequestPath } from "../functions/path-policy.js";
+import { onRequestGet as serveSearchConsoleVerification } from "../functions/google1089c0cca1aa4f0a.html.js";
 import { absolutizeInternalUrls } from "../tools/internal-url.mjs";
 
-test("allows published content, static assets, APIs, and ordinary missing pages", () => {
-  const allowedPaths = [
-    "/",
-    "/songs/dai-dai/",
-    "/artists/shakira/",
-    "/artists/",
-    "/years/2026/",
-    "/timeline/",
-    "/assets/favicon.svg",
-    "/styles.css",
-    "/api/comments?pageKey=worldcup%3Asong%3Adai-dai",
-    "/not-a-real-page/",
-  ];
-
-  for (const pathname of allowedPaths) {
-    assert.deepEqual(classifyRequestPath(pathname), {
-      action: "continue",
-      reason: "not-a-composed-content-path",
-    });
-  }
-});
-
-test("blocks recursively composed content paths without inspecting user agent", () => {
-  const blockedPaths = [
-    "/songs/partidazo/years/2010/timeline/about/glossary/countries/italy/",
-    "/songs/dai-dai/years/2026/",
-    "/countries/italy/songs/un-estate-italiana/",
-    "/years/2026/years/2022/",
-    "/artists/shakira/unexpected/child/",
-  ];
-
-  for (const pathname of blockedPaths) {
-    assert.deepEqual(classifyRequestPath(pathname), {
-      action: "block",
-      reason: "composed-content-path",
-    });
-  }
+test("Pages Functions do not install a root middleware", () => {
+  assert.equal(
+    fs.existsSync(new URL("../functions/_middleware.js", import.meta.url)),
+    false
+  );
+  assert.equal(
+    fs.existsSync(new URL("../functions/path-policy.js", import.meta.url)),
+    false
+  );
 });
 
 test("turns recursive internal URLs into root-absolute URLs", () => {
@@ -68,52 +40,8 @@ test("turns recursive internal URLs into root-absolute URLs", () => {
   assert.match(result, /href="#details"/);
 });
 
-test("middleware preserves normal request side effects and short-circuits only composed paths", async () => {
-  let nextCalls = 0;
-  const normalResponse = await onRequest({
-    request: new Request("https://worldcupmusicatlas.com/api/comments?pageKey=home", {
-      headers: { "User-Agent": "Googlebot" },
-    }),
-    next: async () => {
-      nextCalls += 1;
-      return new Response("continued");
-    },
-  });
-
-  assert.equal(await normalResponse.text(), "continued");
-  assert.equal(nextCalls, 1);
-
-  const blockedResponse = await onRequest({
-    request: new Request(
-      "https://worldcupmusicatlas.com/songs/partidazo/years/2010/timeline/about/",
-      { headers: { "User-Agent": "Googlebot" } }
-    ),
-    next: async () => {
-      nextCalls += 1;
-      return new Response("unexpected");
-    },
-  });
-
-  assert.equal(blockedResponse.status, 404);
-  assert.equal(blockedResponse.headers.get("X-Robots-Tag"), "noindex, nofollow");
-  assert.match(await blockedResponse.text(), /href="\/"/);
-  assert.equal(nextCalls, 1);
-});
-
-test("middleware serves the exact Search Console verification URL without a pretty-URL redirect", async () => {
-  let nextCalls = 0;
-  const response = await onRequest({
-    request: new Request(
-      "https://worldcupmusicatlas.com/google1089c0cca1aa4f0a.html?verification=direct"
-    ),
-    next: async () => {
-      nextCalls += 1;
-      return new Response(null, {
-        status: 308,
-        headers: { Location: "/google1089c0cca1aa4f0a" },
-      });
-    },
-  });
+test("dedicated Function serves the exact Search Console verification response", async () => {
+  const response = await serveSearchConsoleVerification();
 
   assert.equal(response.status, 200);
   assert.equal(response.headers.get("Content-Type"), "text/plain; charset=UTF-8");
@@ -121,5 +49,4 @@ test("middleware serves the exact Search Console verification URL without a pret
     await response.text(),
     "google-site-verification: google1089c0cca1aa4f0a.html\n"
   );
-  assert.equal(nextCalls, 0);
 });
