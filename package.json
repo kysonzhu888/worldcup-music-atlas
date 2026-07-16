@@ -5,6 +5,7 @@
   "scripts": {
     "build": "node tools/build.mjs",
     "check": "node tools/check-site.mjs",
+    "deploy:prepare": "npm run build && npm run check && npm test && node tools/prepare-deploy.mjs",
     "test": "node --test tests/*.test.mjs",
     "update:weekly": "node tools/weekly-update.mjs"
   }
