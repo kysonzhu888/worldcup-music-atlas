@@ -50,6 +50,42 @@ The discovery script never edits `data/songs.json` and never republishes third-p
 4. Add or update `contentUpdatedAt`; use `lastChecked` / `lastCheckedAt` for the source-review date.
 5. Run `npm run build`, `npm run check`, and `npm test` before deployment.
 
+The daily candidate-review automation consumes the latest successful discovery artifact and must
+classify every candidate as `accepted`, `duplicate`, `rejected`, or `needs-review`. Validate its
+review document before allowing it to write canonical data:
+
+```bash
+npm run review:candidates -- --candidates <artifact-json> --reviews <review-json>
+npm run review:candidates -- --candidates <artifact-json> --reviews <review-json> --write-songs
+```
+
+An accepted official song needs primary tournament evidence plus a matching licensed-music
+identity. A fan anthem needs two independent sources, including FIFA, an organiser, or a football
+association. The automation may create a feature branch and pull request after all quality gates
+pass, but it never merges or deploys the change. Duplicates and unresolved candidates remain in the
+review report instead of entering `data/songs.json`.
+
+## Canonical Library Audit
+
+GitHub Actions performs a read-only structural audit every Tuesday and Friday at 09:47
+`Asia/Shanghai`:
+
+```bash
+npm run audit:library
+```
+
+The companion semantic review must cover every canonical song. It validates the full review before
+writing any new verification evidence:
+
+```bash
+npm run review:library -- --report <semantic-review-json>
+npm run review:library -- --report <semantic-review-json> --write-songs
+```
+
+Songs with insufficient or conflicting evidence stay unchanged as `needs-review`. A first
+`unrelated` verdict must request a second independent review in a later run; neither command
+automatically deletes, hides, merges, or deploys a song.
+
 Research-pending artist credit pages are generated for navigation but carry `noindex, follow` and stay out of the sitemap. A profile becomes indexable only after it has original World Cup context, an update date, and at least two valid sources.
 
 ## Deploy

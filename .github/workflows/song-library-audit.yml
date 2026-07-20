@@ -1,0 +1,58 @@
+name: Song library audit
+
+on:
+  schedule:
+    - cron: "47 9 * * 2,5"
+      timezone: "Asia/Shanghai"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: world-cup-song-library-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    name: Audit canonical song library
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          package-manager-cache: false
+
+      - name: Verify the site and audit rules
+        run: |
+          npm test
+          npm run check
+
+      - name: Audit every canonical song
+        run: npm run audit:library
+
+      - name: Add the audit report to the run summary
+        if: always()
+        run: |
+          {
+            echo "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            echo
+            cat .updates/library-audit.md
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload audit artifacts
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: world-cup-song-library-audit-${{ github.run_id }}
+          path: |
+            .updates/library-audit.json
+            .updates/library-audit.md
+          if-no-files-found: error
+          retention-days: 30
