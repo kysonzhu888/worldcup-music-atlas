@@ -2,6 +2,7 @@ import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { applyLibraryAuditReport } from "./song-library-audit.mjs";
+import { serializeSongLibrary } from "./song-json.mjs";
 
 export async function runLibraryReview({
   songsPath,
@@ -38,7 +39,7 @@ export async function runLibraryReview({
     writes.push(atomicWrite(markdownPath, renderMarkdown(summaryDocument)));
   }
   if (writeSongs && applied.summary.verified > 0) {
-    writes.push(atomicWrite(songsPath, `${JSON.stringify(applied.songs, null, 2)}\n`));
+    writes.push(atomicWrite(songsPath, serializeSongLibrary(applied.songs)));
   }
   await Promise.all(writes);
 

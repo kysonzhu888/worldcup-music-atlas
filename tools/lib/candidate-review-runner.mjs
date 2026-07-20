@@ -2,6 +2,7 @@ import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { applyCandidateReviews } from "./song-verification.mjs";
+import { serializeSongLibrary } from "./song-json.mjs";
 
 export async function runCandidateReview({
   candidatesPath,
@@ -52,7 +53,7 @@ export async function runCandidateReview({
     writes.push(atomicWrite(markdownPath, renderMarkdown(summaryDocument)));
   }
   if (writeSongs && applied.summary.accepted > 0) {
-    writes.push(atomicWrite(songsPath, `${JSON.stringify(applied.songs, null, 2)}\n`));
+    writes.push(atomicWrite(songsPath, serializeSongLibrary(applied.songs)));
   }
   await Promise.all(writes);
 
