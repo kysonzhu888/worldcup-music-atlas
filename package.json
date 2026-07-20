@@ -8,6 +8,7 @@
     "check": "node tools/check-site.mjs",
     "deploy:prepare": "npm run build && npm run check && npm test && node tools/prepare-deploy.mjs",
     "review:candidates": "node tools/review-candidates.mjs",
+    "review:library": "node tools/review-song-library.mjs",
     "test": "node --test tests/*.test.mjs",
     "update:weekly": "node tools/weekly-update.mjs"
   }
