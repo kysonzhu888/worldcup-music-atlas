@@ -1214,5 +1214,451 @@
     "timelineRank": 1,
     "timelineNote": "The 1994 United States node gives the 2026 host cycle a useful historical echo.",
     "lastChecked": "2026-06-29"
+  },
+  {
+    "slug": "world-cup-willie",
+    "title": "World Cup Willie",
+    "artist": "Lonnie Donegan",
+    "year": "1966",
+    "tournament": "1966 FIFA World Cup",
+    "country": "England",
+    "countrySlug": "england",
+    "language": "English",
+    "type": "official",
+    "status": "Official song",
+    "summary": "The mascot-linked song that FIFA uses to mark the beginning of the World Cup official-music tradition.",
+    "whyItMatters": "It shows how World Cup music began as a compact host-era identity piece before later global soundtrack campaigns.",
+    "searchAngles": ["World Cup Willie official song", "Lonnie Donegan 1966 World Cup"],
+    "sourceLabel": "FIFA official-song history",
+    "sourceUrl": "https://inside.fifa.com/tournaments/mens/worldcup/2018russia/media-releases/2018-fifa-world-cup-russiatm-official-song-live-it-up-to-be-performed-by-all-sta",
+    "spotifyUrl": "https://open.spotify.com/track/7wE2idIY2WituzQLbHHeuE",
+    "references": [
+      {
+        "kind": "Official",
+        "label": "FIFA official-song history",
+        "url": "https://inside.fifa.com/tournaments/mens/worldcup/2018russia/media-releases/2018-fifa-world-cup-russiatm-official-song-live-it-up-to-be-performed-by-all-sta",
+        "note": "FIFA traces the official-song tradition to World Cup Willie in 1966."
+      },
+      {
+        "kind": "Licensed platform",
+        "label": "Spotify recording",
+        "url": "https://open.spotify.com/track/7wE2idIY2WituzQLbHHeuE",
+        "note": "Confirms the song title and Lonnie Donegan credit."
+      }
+    ],
+    "facts": [
+      "FIFA dates the World Cup official-song tradition to the 1966 tournament in England.",
+      "The song was built around World Cup Willie, the tournament's official mascot.",
+      "Spotify credits the preserved recording to Lonnie Donegan."
+    ],
+    "lastChecked": "2026-07-20",
+    "verification": {
+      "status": "verified",
+      "relationship": "official-song",
+      "reviewedAt": "2026-07-20",
+      "rationale": "FIFA's official history and the licensed recording identity agree.",
+      "tournamentEvidence": [
+        {
+          "url": "https://inside.fifa.com/tournaments/mens/worldcup/2018russia/media-releases/2018-fifa-world-cup-russiatm-official-song-live-it-up-to-be-performed-by-all-sta",
+          "publisher": "FIFA",
+          "kind": "fifa",
+          "supports": "official-song",
+          "sourceTitle": "2018 FIFA World Cup Russia Official Song Live It Up",
+          "quote": "The tradition of an Official Song dates back to the 1966 FIFA World Cup in England.",
+          "checkedAt": "2026-07-20"
+        }
+      ],
+      "musicEvidence": [
+        {
+          "url": "https://open.spotify.com/track/7wE2idIY2WituzQLbHHeuE",
+          "platform": "spotify",
+          "matchedTitle": true,
+          "matchedArtist": true,
+          "checkedAt": "2026-07-20"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "el-mundial-1982",
+    "title": "El Mundial",
+    "artist": "Plácido Domingo",
+    "year": "1982",
+    "tournament": "1982 FIFA World Cup",
+    "country": "Spain",
+    "countrySlug": "spain",
+    "language": "Spanish",
+    "type": "official",
+    "status": "Official theme",
+    "summary": "Plácido Domingo's official 1982 tournament theme, documented by FIFA as part of the Camp Nou opening ceremony.",
+    "whyItMatters": "The entry captures an early ceremony-led model of World Cup music, centered on a host presentation rather than a modern pop campaign.",
+    "searchAngles": ["El Mundial Placido Domingo 1982", "Spain 1982 World Cup official theme"],
+    "sourceLabel": "FIFA opening-ceremony history",
+    "sourceUrl": "https://www.fifa.com/es/tournaments/mens/worldcup/articles/ceremonias-inaugurales-mundial-shows-musicales?searchOverlay=1",
+    "spotifyUrl": "https://open.spotify.com/track/1vcYXtWmq8XZOKjBYzQDeQ",
+    "references": [
+      {
+        "kind": "Official",
+        "label": "FIFA opening-ceremony history",
+        "url": "https://www.fifa.com/es/tournaments/mens/worldcup/articles/ceremonias-inaugurales-mundial-shows-musicales?searchOverlay=1",
+        "note": "Identifies the title as the official theme and records the opening performance."
+      },
+      {
+        "kind": "Licensed platform",
+        "label": "Spotify recording",
+        "url": "https://open.spotify.com/track/1vcYXtWmq8XZOKjBYzQDeQ",
+        "note": "Confirms the recording title and Plácido Domingo credit."
+      }
+    ],
+    "facts": [
+      "FIFA calls El Mundial the official theme of the 1982 tournament.",
+      "Plácido Domingo performed it at Camp Nou on 13 June 1982.",
+      "Spotify preserves a recording credited to Plácido Domingo."
+    ],
+    "lastChecked": "2026-07-20",
+    "verification": {
+      "status": "verified",
+      "relationship": "official-song",
+      "reviewedAt": "2026-07-20",
+      "rationale": "FIFA's ceremony record and the licensed recording identity agree.",
+      "tournamentEvidence": [
+        {
+          "url": "https://www.fifa.com/es/tournaments/mens/worldcup/articles/ceremonias-inaugurales-mundial-shows-musicales?searchOverlay=1",
+          "publisher": "FIFA",
+          "kind": "fifa",
+          "supports": "official-song",
+          "sourceTitle": "Fútbol y música en los estadios",
+          "quote": "Plácido Domingo entonó el tema oficial El Mundial el 13 de junio de 1982.",
+          "checkedAt": "2026-07-20"
+        }
+      ],
+      "musicEvidence": [
+        {
+          "url": "https://open.spotify.com/track/1vcYXtWmq8XZOKjBYzQDeQ",
+          "platform": "spotify",
+          "matchedTitle": true,
+          "matchedArtist": true,
+          "checkedAt": "2026-07-20"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "la-cour-des-grands",
+    "title": "La Cour des Grands (Do You Mind If I Play)",
+    "artist": "Youssou N'Dour & Axelle Red",
+    "year": "1998",
+    "tournament": "1998 FIFA World Cup",
+    "country": "France",
+    "countrySlug": "france",
+    "language": "French and English",
+    "type": "official",
+    "status": "Official anthem",
+    "summary": "The official France 1998 anthem performed by Youssou N'Dour and Axelle Red at the Stade de France opening.",
+    "whyItMatters": "It documents the tournament's parallel anthem role alongside Ricky Martin's official song and the wider Allez! Ola! Olé! album.",
+    "searchAngles": ["La Cour des Grands World Cup anthem", "Youssou N'Dour Axelle Red France 1998"],
+    "sourceLabel": "FIFA opening-ceremony history",
+    "sourceUrl": "https://www.fifa.com/es/tournaments/mens/worldcup/articles/ceremonias-inaugurales-mundial-shows-musicales?searchOverlay=1",
+    "spotifyUrl": "https://open.spotify.com/track/0nKQV4KHX7TthZjC3v5RP1",
+    "references": [
+      {
+        "kind": "Official",
+        "label": "FIFA opening-ceremony history",
+        "url": "https://www.fifa.com/es/tournaments/mens/worldcup/articles/ceremonias-inaugurales-mundial-shows-musicales?searchOverlay=1",
+        "note": "Confirms the official-anthem label and Stade de France performance."
+      },
+      {
+        "kind": "Licensed platform",
+        "label": "Spotify recording",
+        "url": "https://open.spotify.com/track/0nKQV4KHX7TthZjC3v5RP1",
+        "note": "Confirms the full title and both artist credits."
+      }
+    ],
+    "facts": [
+      "FIFA identifies La Cour des Grands as the official anthem for France 1998.",
+      "Youssou N'Dour and Axelle Red presented it at Stade de France.",
+      "Spotify lists the recording on the 1998 Allez! Ola! Olé! compilation."
+    ],
+    "lastChecked": "2026-07-20",
+    "verification": {
+      "status": "verified",
+      "relationship": "official-anthem",
+      "reviewedAt": "2026-07-20",
+      "rationale": "FIFA's official-anthem record and Spotify's artist credits agree.",
+      "tournamentEvidence": [
+        {
+          "url": "https://www.fifa.com/es/tournaments/mens/worldcup/articles/ceremonias-inaugurales-mundial-shows-musicales?searchOverlay=1",
+          "publisher": "FIFA",
+          "kind": "fifa",
+          "supports": "official-anthem",
+          "sourceTitle": "Fútbol y música en los estadios",
+          "quote": "Youssou N'Dour y Axelle Red presentaron el himno oficial La Cour des Grands.",
+          "checkedAt": "2026-07-20"
+        }
+      ],
+      "musicEvidence": [
+        {
+          "url": "https://open.spotify.com/track/0nKQV4KHX7TthZjC3v5RP1",
+          "platform": "spotify",
+          "matchedTitle": true,
+          "matchedArtist": true,
+          "checkedAt": "2026-07-20"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "lets-get-together-now",
+    "title": "Let's Get Together Now",
+    "artist": "Voices of Korea/Japan",
+    "year": "2002",
+    "tournament": "2002 FIFA World Cup",
+    "country": "Korea and Japan",
+    "countrySlug": "korea-japan",
+    "language": "Japanese, Korean and English",
+    "type": "official",
+    "status": "Official theme song",
+    "summary": "A joint Korea-Japan vocal project released by Sony as an official theme song for the co-hosted 2002 tournament.",
+    "whyItMatters": "The collaboration makes the co-hosting structure audible, with performers from both countries sharing one official release.",
+    "searchAngles": ["Let's Get Together Now World Cup 2002", "Voices of Korea Japan official theme"],
+    "sourceLabel": "Sony Music Japan official release",
+    "sourceUrl": "https://www.sonymusic.co.jp/Music/Info/Chemistry/joint/005.html?width=356",
+    "spotifyUrl": "https://open.spotify.com/track/40cQvUxkWC1XUVrK2DhZFd",
+    "references": [
+      {
+        "kind": "Label",
+        "label": "Sony Music Japan official release",
+        "url": "https://www.sonymusic.co.jp/Music/Info/Chemistry/joint/005.html?width=356",
+        "note": "Labels the release as the official Korea/Japan 2002 theme song."
+      },
+      {
+        "kind": "Licensed platform",
+        "label": "Spotify Japan version",
+        "url": "https://open.spotify.com/track/40cQvUxkWC1XUVrK2DhZFd",
+        "note": "Confirms the title and Voices of Korea/Japan credit."
+      }
+    ],
+    "facts": [
+      "Sony Music Japan labels the track as an official 2002 FIFA World Cup theme song.",
+      "The project combines participating singers from Korea and Japan.",
+      "Spotify preserves a Japan-version recording under the Voices of Korea/Japan credit."
+    ],
+    "lastChecked": "2026-07-20",
+    "verification": {
+      "status": "verified",
+      "relationship": "official-song",
+      "reviewedAt": "2026-07-20",
+      "rationale": "The label's official tournament designation and Spotify identity match.",
+      "tournamentEvidence": [
+        {
+          "url": "https://www.sonymusic.co.jp/Music/Info/Chemistry/joint/005.html?width=356",
+          "publisher": "Sony Music Japan",
+          "kind": "label-official",
+          "supports": "official-song",
+          "sourceTitle": "a CHEMISTRY joint 005",
+          "quote": "2002FIFAワールドカップ KOREA/JAPAN 公式テーマ・ソング",
+          "checkedAt": "2026-07-20"
+        }
+      ],
+      "musicEvidence": [
+        {
+          "url": "https://open.spotify.com/track/40cQvUxkWC1XUVrK2DhZFd",
+          "platform": "spotify",
+          "matchedTitle": true,
+          "matchedArtist": true,
+          "checkedAt": "2026-07-20"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "zeit-dass-sich-was-dreht",
+    "title": "Zeit dass sich was dreht",
+    "artist": "Herbert Grönemeyer & Amadou & Mariam",
+    "year": "2006",
+    "tournament": "2006 FIFA World Cup",
+    "country": "Germany",
+    "countrySlug": "germany",
+    "language": "German",
+    "type": "official",
+    "status": "Official anthem",
+    "summary": "Herbert Grönemeyer and Amadou & Mariam's FIFA-commissioned 2006 anthem, also released in English as Celebrate the Day.",
+    "whyItMatters": "It links the German host tournament to West African collaborators and makes the anthem's bilingual release history easier to distinguish.",
+    "searchAngles": ["Zeit dass sich was dreht World Cup", "Celebrate the Day 2006 anthem"],
+    "sourceLabel": "DFB FIFA-commission record",
+    "sourceUrl": "https://www.dfb.de/fileadmin/_dfbdam/231769-DFB_Journal_04_2013.pdf",
+    "references": [
+      {
+        "kind": "Association",
+        "label": "DFB FIFA-commission record",
+        "url": "https://www.dfb.de/fileadmin/_dfbdam/231769-DFB_Journal_04_2013.pdf",
+        "note": "Records the song as a World Cup song commissioned by FIFA."
+      },
+      {
+        "kind": "Licensed platform",
+        "label": "Apple Music German version",
+        "url": "https://music.apple.com/dk/song/1020603717",
+        "note": "Confirms the German title and Herbert Grönemeyer with Amadou & Mariam credit."
+      }
+    ],
+    "facts": [
+      "The DFB describes the song as a commission for FIFA.",
+      "Herbert Grönemeyer performed the song during the 2006 World Cup opening program.",
+      "Apple Music credits the German version to Herbert Grönemeyer and Amadou & Mariam."
+    ],
+    "lastChecked": "2026-07-20",
+    "verification": {
+      "status": "verified",
+      "relationship": "official-anthem",
+      "reviewedAt": "2026-07-20",
+      "rationale": "DFB's FIFA-commission record and Apple Music's artist identity agree.",
+      "tournamentEvidence": [
+        {
+          "url": "https://www.dfb.de/fileadmin/_dfbdam/231769-DFB_Journal_04_2013.pdf",
+          "publisher": "German Football Association",
+          "kind": "football-association",
+          "supports": "official-anthem",
+          "sourceTitle": "DFB Journal 04/2013",
+          "quote": "Zeit, dass sich was dreht war der WM-Song und eine Auftragsarbeit für die FIFA.",
+          "checkedAt": "2026-07-20"
+        }
+      ],
+      "musicEvidence": [
+        {
+          "url": "https://music.apple.com/dk/song/1020603717",
+          "platform": "apple-music",
+          "matchedTitle": true,
+          "matchedArtist": true,
+          "checkedAt": "2026-07-20"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "sign-of-a-victory",
+    "title": "Sign of a Victory",
+    "artist": "R. Kelly & Soweto Spiritual Singers",
+    "year": "2010",
+    "tournament": "2010 FIFA World Cup",
+    "country": "South Africa",
+    "countrySlug": "south-africa",
+    "language": "English and Zulu",
+    "type": "official",
+    "status": "Official anthem",
+    "summary": "The official 2010 tournament anthem pairing R. Kelly with South Africa's Soweto Spiritual Singers.",
+    "whyItMatters": "It clarifies the 2010 music program's separate official-song, official-anthem, and mascot-song roles without collapsing them into Waka Waka.",
+    "searchAngles": ["Sign of a Victory World Cup anthem", "Soweto Spiritual Singers 2010 FIFA"],
+    "sourceLabel": "Sony Music official album release",
+    "sourceUrl": "https://sony.mediaroom.com/2010-05-24-Epic-Records-To-Release-Listen-Up-The-Official-FIFA-World-Cup-2010-Album",
+    "references": [
+      {
+        "kind": "Label",
+        "label": "Sony Music official album release",
+        "url": "https://sony.mediaroom.com/2010-05-24-Epic-Records-To-Release-Listen-Up-The-Official-FIFA-World-Cup-2010-Album",
+        "note": "Identifies the recording as the official 2010 FIFA World Cup anthem."
+      },
+      {
+        "kind": "Label",
+        "label": "Jive Records anthem announcement",
+        "url": "https://www.prnewswire.com/news-releases/r-kelly-and-soweto-spiritual-singers-set-to-perform-sign-of-a-victory-at-fifa-world-cup-opening-ceremony-94107609.html",
+        "note": "Separately confirms the anthem designation, performers, and opening-ceremony role."
+      }
+    ],
+    "facts": [
+      "Sony Music labels Sign of a Victory as the official 2010 World Cup anthem.",
+      "The credited performance pairs R. Kelly with the Soweto Spiritual Singers.",
+      "The track appears on Listen Up!, the official 2010 FIFA World Cup album."
+    ],
+    "lastChecked": "2026-07-20",
+    "verification": {
+      "status": "verified",
+      "relationship": "official-anthem",
+      "reviewedAt": "2026-07-20",
+      "rationale": "Sony Music's official album announcement establishes both tournament role and recording identity.",
+      "tournamentEvidence": [
+        {
+          "url": "https://sony.mediaroom.com/2010-05-24-Epic-Records-To-Release-Listen-Up-The-Official-FIFA-World-Cup-2010-Album",
+          "publisher": "Sony Music Entertainment",
+          "kind": "label-official",
+          "supports": "official-anthem",
+          "sourceTitle": "Epic Records To Release Listen Up!",
+          "quote": "It will also include the Official Anthem Sign of A Victory by R. Kelly and Soweto Spiritual Singers.",
+          "checkedAt": "2026-07-20"
+        }
+      ],
+      "musicEvidence": [
+        {
+          "url": "https://sony.mediaroom.com/2010-05-24-Epic-Records-To-Release-Listen-Up-The-Official-FIFA-World-Cup-2010-Album",
+          "platform": "label-official",
+          "matchedTitle": true,
+          "matchedArtist": true,
+          "checkedAt": "2026-07-20"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "dar-um-jeito",
+    "title": "Dar um Jeito (We Will Find a Way)",
+    "artist": "Carlos Santana, Wyclef Jean, Avicii & Alexandre Pires",
+    "year": "2014",
+    "tournament": "2014 FIFA World Cup",
+    "country": "Brazil",
+    "countrySlug": "brazil",
+    "language": "English and Portuguese",
+    "type": "official",
+    "status": "Official anthem",
+    "summary": "The official Brazil 2014 anthem performed by Carlos Santana, Wyclef Jean, Avicii and Alexandre Pires at the closing ceremony.",
+    "whyItMatters": "It gives the 2014 archive a distinct anthem entry beside We Are One and preserves the closing-ceremony role documented by FIFA.",
+    "searchAngles": ["Dar um Jeito World Cup anthem", "Santana Avicii Brazil 2014 closing"],
+    "sourceLabel": "FIFA ceremony history",
+    "sourceUrl": "https://www.fifa.com/en/articles/artists-musicians-singers-perform-ceremonies-photos",
+    "spotifyUrl": "https://open.spotify.com/track/4RabxUkDmdvt6hJRqblvEZ",
+    "references": [
+      {
+        "kind": "Official",
+        "label": "FIFA ceremony history",
+        "url": "https://www.fifa.com/en/articles/artists-musicians-singers-perform-ceremonies-photos",
+        "note": "Confirms the official-anthem role and closing-ceremony performance."
+      },
+      {
+        "kind": "Licensed platform",
+        "label": "Spotify recording",
+        "url": "https://open.spotify.com/track/4RabxUkDmdvt6hJRqblvEZ",
+        "note": "Confirms the title and all four credited artists."
+      }
+    ],
+    "facts": [
+      "FIFA describes Dar um Jeito as the official anthem for Brazil 2014.",
+      "Carlos Santana, Wyclef Jean and Alexandre Pires performed it at the closing ceremony.",
+      "Spotify's recording credit also includes Avicii."
+    ],
+    "lastChecked": "2026-07-20",
+    "verification": {
+      "status": "verified",
+      "relationship": "official-anthem",
+      "reviewedAt": "2026-07-20",
+      "rationale": "FIFA's ceremony record and Spotify's complete recording credit agree.",
+      "tournamentEvidence": [
+        {
+          "url": "https://www.fifa.com/en/articles/artists-musicians-singers-perform-ceremonies-photos",
+          "publisher": "FIFA",
+          "kind": "fifa",
+          "supports": "official-anthem",
+          "sourceTitle": "Photos: Superstars supply ceremonial thrills",
+          "quote": "Dar um Jeito served as the official anthem for the tournament.",
+          "checkedAt": "2026-07-20"
+        }
+      ],
+      "musicEvidence": [
+        {
+          "url": "https://open.spotify.com/track/4RabxUkDmdvt6hJRqblvEZ",
+          "platform": "spotify",
+          "matchedTitle": true,
+          "matchedArtist": true,
+          "checkedAt": "2026-07-20"
+        }
+      ]
+    }
   }
 ]
